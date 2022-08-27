@@ -18,14 +18,62 @@ const Tabs = () => {
         component={screens.Dashboard}
         options={{
           tabBarIcon: ({color, size}) => (
-            <MaterialCommunityIcons name="home" color={color} size={size} />
+            <MaterialCommunityIcons
+              name="view-dashboard"
+              color={color}
+              size={size}
+            />
           ),
         }}
       />
-      <Tab.Screen name="Catalog" component={screens.Catalog} />
-      <Tab.Screen name="Appointment" component={screens.Appointment} />
-      <Tab.Screen name="History" component={screens.History} />
-      <Tab.Screen name="Profile" component={screens.Profile} />
+      <Tab.Screen
+        name="Catalog"
+        component={screens.Catalog}
+        options={{
+          tabBarIcon: ({color, size}) => (
+            <MaterialCommunityIcons
+              name="clipboard-search"
+              color={color}
+              size={size}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Appointment"
+        component={screens.Appointment}
+        options={{
+          tabBarIcon: ({color, size}) => (
+            <MaterialCommunityIcons
+              name="plus-circle"
+              color={color}
+              size={size}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="History"
+        component={screens.History}
+        options={{
+          tabBarIcon: ({color, size}) => (
+            <MaterialCommunityIcons
+              name="clipboard-text-clock"
+              color={color}
+              size={size}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={screens.Profile}
+        options={{
+          tabBarIcon: ({color, size}) => (
+            <MaterialCommunityIcons name="account" color={color} size={size} />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 };
