@@ -1,5 +1,7 @@
 import React, {useEffect} from 'react';
 import {
+  Button,
+  Image,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -26,26 +28,24 @@ const App = () => {
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
         <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-         <Text>Hello!</Text>
+          style={styles.sectionContainer}>
+          <Image source={require('./src/assets/images/blr.jpg')} style={styles.image}/>
+         <Button title='Пойти нахуй!'/>
         </View>
-      </ScrollView>
-    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  image: {
+    width: 200,
+    height: 200,
+    marginVertical: 24
   },
   sectionTitle: {
     fontSize: 24,
