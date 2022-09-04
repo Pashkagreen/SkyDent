@@ -10,12 +10,12 @@ import {
 } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useRef} from 'react';
-import {useGetWidth} from '../utils/func';
+import {useGetWidthForTabs} from '../utils/func';
 
 const Tab = createBottomTabNavigator();
 
-const Tabs = () => {
-  const width = useGetWidth();
+const BottomTab = () => {
+  const width = useGetWidthForTabs();
   const tabOffsetValue = useRef(new Animated.Value(0)).current;
   return (
     <>
@@ -150,7 +150,7 @@ const Tabs = () => {
   );
 };
 
-export default Tabs;
+export default BottomTab;
 
 const styles = StyleSheet.create({
   tabs: {

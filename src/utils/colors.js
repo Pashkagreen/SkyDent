@@ -6,10 +6,13 @@ export const Colors = {
   paleGreen: '#52C1B7',
   darkGreen: '#5EDB9D',
   doctorGreen: '#1EA896',
+  dentalGreen: '#009387',
   normalGreen: '#5CF284',
   juiceGreen: '#58E58D',
   aquaMarine: '#B7FBFF',
   doctorBlue: '#5893D4',
   blue: '#4261d7',
+  darkBlue: '#05375a',
+  errorRed: '#FF0000',
   red: '#d52b2b',
 };

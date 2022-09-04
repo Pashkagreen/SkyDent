@@ -1,6 +1,6 @@
 import SignUpView from './sign-up-view';
 
-const SignUpContainer = () => {
+const SignUpContainer = ({navigation}) => {
   return <SignUpView />;
 };
 
