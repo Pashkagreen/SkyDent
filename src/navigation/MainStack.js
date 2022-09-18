@@ -6,7 +6,9 @@ const MainStackNav = createStackNavigator();
 
 const MainStack = () => {
   return (
-    <MainStackNav.Navigator initialRouteName="BottomTab">
+    <MainStackNav.Navigator
+      initialRouteName="BottomTab"
+      screenOptions={{headerShown: false}}>
       <MainStackNav.Screen name="BottomTab" component={BottomTab} />
       <MainStackNav.Screen name="Auth" component={AuthStackScreen} />
     </MainStackNav.Navigator>

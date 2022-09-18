@@ -13,9 +13,15 @@ import LinearGradient from 'react-native-linear-gradient';
 import Feather from 'react-native-vector-icons/Feather';
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useDispatch} from 'react-redux';
+import {setUserData} from '../../../store/reducers/user/userReducer';
 import {Colors} from '../../../utils/colors';
 
 const LoginView = props => {
+  const dispatch = useDispatch();
+  const login = () => {
+    dispatch(setUserData({id: 1}));
+  };
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#009387" barStyle="light-content" />
@@ -119,9 +125,9 @@ const LoginView = props => {
         <View style={styles.button}>
           <TouchableOpacity
             style={styles.signIn}
-            onPress={() => {
-              props.loginHandle(props.data.username, props.data.password);
-            }}>
+            onPress={login}
+            // props.loginHandle(props.data.username, props.data.password);
+          >
             <LinearGradient
               colors={['#08d4c4', '#01ab9d']}
               style={styles.signIn}>
