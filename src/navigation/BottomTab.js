@@ -1,9 +1,8 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import screens from '../screens';
 import {Colors} from '../utils/colors';
-import {Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Platform, StyleSheet, View} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
 
 const Tab = createBottomTabNavigator();
 
@@ -49,15 +48,13 @@ const BottomTab = () => {
           component={screens.Appointment}
           options={{
             tabBarIcon: ({color, size}) => (
-              <TouchableOpacity>
-                <View style={styles.mainTab}>
-                  <MaterialCommunityIcons
-                    name="plus-circle"
-                    color={color}
-                    size={60}
-                  />
-                </View>
-              </TouchableOpacity>
+              <View style={styles.mainTab}>
+                <MaterialCommunityIcons
+                  name="plus-circle"
+                  color={color}
+                  size={60}
+                />
+              </View>
             ),
           }}
         />
