@@ -3,7 +3,7 @@ import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import {Colors} from './src/utils/colors';
 
 import SplashScreen from 'react-native-splash-screen';
-import {Provider} from 'react-redux';
+import {Provider, useDispatch} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import reduxStore from './src/store/index';
 import RootNavigation from './src/navigation/RootNavigation';

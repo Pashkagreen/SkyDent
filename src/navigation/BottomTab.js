@@ -1,16 +1,9 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import screens from '../screens';
 import {Colors} from '../utils/colors';
-import {
-  Animated,
-  Platform,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {useRef} from 'react';
-import {useGetWidthForTabs} from '../utils/func';
+
 
 const Tab = createBottomTabNavigator();
 

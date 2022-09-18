@@ -5,6 +5,7 @@ const initialState = {
   email: '',
   phone: '',
   city: '',
+  isRegistered: false,
 };
 
 const userReducer = (state = initialState, action) => {
