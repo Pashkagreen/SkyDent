@@ -1,9 +1,13 @@
 import LoginView from './login-view';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useTheme} from 'react-native-paper';
 import {Alert} from 'react-native';
+import {useDispatch} from 'react-redux';
+import {setFirstLaunch} from '../../../store/reducers/app/appReducer';
 
 const LoginContainer = ({navigation}) => {
+  const dispatch = useDispatch();
+
   const [data, setData] = useState({
     username: '',
     password: '',
@@ -93,6 +97,10 @@ const LoginContainer = ({navigation}) => {
   const goToSignUp = () => {
     navigation.navigate('SignUp');
   };
+
+  useEffect(() => {
+    dispatch(setFirstLaunch());
+  }, []);
 
   return (
     <LoginView

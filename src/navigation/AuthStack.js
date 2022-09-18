@@ -3,7 +3,6 @@ import screens from '../screens';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {TouchableOpacity} from 'react-native';
 
-const AuthStack = createStackNavigator();
 
 const HeaderLeftButton = ({onPress}) => {
   return (
@@ -14,6 +13,8 @@ const HeaderLeftButton = ({onPress}) => {
 };
 
 const AuthStackScreen = () => {
+  const AuthStack = createStackNavigator();
+
   return (
     <AuthStack.Navigator>
       <AuthStack.Screen
