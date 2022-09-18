@@ -15,8 +15,6 @@ import {useGetWidthForTabs} from '../utils/func';
 const Tab = createBottomTabNavigator();
 
 const BottomTab = () => {
-  const width = useGetWidthForTabs();
-  const tabOffsetValue = useRef(new Animated.Value(0)).current;
   return (
     <>
       <Tab.Navigator
@@ -39,15 +37,6 @@ const BottomTab = () => {
               />
             ),
           }}
-          listeners={() => ({
-            //Update....
-            tabPress: e => {
-              Animated.spring(tabOffsetValue, {
-                toValue: 0,
-                useNativeDriver: true,
-              }).start();
-            },
-          })}
         />
         <Tab.Screen
           name="Catalog"
@@ -61,15 +50,6 @@ const BottomTab = () => {
               />
             ),
           }}
-          listeners={() => ({
-            // Onpress Update....
-            tabPress: e => {
-              Animated.spring(tabOffsetValue, {
-                toValue: width,
-                useNativeDriver: true,
-              }).start();
-            },
-          })}
         />
         <Tab.Screen
           name="Appointment"
@@ -100,15 +80,6 @@ const BottomTab = () => {
               />
             ),
           }}
-          listeners={({navigation, route}) => ({
-            // Onpress Update....
-            tabPress: e => {
-              Animated.spring(tabOffsetValue, {
-                toValue: width * 3,
-                useNativeDriver: true,
-              }).start();
-            },
-          })}
         />
         <Tab.Screen
           name="Profile"
@@ -122,30 +93,8 @@ const BottomTab = () => {
               />
             ),
           }}
-          listeners={({navigation, route}) => ({
-            // Onpress Update....
-            tabPress: e => {
-              Animated.spring(tabOffsetValue, {
-                toValue: width * 4,
-                useNativeDriver: true,
-              }).start();
-            },
-          })}
         />
       </Tab.Navigator>
-      <Animated.View
-        style={{
-          width: width - 20,
-          height: 3,
-          backgroundColor: Colors.blue,
-          position: 'absolute',
-          bottom: 5,
-          // Horizontal Padding = 20...
-          left: 15,
-          borderRadius: 20,
-          transform: [{translateX: tabOffsetValue}],
-        }}
-      />
     </>
   );
 };
