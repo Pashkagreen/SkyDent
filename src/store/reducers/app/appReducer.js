@@ -15,6 +15,3 @@ const appReducer = (state = initialState, action) => {
 
 export default appReducer;
 
-export const setFirstLaunch = () => ({
-  type: FIRST_LAUNCH,
-});

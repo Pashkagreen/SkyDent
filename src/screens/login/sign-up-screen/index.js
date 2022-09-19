@@ -1,10 +1,16 @@
 import SignUpView from './sign-up-view';
-import {useState} from 'react';
+import React, {useState} from 'react';
 
 const SignUpContainer = ({navigation}) => {
 
   const [data, setData] = useState({
-    username: '',
+    firstName: '',
+    middleName: '',
+    lastName: '',
+    mobilePhone: '',
+    birthDate: '',
+    email: '',
+    gender: '',
     password: '',
     confirm_password: '',
     check_textInputChange: false,
@@ -12,8 +18,21 @@ const SignUpContainer = ({navigation}) => {
     confirm_secureTextEntry: true,
   });
 
+  const [isBirthInputFocused, setBirthInputFocused] = useState(false);
+
+  const refs = {
+    inputSecondNameRef: React.createRef(),
+    inputFirstNameRef: React.createRef(),
+    inputPatronymicRef: React.createRef(),
+    scrollRef: React.createRef(),
+  };
+
+  const onSubmit = data => {
+    console.log(data);
+  };
+
   const textInputChange = val => {
-    if (val.length !== 0) {
+    if (val.length >= 3) {
       setData({
         ...data,
         username: val,
@@ -59,6 +78,10 @@ const SignUpContainer = ({navigation}) => {
   return (
     <SignUpView
       data={data}
+      onSubmit={onSubmit}
+      refs={refs}
+      isBirthInputFocused={isBirthInputFocused}
+      setBirthInputFocused={setBirthInputFocused}
       textInputChange={textInputChange}
       handlePasswordChange={handlePasswordChange}
       handleConfirmPasswordChange={handleConfirmPasswordChange}

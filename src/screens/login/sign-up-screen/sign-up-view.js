@@ -14,15 +14,27 @@ import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import {Colors} from '../../../utils/colors';
+import {useForm, Controller, FormProvider} from 'react-hook-form';
+import Input from '../../../components/InputText';
+import {EMAIL_REGEX} from '../../../utils/func';
+import DatePicker from '../../../components/DatePicker';
 
 const SignUpView = ({
   data,
+  refs,
   textInputChange,
   handlePasswordChange,
   handleConfirmPasswordChange,
   updateSecureTextEntry,
   updateConfirmSecureTextEntry,
+  isBirthInputFocused,
+  setBirthInputFocused,
 }) => {
+  const {control, errors, handleSubmit, formState} = useForm({
+    mode: 'onChange',
+  });
+  const isBtnDisabled = !formState.isValid;
+
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#009387" barStyle="light-content" />
@@ -30,107 +42,151 @@ const SignUpView = ({
         <Text style={styles.text_header}>Register Now!</Text>
       </View>
       <Animatable.View animation="fadeInUpBig" style={styles.footer}>
-        <ScrollView>
-          <Text style={styles.text_footer}>Username</Text>
-          <View style={styles.action}>
-            <FontAwesome name="user-o" color="#05375a" size={20} />
-            <TextInput
-              placeholder="Your Username"
-              style={styles.textInput}
-              autoCapitalize="none"
-              onChangeText={val => textInputChange(val)}
-            />
-            {data.check_textInputChange ? (
-              <Animatable.View animation="bounceIn">
-                <Feather name="check-circle" color="green" size={20} />
-              </Animatable.View>
-            ) : null}
-          </View>
-
-          <Text
-            style={[
-              styles.text_footer,
-              {
-                marginTop: 35,
-              },
-            ]}>
-            Password
-          </Text>
-          <View style={styles.action}>
-            <Feather name="lock" color="#05375a" size={20} />
-            <TextInput
-              placeholder="Your Password"
-              secureTextEntry={data.secureTextEntry ? true : false}
-              style={styles.textInput}
-              autoCapitalize="none"
-              onChangeText={val => handlePasswordChange(val)}
-            />
-            <TouchableOpacity onPress={updateSecureTextEntry}>
-              {data.secureTextEntry ? (
-                <Feather name="eye-off" color="grey" size={20} />
-              ) : (
-                <Feather name="eye" color="grey" size={20} />
+        <ScrollView showsVerticalScrollIndicator={false} ref={refs.scrollRef}>
+          <FormProvider
+            handleSubmit={handleSubmit}
+            control={control}
+            errors={errors}>
+            <Text style={styles.text_footer}>Username</Text>
+            <View style={styles.action}>
+              <FontAwesome name="user-o" color="#05375a" size={20} />
+              <TextInput
+                placeholder="Your Username"
+                style={styles.textInput}
+                autoCapitalize="none"
+                onChangeText={val => textInputChange(val)}
+              />
+              {data.check_textInputChange ? (
+                <Animatable.View animation="bounceIn">
+                  <Feather name="check-circle" color="green" size={20} />
+                </Animatable.View>
+              ) : null}
+            </View>
+            <Controller
+              control={control}
+              render={({onChange, value}) => (
+                <Input
+                  autoFocus={true}
+                  inputRef={refs.inputSecondNameRef}
+                  placeholder={'Введите фамилию'}
+                  value={value}
+                  onChange={onChange}
+                  onSubmitEditing={() => {
+                    refs.inputFirstNameRef.current?.focus();
+                  }}
+                  inputStyles={styles.textInput}
+                />
               )}
-            </TouchableOpacity>
-          </View>
-
-          <Text
-            style={[
-              styles.text_footer,
-              {
-                marginTop: 35,
-              },
-            ]}>
-            Confirm Password
-          </Text>
-          <View style={styles.action}>
-            <Feather name="lock" color="#05375a" size={20} />
-            <TextInput
-              placeholder="Confirm Your Password"
-              secureTextEntry={data.confirm_secureTextEntry ? true : false}
-              style={styles.textInput}
-              autoCapitalize="none"
-              onChangeText={val => handleConfirmPasswordChange(val)}
+              rules={{required: true, pattern: /^[A-z-А-яЁё]+$/i}}
+              name="secondName"
             />
-            <TouchableOpacity onPress={updateConfirmSecureTextEntry}>
-              {data.secureTextEntry ? (
-                <Feather name="eye-off" color="grey" size={20} />
-              ) : (
-                <Feather name="eye" color="grey" size={20} />
-              )}
-            </TouchableOpacity>
-          </View>
-          <View style={styles.textPrivate}>
-            <Text style={styles.color_textPrivate}>
-              By signing up you agree to our
+
+            <Text
+              style={[
+                styles.text_footer,
+                {
+                  marginTop: 35,
+                },
+              ]}>
+              Password
             </Text>
-            <Text style={[styles.color_textPrivate, {fontWeight: 'bold'}]}>
-              {' '}
-              Terms of service
+            <View style={styles.action}>
+              <Feather name="lock" color="#05375a" size={20} />
+              <TextInput
+                placeholder="Your Password"
+                secureTextEntry={data.secureTextEntry ? true : false}
+                style={styles.textInput}
+                autoCapitalize="none"
+                onChangeText={val => handlePasswordChange(val)}
+              />
+              <TouchableOpacity onPress={updateSecureTextEntry}>
+                {data.secureTextEntry ? (
+                  <Feather name="eye-off" color="grey" size={20} />
+                ) : (
+                  <Feather name="eye" color="grey" size={20} />
+                )}
+              </TouchableOpacity>
+            </View>
+
+            <Text
+              style={[
+                styles.text_footer,
+                {
+                  marginTop: 35,
+                },
+              ]}>
+              Confirm Password
             </Text>
-            <Text style={styles.color_textPrivate}> and</Text>
-            <Text style={[styles.color_textPrivate, {fontWeight: 'bold'}]}>
-              {' '}
-              Privacy policy
-            </Text>
-          </View>
-          <View style={styles.button}>
-            <TouchableOpacity style={styles.signIn} onPress={() => {}}>
-              <LinearGradient
-                colors={['#08d4c4', '#01ab9d']}
-                style={styles.signIn}>
-                <Text
-                  style={[
-                    styles.textSign,
-                    {
-                      color: '#fff',
-                    },
-                  ]}>
-                  Sign Up
-                </Text>
-              </LinearGradient>
-            </TouchableOpacity>
-          </View>
+            <View style={styles.action}>
+              <Feather name="lock" color="#05375a" size={20} />
+              <TextInput
+                placeholder="Confirm Your Password"
+                secureTextEntry={data.confirm_secureTextEntry ? true : false}
+                style={styles.textInput}
+                autoCapitalize="none"
+                onChangeText={val => handleConfirmPasswordChange(val)}
+              />
+              <TouchableOpacity onPress={updateConfirmSecureTextEntry}>
+                {data.secureTextEntry ? (
+                  <Feather name="eye-off" color="grey" size={20} />
+                ) : (
+                  <Feather name="eye" color="grey" size={20} />
+                )}
+              </TouchableOpacity>
+            </View>
+            <View style={styles.textPrivate}>
+              <Text style={styles.color_textPrivate}>
+                By signing up you agree to our
+              </Text>
+              <Text style={[styles.color_textPrivate, {fontWeight: 'bold'}]}>
+                {' '}
+                Terms of service
+              </Text>
+              <Text style={styles.color_textPrivate}> and</Text>
+              <Text style={[styles.color_textPrivate, {fontWeight: 'bold'}]}>
+                {' '}
+                Privacy policy
+              </Text>
+            </View>
+            <View style={styles.button}>
+              <TouchableOpacity style={styles.signIn} onPress={() => {}}>
+                <LinearGradient
+                  colors={['#08d4c4', '#01ab9d']}
+                  style={styles.signIn}>
+                  <Text
+                    style={[
+                      styles.textSign,
+                      {
+                        color: '#fff',
+                      },
+                    ]}>
+                    Sign Up
+                  </Text>
+                </LinearGradient>
+              </TouchableOpacity>
+              <View>
+                <Controller
+                  control={control}
+                  rules={{required: true}}
+                  render={({onChange, value}) => {
+                    return (
+                      <DatePicker
+                        setFocused={setBirthInputFocused}
+                        isFocused={isBirthInputFocused}
+                        value={value}
+                        onChange={dateOfBirth => {
+                          onChange(dateOfBirth);
+                        }}
+                        label="Дата рождения"
+                      />
+                    );
+                  }}
+                  name="birthday"
+                  defaultValue=""
+                />
+              </View>
+            </View>
+          </FormProvider>
         </ScrollView>
       </Animatable.View>
     </View>

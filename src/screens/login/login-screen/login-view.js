@@ -14,7 +14,7 @@ import Feather from 'react-native-vector-icons/Feather';
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useDispatch} from 'react-redux';
-import {setUserData} from '../../../store/reducers/user/userReducer';
+import {setUserData} from '../../../store/actions/user/index';
 import {Colors} from '../../../utils/colors';
 
 const LoginView = props => {

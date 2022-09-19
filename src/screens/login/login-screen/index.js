@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {useTheme} from 'react-native-paper';
 import {Alert} from 'react-native';
 import {useDispatch} from 'react-redux';
-import {setFirstLaunch} from '../../../store/reducers/app/appReducer';
+import {setFirstLaunch} from '../../../store/actions/app/index';
 
 const LoginContainer = ({navigation}) => {
   const dispatch = useDispatch();

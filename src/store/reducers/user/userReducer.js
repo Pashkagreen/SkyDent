@@ -7,7 +7,6 @@ const initialState = {
   city: '',
   isRegistered: false,
 };
-
 const SET_USER_DATA = 'SET_USER_DATA';
 
 const userReducer = (state = initialState, action) => {
@@ -20,8 +19,3 @@ const userReducer = (state = initialState, action) => {
 };
 
 export default userReducer;
-
-export const setUserData = data => ({
-  type: SET_USER_DATA,
-  payload: data,
-});
