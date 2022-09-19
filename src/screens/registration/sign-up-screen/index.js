@@ -2,7 +2,6 @@ import SignUpView from './sign-up-view';
 import React, {useState} from 'react';
 
 const SignUpContainer = ({navigation}) => {
-
   const [data, setData] = useState({
     firstName: '',
     middleName: '',
@@ -16,6 +15,7 @@ const SignUpContainer = ({navigation}) => {
     check_textInputChange: false,
     secureTextEntry: true,
     confirm_secureTextEntry: true,
+    isValidEmail: true,
   });
 
   const [isBirthInputFocused, setBirthInputFocused] = useState(false);
@@ -43,6 +43,20 @@ const SignUpContainer = ({navigation}) => {
         ...data,
         username: val,
         check_textInputChange: false,
+      });
+    }
+  };
+
+  const handleValidEmail = val => {
+    if (val.trim().length >= 4) {
+      setData({
+        ...data,
+        isValidEmail: true,
+      });
+    } else {
+      setData({
+        ...data,
+        isValidEmail: false,
       });
     }
   };
@@ -87,6 +101,7 @@ const SignUpContainer = ({navigation}) => {
       handleConfirmPasswordChange={handleConfirmPasswordChange}
       updateSecureTextEntry={updateSecureTextEntry}
       updateConfirmSecureTextEntry={updateConfirmSecureTextEntry}
+      handleValidEmail={handleValidEmail}
     />
   );
 };
