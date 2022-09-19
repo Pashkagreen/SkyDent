@@ -43,14 +43,6 @@ const DatePicker = ({
           placeholder="DD. ММ. YYYY"
           placeholderTextColor={placeholderTextColor}
         />
-        <View style={styles.calendarIcon}>
-          <MaterialCommunityIcons
-            name="calendar"
-            width={24}
-            height={24}
-            color={Colors.lightGrey}
-          />
-        </View>
         <TouchableOpacity
           onPress={() => setFocused(true)}
           style={styles.touchable}
@@ -88,16 +80,10 @@ const DatePicker = ({
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     width: '100%',
-    height: 48,
+    marginTop: -3,
     // paddingHorizontal: 14,
-    borderWidth: 1,
-    borderRadius: 5,
-    backgroundColor: Colors.backgroundGrey,
-    borderColor: Colors.darkGrey,
-    color: Colors.darkGrey,
   },
   label: {
     width: '100%',
@@ -106,13 +92,9 @@ const styles = StyleSheet.create({
   },
   inputStyle: {
     flex: 1,
-    fontSize: 14,
-    color: Colors.lightGrey,
-    paddingHorizontal: 12,
-  },
-  calendarIcon: {
-    position: 'absolute',
-    right: 14,
+    marginTop: Platform.OS === 'ios' ? 0 : -12,
+    paddingLeft: 10,
+    color: '#05375a',
   },
   touchable: {
     position: 'absolute',
