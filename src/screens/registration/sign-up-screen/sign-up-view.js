@@ -14,7 +14,6 @@ import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import {Colors} from '../../../utils/colors';
-import {EMAIL_REGEX} from '../../../utils/func';
 import DatePicker from '../../../components/DatePicker';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -24,21 +23,22 @@ import Picker from '../../../components/Picker';
 const SignUpView = ({
   data,
   refs,
-  textInputChange,
   handlePasswordChange,
-  handleConfirmPasswordChange,
   updateSecureTextEntry,
-  updateConfirmSecureTextEntry,
   isBirthInputFocused,
   setBirthInputFocused,
   handleValidEmail,
+  firstNameInputChange,
+  middleNameInputChange,
+  lastNameInputChange,
+  genderValueChange,
+  mobilePhoneChange,
+  birthDateChange,
+  onSubmit,
 }) => {
-  const [value, setValue] = useState('');
-  const [genderValue, setGenderValue] = useState('');
-
   const pickerItems = [
-    {label: 'Male', value: 'M'},
-    {label: 'Female', value: 'F'},
+    {label: 'Male', value: 'male'},
+    {label: 'Female', value: 'female'},
   ];
 
   return (
@@ -56,9 +56,9 @@ const SignUpView = ({
               placeholder="Your Username"
               style={styles.textInput}
               autoCapitalize="none"
-              onChangeText={val => textInputChange(val)}
+              onChangeText={val => firstNameInputChange(val)}
             />
-            {data.check_textInputChange ? (
+            {data.isFirstNameValid ? (
               <Animatable.View animation="bounceIn">
                 <Feather name="check-circle" color="green" size={20} />
               </Animatable.View>
@@ -80,9 +80,9 @@ const SignUpView = ({
               placeholder="Your Username"
               style={styles.textInput}
               autoCapitalize="none"
-              onChangeText={val => textInputChange(val)}
+              onChangeText={val => middleNameInputChange(val)}
             />
-            {data.check_textInputChange ? (
+            {data.isMiddleNameValid ? (
               <Animatable.View animation="bounceIn">
                 <Feather name="check-circle" color="green" size={20} />
               </Animatable.View>
@@ -104,9 +104,9 @@ const SignUpView = ({
               placeholder="Your Username"
               style={styles.textInput}
               autoCapitalize="none"
-              onChangeText={val => textInputChange(val)}
+              onChangeText={val => lastNameInputChange(val)}
             />
-            {data.check_textInputChange ? (
+            {data.isLastNameValid ? (
               <Animatable.View animation="bounceIn">
                 <Feather name="check-circle" color="green" size={20} />
               </Animatable.View>
@@ -128,8 +128,8 @@ const SignUpView = ({
               placeholder={{label: 'Choose a gender'}}
               label="Gender"
               items={pickerItems}
-              value={genderValue}
-              onChange={sex => setGenderValue(sex)}
+              value={data.gender}
+              onChange={sex => genderValueChange(sex)}
               pickerStyle={styles.textInput}
             />
           </View>
@@ -149,8 +149,7 @@ const SignUpView = ({
               style={[styles.textInput, styles.phoneInput]}
               keyboardType="phone-pad"
               onChangeText={(formatted, extracted) => {
-                console.log(formatted); // +1 (123) 456-78-90
-                console.log(extracted); // 1234567890
+                mobilePhoneChange(extracted);
               }}
               placeholder={'+375  ( __ )  ___  -  __  -  __'}
               placeholderTextColor="#666666"
@@ -158,7 +157,7 @@ const SignUpView = ({
               autoCorrect={false}
               autoComplete="off"
             />
-            {data.check_textInputChange ? (
+            {data.isMobilePhoneValid ? (
               <Animatable.View animation="bounceIn">
                 <Feather name="check-circle" color="green" size={20} />
               </Animatable.View>
@@ -185,10 +184,9 @@ const SignUpView = ({
               placeholderTextColor="#666666"
               style={styles.textInput}
               autoCapitalize="none"
-              onChangeText={val => textInputChange(val)}
               onEndEditing={e => handleValidEmail(e.nativeEvent.text)}
             />
-            {data.check_textInputChange ? (
+            {data.isEmailValid ? (
               <Animatable.View animation="bounceIn">
                 <Feather name="check-circle" color="green" size={20} />
               </Animatable.View>
@@ -213,9 +211,9 @@ const SignUpView = ({
             <DatePicker
               setFocused={setBirthInputFocused}
               isFocused={isBirthInputFocused}
-              value={value}
+              value={data.birthDate}
               onChange={dateOfBirth => {
-                setValue(dateOfBirth);
+                birthDateChange(dateOfBirth);
               }}
               label="Дата рождения"
             />
@@ -262,7 +260,7 @@ const SignUpView = ({
             </Text>
           </View>
           <View style={styles.button}>
-            <TouchableOpacity style={styles.signIn} onPress={() => {}}>
+            <TouchableOpacity style={styles.signIn} onPress={onSubmit}>
               <LinearGradient
                 colors={['#08d4c4', '#01ab9d']}
                 style={styles.signIn}>
