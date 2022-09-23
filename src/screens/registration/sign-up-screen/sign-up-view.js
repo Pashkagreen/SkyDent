@@ -53,7 +53,7 @@ const SignUpView = ({
           <View style={styles.action}>
             <FontAwesome name="user-o" color="#05375a" size={20} />
             <TextInput
-              placeholder="Your Username"
+              placeholder="Your first name"
               style={styles.textInput}
               autoCapitalize="none"
               onChangeText={val => firstNameInputChange(val)}
@@ -77,7 +77,7 @@ const SignUpView = ({
           <View style={styles.action}>
             <FontAwesome name="user-o" color="#05375a" size={20} />
             <TextInput
-              placeholder="Your Username"
+              placeholder="Your patronymic"
               style={styles.textInput}
               autoCapitalize="none"
               onChangeText={val => middleNameInputChange(val)}
@@ -101,7 +101,7 @@ const SignUpView = ({
           <View style={styles.action}>
             <FontAwesome name="user-o" color="#05375a" size={20} />
             <TextInput
-              placeholder="Your Username"
+              placeholder="Your last name"
               style={styles.textInput}
               autoCapitalize="none"
               onChangeText={val => lastNameInputChange(val)}
@@ -125,7 +125,9 @@ const SignUpView = ({
           <View style={styles.action}>
             <FontAwesome name="venus-mars" color="#05375a" size={20} />
             <Picker
-              placeholder={{label: 'Choose a gender'}}
+              placeholder={{
+                label: 'Choose a gender',
+              }}
               label="Gender"
               items={pickerItems}
               value={data.gender}
@@ -181,7 +183,7 @@ const SignUpView = ({
             />
             <TextInput
               placeholder="Your E-mail"
-              placeholderTextColor="#666666"
+              placeholderTextColor={Colors.textInput}
               style={styles.textInput}
               autoCapitalize="none"
               onEndEditing={e => handleValidEmail(e.nativeEvent.text)}
@@ -192,11 +194,6 @@ const SignUpView = ({
               </Animatable.View>
             ) : null}
           </View>
-          {data.isValidEmail ? null : (
-            <Animatable.View animation="fadeInLeft" duration={500}>
-              <Text style={styles.errorMsg}>Email must be valid.</Text>
-            </Animatable.View>
-          )}
           <Text
             style={[
               styles.text_footer,
@@ -216,6 +213,7 @@ const SignUpView = ({
                 birthDateChange(dateOfBirth);
               }}
               label="Дата рождения"
+              placeholderTextColor={Colors.textInput}
             />
           </View>
 

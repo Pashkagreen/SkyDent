@@ -1,11 +1,12 @@
 import React, {memo} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Button, StyleSheet, Text, View} from 'react-native';
 import {Colors} from '../../utils/colors';
 
 const ProfileView = props => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Hello User!</Text>
+      <Button title="Log Out!" onPress={props.logOut} />
     </View>
   );
 };

@@ -52,7 +52,6 @@ const pickerSelectStyles = () =>
     container: {},
     inputIOS: {
       width: '100%',
-      padding: 12,
       fontSize: 14,
       color: '#05375a',
       borderRadius: 4,

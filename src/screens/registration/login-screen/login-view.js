@@ -13,53 +13,27 @@ import LinearGradient from 'react-native-linear-gradient';
 import Feather from 'react-native-vector-icons/Feather';
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {useDispatch} from 'react-redux';
-import {setUserData} from '../../../store/actions/user/index';
 import {Colors} from '../../../utils/colors';
 
 const LoginView = props => {
-  const dispatch = useDispatch();
-  const login = () => {
-    dispatch(setUserData({id: 1}));
-  };
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#009387" barStyle="light-content" />
       <View style={styles.header}>
         <Text style={styles.text_header}>Welcome!</Text>
       </View>
-      <Animatable.View
-        animation="fadeInUpBig"
-        style={[
-          styles.footer,
-          {
-            backgroundColor: props.colors.background,
-          },
-        ]}>
-        <Text
-          style={[
-            styles.text_footer,
-            {
-              color: props.colors.text,
-            },
-          ]}>
-          E-mail
-        </Text>
+      <Animatable.View animation="fadeInUpBig" style={[styles.footer]}>
+        <Text style={[styles.text_footer]}>E-mail</Text>
         <View style={styles.action}>
           <MaterialCommunityIcons
             name="email-outline"
-            color={props.colors.text}
+            color={Colors.darkBlue}
             size={20}
           />
           <TextInput
             placeholder="Your E-mail"
             placeholderTextColor="#666666"
-            style={[
-              styles.textInput,
-              {
-                color: props.colors.text,
-              },
-            ]}
+            style={[styles.textInput]}
             autoCapitalize="none"
             onChangeText={val => props.textInputChange(val)}
             onEndEditing={e => props.handleValidEmail(e.nativeEvent.text)}
@@ -80,24 +54,18 @@ const LoginView = props => {
           style={[
             styles.text_footer,
             {
-              color: props.colors.text,
               marginTop: 35,
             },
           ]}>
           Password
         </Text>
         <View style={styles.action}>
-          <Feather name="lock" color={props.colors.text} size={20} />
+          <Feather name="lock" color={Colors.darkBlue} size={20} />
           <TextInput
             placeholder="Your Password"
             placeholderTextColor="#666666"
             secureTextEntry={props.data.secureTextEntry ? true : false}
-            style={[
-              styles.textInput,
-              {
-                color: props.colors.text,
-              },
-            ]}
+            style={styles.textInput}
             autoCapitalize="none"
             onChangeText={val => props.handlePasswordChange(val)}
           />
@@ -125,9 +93,9 @@ const LoginView = props => {
         <View style={styles.button}>
           <TouchableOpacity
             style={styles.signIn}
-            onPress={login}
-            // props.loginHandle(props.data.username, props.data.password);
-          >
+            onPress={() =>
+              props.loginHandle(props.data.email, props.data.password)
+            }>
             <LinearGradient
               colors={['#08d4c4', '#01ab9d']}
               style={styles.signIn}>
@@ -196,8 +164,9 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
   text_footer: {
-    color: '#05375a',
-    fontSize: 18,
+    color: Colors.darkBlue,
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   action: {
     flexDirection: 'row',
@@ -218,6 +187,7 @@ const styles = StyleSheet.create({
     marginTop: Platform.OS === 'ios' ? 0 : -12,
     paddingLeft: 10,
     color: Colors.darkBlue,
+    fontSize: 14,
   },
   errorMsg: {
     color: Colors.errorRed,

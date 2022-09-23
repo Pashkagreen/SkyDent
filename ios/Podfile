@@ -20,7 +20,8 @@ target 'SkyDent' do
   )
 
   pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
-
+  pod 'React-RCTText', :path => '../node_modules/react-native/Libraries/Text', :modular_headers => true
+  
   target 'SkyDentTests' do
     inherit! :complete
     # Pods for testing

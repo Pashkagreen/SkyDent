@@ -1,15 +1,16 @@
 import LoginView from './login-view';
 import React, {useEffect, useState} from 'react';
-import {useTheme} from 'react-native-paper';
 import {Alert} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {setFirstLaunch} from '../../../store/actions/app/index';
+import AuthService from '../../../services/auth';
+import {setUserData} from '../../../store/actions/user';
 
 const LoginContainer = ({navigation}) => {
   const dispatch = useDispatch();
 
   const [data, setData] = useState({
-    username: '',
+    email: '',
     password: '',
     check_textInputChange: false,
     secureTextEntry: true,
@@ -17,20 +18,33 @@ const LoginContainer = ({navigation}) => {
     isValidPassword: true,
   });
 
-  const {colors} = useTheme();
+  const signIn = async userData => {
+    if (userData) {
+      const response = await AuthService.signIn(userData);
+      console.log(response);
+      await AuthService.setAccessTokenToStorage(
+        response.innerEntity.accessToken,
+      );
+      await AuthService.setRefreshTokenToStorage(
+        response.innerEntity.refreshToken,
+      );
+      dispatch(setUserData(response.innerEntity.userData));
+      navigation.navigate('Main');
+    }
+  };
 
   const textInputChange = val => {
     if (val.trim().length >= 8 && val.trim().includes('@')) {
       setData({
         ...data,
-        username: val,
+        email: val,
         check_textInputChange: true,
         isValidEmail: true,
       });
     } else {
       setData({
         ...data,
-        username: val,
+        email: val,
         check_textInputChange: false,
         isValidEmail: false,
       });
@@ -74,25 +88,18 @@ const LoginContainer = ({navigation}) => {
     }
   };
 
-  const loginHandle = (userName, password) => {
-    const foundUser = [].filter(item => {
-      return userName == item.username && password == item.password;
-    });
-
-    if (data.username.length == 0 || data.password.length == 0) {
+  const loginHandle = (email, password) => {
+    if (data.email.length == 0 || data.password.length == 0) {
       Alert.alert('Wrong Input!', 'Email or password field cannot be empty.', [
         {text: 'Okay'},
       ]);
       return;
     }
-
-    if (foundUser.length == 0) {
-      Alert.alert('Invalid Email!', 'Email or password is incorrect.', [
-        {text: 'Okay'},
-      ]);
-      return;
-    }
-    // signIn(foundUser);
+    const userData = {
+      email: data.email,
+      password: data.password,
+    };
+    signIn(userData);
   };
   const goToSignUp = () => {
     navigation.navigate('SignUp');
@@ -105,7 +112,6 @@ const LoginContainer = ({navigation}) => {
   return (
     <LoginView
       data={data}
-      colors={colors}
       textInputChange={textInputChange}
       handlePasswordChange={handlePasswordChange}
       updateSecureTextEntry={updateSecureTextEntry}

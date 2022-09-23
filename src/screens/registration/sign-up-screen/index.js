@@ -2,8 +2,13 @@ import SignUpView from './sign-up-view';
 import React, {useState} from 'react';
 import {EMAIL_REGEX} from '../../../utils/func';
 import RegistrationService from '../../../services/registration';
+import {HTTP_STATUS} from '../../../services/config';
+import AuthService from '../../../services/auth';
+import {useDispatch} from 'react-redux';
+import {setUserData} from '../../../store/actions/user/index';
 
 const SignUpContainer = ({navigation}) => {
+  const dispatch = useDispatch();
   const [data, setData] = useState({
     firstName: '',
     middleName: '',
@@ -46,8 +51,12 @@ const SignUpContainer = ({navigation}) => {
     resultObject.password = data.password;
 
     const response = await RegistrationService.registration(resultObject);
-
     console.log(response);
+    await AuthService.setAccessTokenToStorage(response.innerEntity.accessToken);
+    await AuthService.setRefreshTokenToStorage(
+      response.innerEntity.refreshToken,
+    );
+    dispatch(setUserData(response.innerEntity.userData));
   };
 
   const firstNameInputChange = val => {

@@ -16,4 +16,5 @@ export const Colors = {
   darkBlue: '#05375a',
   errorRed: '#FF0000',
   red: '#d52b2b',
+  placeholder: '#05375a',
 };

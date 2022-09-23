@@ -18,15 +18,14 @@ export default class AuthService {
    * API endpoints urls
    */
   static #API_ENDPOINTS = {
-    signIn: '/auth',
-    refresh: '/auth/refresh',
-    logout: '/auth/logout',
+    signIn: '/login',
+    refresh: '/tokens/refresh',
   };
 
   /**
    * Login user
-   * @param {Object} data - { uid, smsCode, phone }
-   * @returns {Promise<Object>} - { accessToken, token, refreshToken } -- TEMPORARY
+   * @param {Object}
+   * @returns {Promise<Object>}
    */
   static async signIn(data) {
     try {
@@ -67,25 +66,6 @@ export default class AuthService {
       return await request.json();
     } catch (error) {
       debug.error(`Failed to refresh user token with data ${data}`, error);
-      throw error;
-    }
-  }
-
-  /**
-   * Logout user from the system
-   * @returns {Promise<*>} // TODO
-   */
-  static async logout() {
-    try {
-      const request = await api.post(`${URL}${this.#API_ENDPOINTS.logout}`);
-      if (request.status !== HTTP_STATUS.SUCCESS) {
-        debug.error('logout invalid status');
-        return Promise.reject();
-      }
-
-      return await request.json();
-    } catch (error) {
-      debug.error('Failed to log out user from the system', error);
       throw error;
     }
   }

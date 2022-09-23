@@ -19,7 +19,7 @@ export default class RegistrationService {
 
   /**
    * Register user
-   * @param {Object} data - { firstName, patronymic, secondName, birthday, gender, phoneNumber, uId }
+   * @param {Object} data - { firstName, patronymic, secondName, birthday, gender, phoneNumber, email}
    */
   static async registration(data) {
     try {
@@ -36,7 +36,10 @@ export default class RegistrationService {
         debug.error('signUp invalid status');
         return Promise.reject();
       }
-      return request;
+      if (request.status === HTTP_STATUS.FORBIDDEN) {
+        return 'Email is already used';
+      }
+      return request.json();
     } catch (error) {
       debug.error(`Failed to registration with data ${data}`, error);
       throw error;
