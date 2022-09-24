@@ -1,6 +1,8 @@
-import {Text, TouchableOpacity, View, StyleSheet} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity} from 'react-native';
+
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
 import {Colors} from '../utils/colors';
 
 const Button = ({onPress, text, name, color, size}) => {
@@ -8,7 +10,7 @@ const Button = ({onPress, text, name, color, size}) => {
     <TouchableOpacity onPress={onPress}>
       <LinearGradient colors={['#08d4c4', '#01ab9d']} style={styles.signIn}>
         <Text style={styles.textSign}>{text}</Text>
-        <MaterialIcons name={name} color={color} size={size} />
+        <MaterialIcons color={color} name={name} size={size} />
       </LinearGradient>
     </TouchableOpacity>
   );

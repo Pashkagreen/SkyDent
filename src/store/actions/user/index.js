@@ -1,4 +1,4 @@
-import {SET_USER_DATA, CLEAN_USER_DATA} from '../../reducers/user/userReducer';
+import {CLEAN_USER_DATA, SET_USER_DATA} from '../../reducers/user/userReducer';
 
 export const setUserData = data => ({
   type: SET_USER_DATA,

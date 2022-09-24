@@ -1,4 +1,5 @@
 import {createStackNavigator} from '@react-navigation/stack';
+
 import AuthStackScreen from './AuthStack';
 import BottomTab from './BottomTab';
 
@@ -9,7 +10,7 @@ const MainStack = () => {
     <MainStackNav.Navigator
       initialRouteName="BottomTab"
       screenOptions={{headerShown: false}}>
-      <MainStackNav.Screen name="BottomTab" component={BottomTab} />
+      <MainStackNav.Screen component={BottomTab} name="BottomTab" />
     </MainStackNav.Navigator>
   );
 };

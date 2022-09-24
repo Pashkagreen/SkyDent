@@ -1,9 +1,9 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 
-import RNPickerSelect from 'react-native-picker-select';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import md5 from 'md5';
+import RNPickerSelect from 'react-native-picker-select';
+
 import {Colors} from '../utils/colors';
 
 const Picker = ({
@@ -22,11 +22,11 @@ const Picker = ({
     <View>
       <View style={[pickerStyles.container, {...pickerStyle}]}>
         <RNPickerSelect
-          value={value}
-          style={pickerStyles}
-          onValueChange={onChange}
+          itemKey={md5(new Date().getTime())}
           items={items}
           placeholder={placeholder}
+          style={pickerStyles}
+          value={value}
           useNativeAndroidPickerStyle={false}
           // Icon={() => {
           //   return (
@@ -37,10 +37,10 @@ const Picker = ({
           //     />
           //   );
           // }}
+          onClose={onBlur}
           onDonePress={onDonePress}
           onOpen={onFocus}
-          onClose={onBlur}
-          itemKey={md5(new Date().getTime())}
+          onValueChange={onChange}
         />
       </View>
     </View>

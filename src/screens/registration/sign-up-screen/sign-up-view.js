@@ -1,24 +1,27 @@
 import React, {memo, useState} from 'react';
 import {
-  View,
-  Text,
-  TouchableOpacity,
-  TextInput,
   Platform,
-  StyleSheet,
   ScrollView,
   StatusBar,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
+
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
-import {Colors} from '../../../utils/colors';
-import DatePicker from '../../../components/DatePicker';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import TextInputMask from 'react-native-text-input-mask';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Feather from 'react-native-vector-icons/Feather';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import DatePicker from '../../../components/DatePicker';
 import Picker from '../../../components/Picker';
+
+import {Colors} from '../../../utils/colors';
 
 const SignUpView = ({
   data,
@@ -48,26 +51,26 @@ const SignUpView = ({
         <Text style={styles.text_header}>Register Now!</Text>
       </View>
       <Animatable.View animation="fadeInUpBig" style={styles.footer}>
-        <ScrollView showsVerticalScrollIndicator={false} ref={refs.scrollRef}>
-          <Text style={styles.text_footer}>First name</Text>
+        <ScrollView ref={refs.scrollRef} showsVerticalScrollIndicator={false}>
+          <Text style={styles.textFooter}>First name</Text>
           <View style={styles.action}>
-            <FontAwesome name="user-o" color="#05375a" size={20} />
+            <FontAwesome color="#05375a" name="user-o" size={20} />
             <TextInput
+              autoCapitalize="none"
               placeholder="Your first name"
               style={styles.textInput}
-              autoCapitalize="none"
               onChangeText={val => firstNameInputChange(val)}
             />
             {data.isFirstNameValid ? (
               <Animatable.View animation="bounceIn">
-                <Feather name="check-circle" color="green" size={20} />
+                <Feather color="green" name="check-circle" size={20} />
               </Animatable.View>
             ) : null}
           </View>
 
           <Text
             style={[
-              styles.text_footer,
+              styles.textFooter,
               {
                 marginTop: 20,
               },
@@ -75,23 +78,23 @@ const SignUpView = ({
             Middle name
           </Text>
           <View style={styles.action}>
-            <FontAwesome name="user-o" color="#05375a" size={20} />
+            <FontAwesome color="#05375a" name="user-o" size={20} />
             <TextInput
+              autoCapitalize="none"
               placeholder="Your patronymic"
               style={styles.textInput}
-              autoCapitalize="none"
               onChangeText={val => middleNameInputChange(val)}
             />
             {data.isMiddleNameValid ? (
               <Animatable.View animation="bounceIn">
-                <Feather name="check-circle" color="green" size={20} />
+                <Feather color="green" name="check-circle" size={20} />
               </Animatable.View>
             ) : null}
           </View>
 
           <Text
             style={[
-              styles.text_footer,
+              styles.textFooter,
               {
                 marginTop: 20,
               },
@@ -99,23 +102,23 @@ const SignUpView = ({
             Last name
           </Text>
           <View style={styles.action}>
-            <FontAwesome name="user-o" color="#05375a" size={20} />
+            <FontAwesome color="#05375a" name="user-o" size={20} />
             <TextInput
+              autoCapitalize="none"
               placeholder="Your last name"
               style={styles.textInput}
-              autoCapitalize="none"
               onChangeText={val => lastNameInputChange(val)}
             />
             {data.isLastNameValid ? (
               <Animatable.View animation="bounceIn">
-                <Feather name="check-circle" color="green" size={20} />
+                <Feather color="green" name="check-circle" size={20} />
               </Animatable.View>
             ) : null}
           </View>
 
           <Text
             style={[
-              styles.text_footer,
+              styles.textFooter,
               {
                 marginTop: 20,
               },
@@ -123,22 +126,22 @@ const SignUpView = ({
             Gender
           </Text>
           <View style={styles.action}>
-            <FontAwesome name="venus-mars" color="#05375a" size={20} />
+            <FontAwesome color="#05375a" name="venus-mars" size={20} />
             <Picker
+              items={pickerItems}
+              label="Gender"
+              pickerStyle={styles.textInput}
               placeholder={{
                 label: 'Choose a gender',
               }}
-              label="Gender"
-              items={pickerItems}
               value={data.gender}
               onChange={sex => genderValueChange(sex)}
-              pickerStyle={styles.textInput}
             />
           </View>
 
           <Text
             style={[
-              styles.text_footer,
+              styles.textFooter,
               {
                 marginTop: 20,
               },
@@ -146,29 +149,29 @@ const SignUpView = ({
             Mobile phone
           </Text>
           <View style={styles.action}>
-            <AntDesign name="phone" color="#05375a" size={20} />
+            <AntDesign color="#05375a" name="phone" size={20} />
             <TextInputMask
-              style={[styles.textInput, styles.phoneInput]}
+              autoComplete="off"
+              autoCorrect={false}
               keyboardType="phone-pad"
+              mask={'+[000] ([00]) [000] - [00] - [00]'}
+              placeholder={'+375  ( __ )  ___  -  __  -  __'}
+              placeholderTextColor="#666666"
+              style={[styles.textInput, styles.phoneInput]}
               onChangeText={(formatted, extracted) => {
                 mobilePhoneChange(extracted);
               }}
-              placeholder={'+375  ( __ )  ___  -  __  -  __'}
-              placeholderTextColor="#666666"
-              mask={'+[000] ([00]) [000] - [00] - [00]'}
-              autoCorrect={false}
-              autoComplete="off"
             />
             {data.isMobilePhoneValid ? (
               <Animatable.View animation="bounceIn">
-                <Feather name="check-circle" color="green" size={20} />
+                <Feather color="green" name="check-circle" size={20} />
               </Animatable.View>
             ) : null}
           </View>
 
           <Text
             style={[
-              styles.text_footer,
+              styles.textFooter,
               {
                 marginTop: 20,
               },
@@ -177,26 +180,26 @@ const SignUpView = ({
           </Text>
           <View style={styles.action}>
             <MaterialCommunityIcons
-              name="email-outline"
               color="#05375a"
+              name="email-outline"
               size={20}
             />
             <TextInput
+              autoCapitalize="none"
               placeholder="Your E-mail"
               placeholderTextColor={Colors.textInput}
               style={styles.textInput}
-              autoCapitalize="none"
               onEndEditing={e => handleValidEmail(e.nativeEvent.text)}
             />
             {data.isEmailValid ? (
               <Animatable.View animation="bounceIn">
-                <Feather name="check-circle" color="green" size={20} />
+                <Feather color="green" name="check-circle" size={20} />
               </Animatable.View>
             ) : null}
           </View>
           <Text
             style={[
-              styles.text_footer,
+              styles.textFooter,
               {
                 marginTop: 20,
               },
@@ -204,22 +207,22 @@ const SignUpView = ({
             Birth Date
           </Text>
           <View style={styles.action}>
-            <MaterialCommunityIcons name="calendar" size={20} color="#05375a" />
+            <MaterialCommunityIcons color="#05375a" name="calendar" size={20} />
             <DatePicker
-              setFocused={setBirthInputFocused}
               isFocused={isBirthInputFocused}
+              label="Дата рождения"
+              placeholderTextColor={Colors.textInput}
+              setFocused={setBirthInputFocused}
               value={data.birthDate}
               onChange={dateOfBirth => {
                 birthDateChange(dateOfBirth);
               }}
-              label="Дата рождения"
-              placeholderTextColor={Colors.textInput}
             />
           </View>
 
           <Text
             style={[
-              styles.text_footer,
+              styles.textFooter,
               {
                 marginTop: 20,
               },
@@ -227,32 +230,32 @@ const SignUpView = ({
             Password
           </Text>
           <View style={styles.action}>
-            <Feather name="lock" color="#05375a" size={20} />
+            <Feather color="#05375a" name="lock" size={20} />
             <TextInput
+              autoCapitalize="none"
               placeholder="Your Password"
               secureTextEntry={data.secureTextEntry ? true : false}
               style={styles.textInput}
-              autoCapitalize="none"
               onChangeText={val => handlePasswordChange(val)}
             />
             <TouchableOpacity onPress={updateSecureTextEntry}>
               {data.secureTextEntry ? (
-                <Feather name="eye-off" color="grey" size={20} />
+                <Feather color="grey" name="eye-off" size={20} />
               ) : (
-                <Feather name="eye" color="grey" size={20} />
+                <Feather color="grey" name="eye" size={20} />
               )}
             </TouchableOpacity>
           </View>
           <View style={styles.textPrivate}>
-            <Text style={styles.color_textPrivate}>
+            <Text style={styles.colorTextPrivate}>
               By signing up you agree to our
             </Text>
-            <Text style={[styles.color_textPrivate, {fontWeight: 'bold'}]}>
+            <Text style={[styles.colorTextPrivate, {fontWeight: 'bold'}]}>
               {' '}
               Terms of service
             </Text>
-            <Text style={styles.color_textPrivate}> and</Text>
-            <Text style={[styles.color_textPrivate, {fontWeight: 'bold'}]}>
+            <Text style={styles.colorTextPrivate}> and</Text>
+            <Text style={[styles.colorTextPrivate, {fontWeight: 'bold'}]}>
               {' '}
               Privacy policy
             </Text>
@@ -306,7 +309,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 30,
   },
-  text_footer: {
+  textFooter: {
     color: Colors.darkBlue,
     fontSize: 16,
     fontWeight: 'bold',
@@ -348,7 +351,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     marginTop: 20,
   },
-  color_textPrivate: {
+  colorTextPrivate: {
     color: 'grey',
   },
 });

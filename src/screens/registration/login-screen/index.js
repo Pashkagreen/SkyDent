@@ -1,9 +1,12 @@
-import LoginView from './login-view';
 import React, {useEffect, useState} from 'react';
 import {Alert} from 'react-native';
 import {useDispatch} from 'react-redux';
-import {setFirstLaunch} from '../../../store/actions/app/index';
+
 import AuthService from '../../../services/auth';
+
+import LoginView from './login-view';
+
+import {setFirstLaunch} from '../../../store/actions/app/index';
 import {setUserData} from '../../../store/actions/user';
 
 const LoginContainer = ({navigation}) => {
@@ -89,7 +92,7 @@ const LoginContainer = ({navigation}) => {
   };
 
   const loginHandle = (email, password) => {
-    if (data.email.length == 0 || data.password.length == 0) {
+    if (data.email.length === 0 || data.password.length === 0) {
       Alert.alert('Wrong Input!', 'Email or password field cannot be empty.', [
         {text: 'Okay'},
       ]);
@@ -112,12 +115,12 @@ const LoginContainer = ({navigation}) => {
   return (
     <LoginView
       data={data}
-      textInputChange={textInputChange}
+      goToSignUp={goToSignUp}
       handlePasswordChange={handlePasswordChange}
-      updateSecureTextEntry={updateSecureTextEntry}
       handleValidEmail={handleValidEmail}
       loginHandle={loginHandle}
-      goToSignUp={goToSignUp}
+      textInputChange={textInputChange}
+      updateSecureTextEntry={updateSecureTextEntry}
     />
   );
 };

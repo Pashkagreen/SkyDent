@@ -1,5 +1,7 @@
-import {createStackNavigator} from '@react-navigation/stack';
 import {useSelector} from 'react-redux';
+
+import {createStackNavigator} from '@react-navigation/stack';
+
 import screens from '../screens';
 import AuthStackScreen from './AuthStack';
 
@@ -16,14 +18,14 @@ const OnBoardingStackScreen = () => {
       }}>
       {isFirstLaunch && (
         <OnBoardingStack.Screen
-          name="Boarding"
           component={screens.Boarding}
+          name="Boarding"
           options={{headerShown: false}}
         />
       )}
       <OnBoardingStack.Screen
-        name="Auth"
         component={AuthStackScreen}
+        name="Auth"
         options={{headerShown: false}}
       />
     </OnBoardingStack.Navigator>

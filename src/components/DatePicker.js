@@ -1,15 +1,16 @@
 import React from 'react';
 import {
-  View,
-  TextInput,
   Appearance,
   StyleSheet,
+  TextInput,
   TouchableOpacity,
+  View,
 } from 'react-native';
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import {Colors} from '../utils/colors';
+
 import moment from 'moment';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
+
+import {Colors} from '../utils/colors';
 
 const DatePicker = ({
   setFocused = () => {},
@@ -33,42 +34,40 @@ const DatePicker = ({
     <View>
       <View style={[styles.container, {...datePickerStyle}]}>
         <TextInput
+          placeholder="DD. ММ. YYYY"
+          placeholderTextColor={placeholderTextColor}
+          style={styles.inputStyle}
           value={
             value ? moment(new Date(value)).format('DD.MM.YYYY').toString() : ''
           }
-          onFocus={onFocus}
           onBlur={onBlur}
           onChangeText={_onChange}
-          style={styles.inputStyle}
-          placeholder="DD. ММ. YYYY"
-          placeholderTextColor={placeholderTextColor}
+          onFocus={onFocus}
         />
         <TouchableOpacity
-          onPress={() => setFocused(true)}
           style={styles.touchable}
+          onPress={() => setFocused(true)}
         />
 
         {isFocused && (
           <DateTimePickerModal
-            isVisible={isFocused}
-            headerTextIOS="Choose a birthdate"
-            confirmTextIOS="Confirm"
             cancelTextIOS="Close"
+            confirmTextIOS="Confirm"
             display="spinner"
-            mode="date"
-            pickerContainerStyleIOS={{
-              justifyContent: 'center',
-            }}
-            minimumDate={minimumDate}
-            maximumDate={maximumDate}
+            headerTextIOS="Choose a birthdate"
             isDarkModeEnabled={Appearance.getColorScheme() === 'dark'}
-            onConfirm={date => {
-              setFocused(false);
-              _onChange(new Date(date).toISOString());
-            }}
+            isVisible={isFocused}
+            maximumDate={maximumDate}
+            minimumDate={minimumDate}
+            mode="date"
+            pickerContainerStyleIOS={styles.containerPickerIos}
             onCancel={async () => {
               setFocused(false);
               onCancel();
+            }}
+            onConfirm={date => {
+              setFocused(false);
+              _onChange(new Date(date).toISOString());
             }}
           />
         )}
@@ -84,6 +83,9 @@ const styles = StyleSheet.create({
     width: '100%',
     marginTop: -3,
     // paddingHorizontal: 14,
+  },
+  containerPickerIos: {
+    justifyContent: 'center',
   },
   label: {
     width: '100%',

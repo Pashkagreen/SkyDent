@@ -1,8 +1,11 @@
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import screens from '../screens';
-import {Colors} from '../utils/colors';
 import {Platform, StyleSheet, View} from 'react-native';
+
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import {Colors} from '../utils/colors';
+
+import screens from '../screens';
 
 const Tab = createBottomTabNavigator();
 
@@ -18,40 +21,40 @@ const BottomTab = () => {
           tabBarInactiveTintColor: Colors.paleGreen,
         }}>
         <Tab.Screen
-          name="Dashboard"
           component={screens.Dashboard}
+          name="Dashboard"
           options={{
             tabBarIcon: ({color, size}) => (
               <MaterialCommunityIcons
+                color={color}
                 name="view-dashboard"
-                color={color}
                 size={size}
               />
             ),
           }}
         />
         <Tab.Screen
-          name="Catalog"
           component={screens.Catalog}
+          name="Catalog"
           options={{
             tabBarIcon: ({color, size}) => (
               <MaterialCommunityIcons
-                name="clipboard-search"
                 color={color}
+                name="clipboard-search"
                 size={size}
               />
             ),
           }}
         />
         <Tab.Screen
-          name="Appointment"
           component={screens.Appointment}
+          name="Appointment"
           options={{
             tabBarIcon: ({color, size}) => (
               <View style={styles.mainTab}>
                 <MaterialCommunityIcons
-                  name="plus-circle"
                   color={color}
+                  name="plus-circle"
                   size={60}
                 />
               </View>
@@ -59,26 +62,26 @@ const BottomTab = () => {
           }}
         />
         <Tab.Screen
-          name="History"
           component={screens.History}
+          name="History"
           options={{
             tabBarIcon: ({color, size}) => (
               <MaterialCommunityIcons
-                name="clipboard-text-clock"
                 color={color}
+                name="clipboard-text-clock"
                 size={size}
               />
             ),
           }}
         />
         <Tab.Screen
-          name="Profile"
           component={screens.Profile}
+          name="Profile"
           options={{
             tabBarIcon: ({color, size}) => (
               <MaterialCommunityIcons
-                name="account"
                 color={color}
+                name="account"
                 size={size}
               />
             ),

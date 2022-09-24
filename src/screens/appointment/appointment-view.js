@@ -1,5 +1,6 @@
 import React, {memo} from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
+
 import {Colors} from '../../utils/colors';
 
 const AppointmentView = props => {

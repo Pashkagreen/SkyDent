@@ -1,18 +1,19 @@
 import React, {memo} from 'react';
 import {
-  View,
-  Text,
-  TouchableOpacity,
-  TextInput,
   Platform,
-  StyleSheet,
   StatusBar,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
+
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import Feather from 'react-native-vector-icons/Feather';
-
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import {Colors} from '../../../utils/colors';
 
 const LoginView = props => {
@@ -26,21 +27,21 @@ const LoginView = props => {
         <Text style={[styles.text_footer]}>E-mail</Text>
         <View style={styles.action}>
           <MaterialCommunityIcons
-            name="email-outline"
             color={Colors.darkBlue}
+            name="email-outline"
             size={20}
           />
           <TextInput
+            autoCapitalize="none"
             placeholder="Your E-mail"
             placeholderTextColor="#666666"
             style={[styles.textInput]}
-            autoCapitalize="none"
             onChangeText={val => props.textInputChange(val)}
             onEndEditing={e => props.handleValidEmail(e.nativeEvent.text)}
           />
           {props.data.check_textInputChange ? (
             <Animatable.View animation="bounceIn">
-              <Feather name="check-circle" color="green" size={20} />
+              <Feather color="green" name="check-circle" size={20} />
             </Animatable.View>
           ) : null}
         </View>
@@ -60,20 +61,20 @@ const LoginView = props => {
           Password
         </Text>
         <View style={styles.action}>
-          <Feather name="lock" color={Colors.darkBlue} size={20} />
+          <Feather color={Colors.darkBlue} name="lock" size={20} />
           <TextInput
+            autoCapitalize="none"
             placeholder="Your Password"
             placeholderTextColor="#666666"
             secureTextEntry={props.data.secureTextEntry ? true : false}
             style={styles.textInput}
-            autoCapitalize="none"
             onChangeText={val => props.handlePasswordChange(val)}
           />
           <TouchableOpacity onPress={props.updateSecureTextEntry}>
             {props.data.secureTextEntry ? (
-              <Feather name="eye-off" color="grey" size={20} />
+              <Feather color="grey" name="eye-off" size={20} />
             ) : (
-              <Feather name="eye" color="grey" size={20} />
+              <Feather color="grey" name="eye" size={20} />
             )}
           </TouchableOpacity>
         </View>
@@ -112,7 +113,6 @@ const LoginView = props => {
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={props.goToSignUp}
             style={[
               styles.signIn,
               {
@@ -120,7 +120,8 @@ const LoginView = props => {
                 borderWidth: 1,
                 marginTop: 15,
               },
-            ]}>
+            ]}
+            onPress={props.goToSignUp}>
             <Text
               style={[
                 styles.textSign,

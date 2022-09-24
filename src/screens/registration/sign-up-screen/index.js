@@ -1,10 +1,13 @@
-import SignUpView from './sign-up-view';
 import React, {useState} from 'react';
-import {EMAIL_REGEX} from '../../../utils/func';
-import RegistrationService from '../../../services/registration';
-import {HTTP_STATUS} from '../../../services/config';
-import AuthService from '../../../services/auth';
 import {useDispatch} from 'react-redux';
+
+import AuthService from '../../../services/auth';
+import RegistrationService from '../../../services/registration';
+
+import SignUpView from './sign-up-view';
+
+import {EMAIL_REGEX} from '../../../utils/func';
+
 import {setUserData} from '../../../store/actions/user/index';
 
 const SignUpContainer = ({navigation}) => {
@@ -162,20 +165,20 @@ const SignUpContainer = ({navigation}) => {
 
   return (
     <SignUpView
-      data={data}
-      onSubmit={onSubmit}
-      refs={refs}
-      isBirthInputFocused={isBirthInputFocused}
-      setBirthInputFocused={setBirthInputFocused}
-      firstNameInputChange={firstNameInputChange}
-      middleNameInputChange={middleNameInputChange}
-      lastNameInputChange={lastNameInputChange}
-      genderValueChange={genderValueChange}
-      mobilePhoneChange={mobilePhoneChange}
       birthDateChange={birthDateChange}
+      data={data}
+      firstNameInputChange={firstNameInputChange}
+      genderValueChange={genderValueChange}
       handlePasswordChange={handlePasswordChange}
-      updateSecureTextEntry={updateSecureTextEntry}
       handleValidEmail={handleEmailValid}
+      isBirthInputFocused={isBirthInputFocused}
+      lastNameInputChange={lastNameInputChange}
+      middleNameInputChange={middleNameInputChange}
+      mobilePhoneChange={mobilePhoneChange}
+      refs={refs}
+      setBirthInputFocused={setBirthInputFocused}
+      updateSecureTextEntry={updateSecureTextEntry}
+      onSubmit={onSubmit}
     />
   );
 };

@@ -4,7 +4,7 @@ export const useGetWidthForTabs = () => {
   const {width} = useWindowDimensions();
 
   // Horizontal Padding = 20...
-  let tabWidth = width - 80;
+  const tabWidth = width - 80;
 
   // Total five BottomTab...
   return tabWidth / 4;

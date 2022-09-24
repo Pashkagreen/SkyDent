@@ -2,7 +2,8 @@
  * @prettier
  */
 
-import {URL, HTTP_STATUS} from '../config';
+import {HTTP_STATUS, URL} from '../config';
+
 import {api, debug} from '..';
 
 /**

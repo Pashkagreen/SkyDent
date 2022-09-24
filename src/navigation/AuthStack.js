@@ -1,13 +1,14 @@
-import {createStackNavigator} from '@react-navigation/stack';
-import screens from '../screens';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {TouchableOpacity} from 'react-native';
 
+import {createStackNavigator} from '@react-navigation/stack';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import screens from '../screens';
 
 const HeaderLeftButton = ({onPress}) => {
   return (
     <TouchableOpacity onPress={onPress}>
-      <MaterialCommunityIcons name="chevron-left" size={32} color="white" />
+      <MaterialCommunityIcons color="white" name="chevron-left" size={32} />
     </TouchableOpacity>
   );
 };
@@ -18,13 +19,13 @@ const AuthStackScreen = () => {
   return (
     <AuthStack.Navigator>
       <AuthStack.Screen
-        name="Login"
         component={screens.Login}
+        name="Login"
         options={{headerShown: false}}
       />
       <AuthStack.Screen
-        name="SignUp"
         component={screens.SignUp}
+        name="SignUp"
         options={({navigation}) => ({
           headerShown: true,
           title: '',

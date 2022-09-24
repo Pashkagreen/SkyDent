@@ -1,6 +1,8 @@
 import {useDispatch} from 'react-redux';
-import {cleanUserData} from '../../store/actions/user';
+
 import ProfileView from './profile-view';
+
+import {cleanUserData} from '../../store/actions/user';
 
 const ProfileContainer = ({navigation}) => {
   const dispatch = useDispatch();

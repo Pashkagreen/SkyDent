@@ -1,8 +1,10 @@
-import OnBoardingStackScreen from './OnBoardingStack';
-import MainStack from './MainStack';
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
 import {useSelector} from 'react-redux';
+
+import {createStackNavigator} from '@react-navigation/stack';
+
+import MainStack from './MainStack';
+import OnBoardingStackScreen from './OnBoardingStack';
 
 const RootNavigation = () => {
   const RootStack = createStackNavigator();
@@ -15,9 +17,9 @@ const RootNavigation = () => {
         headerShown: false,
       }}>
       {!user.id && (
-        <RootStack.Screen name="Onboarding" component={OnBoardingStackScreen} />
+        <RootStack.Screen component={OnBoardingStackScreen} name="Onboarding" />
       )}
-      <RootStack.Screen name="Main" component={MainStack} />
+      <RootStack.Screen component={MainStack} name="Main" />
     </RootStack.Navigator>
   );
 };

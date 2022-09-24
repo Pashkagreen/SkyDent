@@ -1,11 +1,11 @@
-import Dashboard from './dashboard';
 import Appointment from './appointment';
+import Boarding from './boarding';
 import Catalog from './catalog';
+import Dashboard from './dashboard';
 import History from './history';
+import Profile from './profile';
 import Login from './registration/login-screen';
 import SignUp from './registration/sign-up-screen';
-import Profile from './profile';
-import Boarding from './boarding';
 
 const screens = {
   Dashboard,

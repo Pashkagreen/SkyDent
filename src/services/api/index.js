@@ -3,8 +3,9 @@
  */
 
 import ky from 'ky';
-import debug from '../debug';
+
 import AuthService from '../auth';
+import debug from '../debug';
 /**
  * This one makes api requests on entire application
  */
