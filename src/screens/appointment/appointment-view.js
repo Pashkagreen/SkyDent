@@ -1,7 +1,7 @@
 import React, {memo} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 
-import {Colors} from '../../utils/colors';
+import {colors} from '../../utils/colors';
 
 const AppointmentView = props => {
   return (
@@ -18,9 +18,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    zIndex: -1,
   },
   text: {
-    color: Colors.blue,
+    color: colors.blue,
     fontSize: 26,
   },
 });

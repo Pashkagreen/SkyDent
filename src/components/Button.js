@@ -3,7 +3,7 @@ import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-import {Colors} from '../utils/colors';
+import {colors} from '../utils/colors';
 
 const Button = ({onPress, text, name, color, size}) => {
   return (
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   textSign: {
-    color: Colors.white,
+    color: colors.white,
     fontWeight: 'bold',
     fontSize: 16,
   },

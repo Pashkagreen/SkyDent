@@ -14,7 +14,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {Colors} from '../../../utils/colors';
+import {colors} from '../../../utils/colors';
 
 const LoginView = props => {
   return (
@@ -27,7 +27,7 @@ const LoginView = props => {
         <Text style={[styles.text_footer]}>E-mail</Text>
         <View style={styles.action}>
           <MaterialCommunityIcons
-            color={Colors.darkBlue}
+            color={colors.darkBlue}
             name="email-outline"
             size={20}
           />
@@ -61,7 +61,7 @@ const LoginView = props => {
           Password
         </Text>
         <View style={styles.action}>
-          <Feather color={Colors.darkBlue} name="lock" size={20} />
+          <Feather color={colors.darkBlue} name="lock" size={20} />
           <TextInput
             autoCapitalize="none"
             placeholder="Your Password"
@@ -87,7 +87,7 @@ const LoginView = props => {
         )}
 
         <TouchableOpacity>
-          <Text style={{color: Colors.dentalGreen, marginTop: 15}}>
+          <Text style={{color: colors.dentalGreen, marginTop: 15}}>
             Forgot password?
           </Text>
         </TouchableOpacity>
@@ -104,7 +104,7 @@ const LoginView = props => {
                 style={[
                   styles.textSign,
                   {
-                    color: Colors.white,
+                    color: colors.white,
                   },
                 ]}>
                 Sign In
@@ -116,7 +116,7 @@ const LoginView = props => {
             style={[
               styles.signIn,
               {
-                borderColor: Colors.dentalGreen,
+                borderColor: colors.dentalGreen,
                 borderWidth: 1,
                 marginTop: 15,
               },
@@ -126,7 +126,7 @@ const LoginView = props => {
               style={[
                 styles.textSign,
                 {
-                  color: Colors.dentalGreen,
+                  color: colors.dentalGreen,
                 },
               ]}>
               Sign Up
@@ -143,7 +143,7 @@ export default memo(LoginView);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.dentalGreen,
+    backgroundColor: colors.dentalGreen,
   },
   header: {
     flex: 1,
@@ -153,19 +153,19 @@ const styles = StyleSheet.create({
   },
   footer: {
     flex: 3,
-    backgroundColor: Colors.white,
+    backgroundColor: colors.white,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     paddingHorizontal: 20,
     paddingVertical: 30,
   },
   text_header: {
-    color: Colors.white,
+    color: colors.white,
     fontWeight: 'bold',
     fontSize: 30,
   },
   text_footer: {
-    color: Colors.darkBlue,
+    color: colors.darkBlue,
     fontSize: 16,
     fontWeight: 'bold',
   },
@@ -180,18 +180,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: 10,
     borderBottomWidth: 1,
-    borderBottomColor: Colors.errorRed,
+    borderBottomColor: colors.errorRed,
     paddingBottom: 5,
   },
   textInput: {
     flex: 1,
     marginTop: Platform.OS === 'ios' ? 0 : -12,
     paddingLeft: 10,
-    color: Colors.darkBlue,
+    color: colors.darkBlue,
     fontSize: 14,
   },
   errorMsg: {
-    color: Colors.errorRed,
+    color: colors.errorRed,
     fontSize: 14,
   },
   button: {

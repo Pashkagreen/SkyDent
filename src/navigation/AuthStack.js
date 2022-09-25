@@ -1,4 +1,4 @@
-import {TouchableOpacity} from 'react-native';
+import {Text, TouchableOpacity} from 'react-native';
 
 import {createStackNavigator} from '@react-navigation/stack';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -9,6 +9,7 @@ const HeaderLeftButton = ({onPress}) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <MaterialCommunityIcons color="white" name="chevron-left" size={32} />
+      <Text>fdsf</Text>
     </TouchableOpacity>
   );
 };

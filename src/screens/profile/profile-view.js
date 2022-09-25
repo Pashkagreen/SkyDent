@@ -1,7 +1,7 @@
 import React, {memo} from 'react';
 import {Button, StyleSheet, Text, View} from 'react-native';
 
-import {Colors} from '../../utils/colors';
+import {colors} from '../../utils/colors';
 
 const ProfileView = props => {
   return (
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    color: Colors.blue,
+    color: colors.blue,
     fontSize: 26,
   },
 });

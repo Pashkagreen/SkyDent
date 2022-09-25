@@ -5,7 +5,7 @@ import * as Animatable from 'react-native-animatable';
 
 import Button from '../../components/Button';
 
-import {Colors} from '../../utils/colors';
+import {colors} from '../../utils/colors';
 
 const height = Dimensions.get('window').height;
 const heightLogo = height * 0.28;
@@ -26,7 +26,7 @@ const BoardingView = props => {
         <Text style={styles.text}>Sign in with account</Text>
         <View style={styles.button}>
           <Button
-            color={Colors.white}
+            color={colors.white}
             name="navigate-next"
             size={20}
             text="Get Started"
@@ -43,7 +43,7 @@ export default memo(BoardingView);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.dentalGreen,
+    backgroundColor: colors.dentalGreen,
   },
   header: {
     flex: 2,
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     flex: 1,
-    backgroundColor: Colors.white,
+    backgroundColor: colors.white,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     paddingVertical: 50,
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   title: {
-    color: Colors.darkBlue,
+    color: colors.darkBlue,
     fontSize: 30,
     fontWeight: 'bold',
   },

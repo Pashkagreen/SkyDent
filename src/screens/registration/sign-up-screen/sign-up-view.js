@@ -21,7 +21,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import DatePicker from '../../../components/DatePicker';
 import Picker from '../../../components/Picker';
 
-import {Colors} from '../../../utils/colors';
+import {colors} from '../../../utils/colors';
 
 const SignUpView = ({
   data,
@@ -187,7 +187,7 @@ const SignUpView = ({
             <TextInput
               autoCapitalize="none"
               placeholder="Your E-mail"
-              placeholderTextColor={Colors.textInput}
+              placeholderTextColor={colors.textInput}
               style={styles.textInput}
               onEndEditing={e => handleValidEmail(e.nativeEvent.text)}
             />
@@ -211,7 +211,7 @@ const SignUpView = ({
             <DatePicker
               isFocused={isBirthInputFocused}
               label="Дата рождения"
-              placeholderTextColor={Colors.textInput}
+              placeholderTextColor={colors.textInput}
               setFocused={setBirthInputFocused}
               value={data.birthDate}
               onChange={dateOfBirth => {
@@ -288,7 +288,7 @@ export default memo(SignUpView);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.dentalGreen,
+    backgroundColor: colors.dentalGreen,
   },
   header: {
     flex: 1,
@@ -298,19 +298,19 @@ const styles = StyleSheet.create({
   },
   footer: {
     flex: Platform.OS === 'ios' ? 3 : 5,
-    backgroundColor: Colors.white,
+    backgroundColor: colors.white,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     paddingHorizontal: 20,
     paddingVertical: 30,
   },
   text_header: {
-    color: Colors.white,
+    color: colors.white,
     fontWeight: 'bold',
     fontSize: 30,
   },
   textFooter: {
-    color: Colors.darkBlue,
+    color: colors.darkBlue,
     fontSize: 16,
     fontWeight: 'bold',
   },

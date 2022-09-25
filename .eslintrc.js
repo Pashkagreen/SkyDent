@@ -18,6 +18,7 @@ module.exports = {
       {ignoreClassNames: true, ignoreStyleProperties: false},
     ],
     'react/react-in-jsx-scope': 'off',
+    'react/no-unstable-nested-components': 'off',
     'react/jsx-sort-props': [
       'warn',
       {

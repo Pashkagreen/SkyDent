@@ -4,7 +4,7 @@ import {StyleSheet, View} from 'react-native';
 import md5 from 'md5';
 import RNPickerSelect from 'react-native-picker-select';
 
-import {Colors} from '../utils/colors';
+import {colors} from '../utils/colors';
 
 const Picker = ({
   placeholder = {label: '', value: ''},
@@ -33,7 +33,7 @@ const Picker = ({
           //     <MaterialCommunityIcons
           //       name="chevron-down"
           //       size={20}
-          //       color={Colors.lightGrey}
+          //       color={colors.lightGrey}
           //     />
           //   );
           // }}
@@ -73,7 +73,7 @@ const pickerSelectStyles = () =>
     },
     placeholder: {
       fontSize: 14,
-      color: Colors.lightGrey,
+      color: colors.lightGrey,
     },
     iconContainer: {
       alignItems: 'center',

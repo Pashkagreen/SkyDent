@@ -1,12 +1,14 @@
 import React, {useEffect} from 'react';
-import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
-import {Colors} from './src/utils/colors';
-import 'react-native-gesture-handler';
-import SplashScreen from 'react-native-splash-screen';
 import {Provider} from 'react-redux';
+
+import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
+import SplashScreen from 'react-native-splash-screen';
 import {PersistGate} from 'redux-persist/integration/react';
-import reduxStore from './src/store/index';
+
+import {colors} from './src/utils/colors';
+
 import RootNavigation from './src/navigation/RootNavigation';
+import reduxStore from './src/store/index';
 
 const App = () => {
   const {store, persistor} = reduxStore();
@@ -31,6 +33,6 @@ const navTheme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    background: Colors.backgroundGrey,
+    background: colors.backgroundGrey,
   },
 };

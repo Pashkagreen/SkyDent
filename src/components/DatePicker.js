@@ -10,7 +10,7 @@ import {
 import moment from 'moment';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
-import {Colors} from '../utils/colors';
+import {colors} from '../utils/colors';
 
 const DatePicker = ({
   setFocused = () => {},
@@ -22,7 +22,7 @@ const DatePicker = ({
   onBlur = () => {},
   onCancel = () => {},
   onChange = () => {},
-  placeholderTextColor = Colors.lightGrey,
+  placeholderTextColor = colors.lightGrey,
   label = 'label',
   datePickerStyle = {},
   disabled = false,
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
   label: {
     width: '100%',
     marginBottom: 4,
-    color: Colors.lightGrey,
+    color: colors.lightGrey,
   },
   inputStyle: {
     flex: 1,
