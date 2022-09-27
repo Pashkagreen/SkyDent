@@ -17,4 +17,5 @@ export const colors = {
   errorRed: '#FF0000',
   red: '#d52b2b',
   placeholder: '#05375a',
+  placeholderTextColor: '#666666',
 };

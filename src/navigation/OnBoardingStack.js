@@ -9,7 +9,6 @@ const OnBoardingStack = createStackNavigator();
 
 const OnBoardingStackScreen = () => {
   const {isFirstLaunch} = useSelector(state => state.app);
-  console.log(isFirstLaunch);
 
   return (
     <OnBoardingStack.Navigator

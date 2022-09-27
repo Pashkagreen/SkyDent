@@ -9,13 +9,22 @@ import {colors} from './src/utils/colors';
 
 import RootNavigation from './src/navigation/RootNavigation';
 import reduxStore from './src/store/index';
+import AuthService from './src/services/auth';
 
 const App = () => {
   const {store, persistor} = reduxStore();
 
+  const getTokens = async () => {
+    const accessToken = await AuthService.getAccessTokenFromStorage();
+    const refreshToken = await AuthService.getRefreshTokenFromStorage();
+    console.log('access token: ', accessToken, 'refresh token: ', refreshToken);
+  };
+
   useEffect(() => {
     SplashScreen.hide();
+    getTokens();
   }, []);
+
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>

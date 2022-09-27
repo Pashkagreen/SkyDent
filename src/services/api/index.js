@@ -17,10 +17,21 @@ const api = ky.extend({
   },
   timeout: 60000,
   hooks: {
+    beforeError: [
+      error => {
+        const {response} = error;
+        if (response) {
+          response.json().then(data => {
+            console.log(data);
+            return data;
+          });
+        }
+      },
+    ],
     afterResponse: [
       async (request, options, response) => {
         try {
-          if (response.status === 401) {
+          if (response.status === 403) {
             const accessToken = await AuthService.getAccessTokenFromStorage();
             const refreshToken = await AuthService.getRefreshTokenFromStorage();
             const newTokens = await AuthService.refreshTokens({

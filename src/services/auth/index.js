@@ -38,9 +38,9 @@ export default class AuthService {
       });
       if (request.status !== HTTP_STATUS.SUCCESS) {
         debug.error('signIn invalid status');
-        return Promise.reject();
+        return request;
       }
-      return await request.json();
+      return request;
     } catch (error) {
       throw error;
     }
