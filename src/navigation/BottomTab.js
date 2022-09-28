@@ -21,7 +21,6 @@ const BottomTab = () => {
       initialRouteName={bottomBarConfig.Dashboard.screenName}
       // sceneContainerStyle={{backgroundColor: colors.white}}
       tabBar={props => {
-        console.log('props', props);
         return <BottomBar {...props} />;
       }}>
       {Object.values(bottomBarConfig).map(bottomBar => (

@@ -18,15 +18,21 @@ const LoginContainer = ({navigation}) => {
 
   const signIn = async userData => {
     setLoading(true);
-    const response = await AuthService.signIn(userData);
-    console.log('response', response);
-    await AuthService.setAccessTokenToStorage(response.innerEntity.accessToken);
-    await AuthService.setRefreshTokenToStorage(
-      response.innerEntity.refreshToken,
-    );
-    dispatch(setUserData(response.innerEntity.userData));
-    setLoading(false);
-    navigation.navigate('Main');
+    try {
+      const response = await AuthService.signIn(userData);
+      console.log('response', response);
+      await AuthService.setAccessTokenToStorage(
+        response.innerEntity.accessToken,
+      );
+      await AuthService.setRefreshTokenToStorage(
+        response.innerEntity.refreshToken,
+      );
+      dispatch(setUserData(response.innerEntity.userData));
+      setLoading(false);
+      navigation.navigate('Main');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const loginHandle = data => {
@@ -48,6 +54,7 @@ const LoginContainer = ({navigation}) => {
       loginHandle={loginHandle}
       secureTextEntry={secureTextEntry}
       updateSecureTextEntry={setSecureTextEntry}
+      loading={loading}
     />
   );
 };

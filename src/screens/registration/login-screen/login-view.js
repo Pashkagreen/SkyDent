@@ -4,19 +4,19 @@ import {
   StatusBar,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
+  KeyboardAvoidingView,
 } from 'react-native';
 import Input from '../../../components/Input';
 
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
-import Feather from 'react-native-vector-icons/Feather';
 import {useForm, Controller, FormProvider} from 'react-hook-form';
 import {EMAIL_REGEX} from '../../../utils/func';
 
 import {colors} from '../../../utils/colors';
+import ActivityButton from '../../../components/ActivityButton';
 
 const LoginView = props => {
   const {control, errors, handleSubmit, formState} = useForm({
@@ -34,110 +34,102 @@ const LoginView = props => {
         <Text style={styles.text_header}>Welcome!</Text>
       </View>
       <Animatable.View animation="fadeInUpBig" style={styles.footer}>
-        <FormProvider
-          handleSubmit={handleSubmit}
-          control={control}
-          errors={errors}>
-          <Controller
+        <KeyboardAvoidingView>
+          <FormProvider
+            handleSubmit={handleSubmit}
             control={control}
-            render={({onChange, value}) => (
-              <Input
-                title="Email"
-                iconName="email-outline"
-                placeholder="Your Email"
-                placeholderTextColor={colors.placeholderTextColor}
-                onChangeText={onChange}
-                value={value}
-                errorMessage={errors.email && errors.email.message}
-                isValid={!formState.errors.email && value.length > 5}
+            errors={errors}>
+            <Controller
+              control={control}
+              render={({onChange, value}) => (
+                <Input
+                  title="Email"
+                  iconName="email-outline"
+                  placeholder="Your Email"
+                  placeholderTextColor={colors.placeholderTextColor}
+                  onChangeText={onChange}
+                  value={value}
+                  errorMessage={errors.email && errors.email.message}
+                  isValid={!formState.errors.email && value.length > 4}
+                />
+              )}
+              rules={{
+                required: true,
+                pattern: {
+                  value: EMAIL_REGEX,
+                  message: 'Email must be valid',
+                },
+              }}
+              name="email"
+              defaultValue=""
+            />
+            <Controller
+              control={control}
+              render={({onChange, value}) => (
+                <Input
+                  title="Password"
+                  textStyle={{marginTop: 35}}
+                  iconName="lock"
+                  iconMode="Feather"
+                  placeholder="Your Password"
+                  placeholderTextColor={colors.placeholderTextColor}
+                  onChangeText={onChange}
+                  value={value}
+                  errorMessage={
+                    value !== '' &&
+                    value.length < 6 &&
+                    'Password must be at least 6 characters long'
+                  }
+                  isPassword={true}
+                  secureTextEntry={props.secureTextEntry}
+                  updateSecureTextEntry={props.updateSecureTextEntry}
+                  isValid={value.length > 5}
+                />
+              )}
+              rules={{
+                required: true,
+                pattern: /[0-9a-zA-Z]{6,}/i,
+              }}
+              name="password"
+              defaultValue=""
+            />
+            <TouchableOpacity>
+              <Text style={{color: colors.dentalGreen, marginTop: 15}}>
+                Forgot password?
+              </Text>
+            </TouchableOpacity>
+            <View style={styles.button}>
+              <ActivityButton
+                onPress={() => handleSubmit(props.loginHandle)()}
+                text="Sign In"
+                type="primary"
+                disabled={isBtnDisabled}
+                loading={props.loading}
               />
-            )}
-            rules={{
-              required: true,
-              pattern: {
-                value: EMAIL_REGEX,
-                message: 'Email must be valid',
-              },
-            }}
-            name="email"
-            defaultValue=""
-          />
-          <Controller
-            control={control}
-            render={({onChange, value}) => (
-              <Input
-                title="Password"
-                textStyle={{marginTop: 35}}
-                iconName="lock"
-                iconMode="Feather"
-                placeholder="Your Password"
-                placeholderTextColor={colors.placeholderTextColor}
-                onChangeText={onChange}
-                value={value}
-                errorMessage={
-                  value !== '' &&
-                  value.length < 6 &&
-                  'Password must be at least 6 characters long'
-                }
-                isPassword={true}
-                secureTextEntry={props.secureTextEntry}
-                updateSecureTextEntry={props.updateSecureTextEntry}
-                isValid={value.length > 5}
-              />
-            )}
-            rules={{
-              required: true,
-              pattern: /[0-9a-zA-Z]{6,}/i,
-            }}
-            name="password"
-            defaultValue=""
-          />
-          <TouchableOpacity>
-            <Text style={{color: colors.dentalGreen, marginTop: 15}}>
-              Forgot password?
-            </Text>
-          </TouchableOpacity>
-          <View style={styles.button}>
-            <TouchableOpacity
-              style={styles.signIn}
-              onPress={() => handleSubmit(props.loginHandle)()}>
-              <LinearGradient
-                colors={['#08d4c4', '#01ab9d']}
-                style={styles.signIn}>
+
+              <TouchableOpacity
+                onPress={props.goToSignUp}
+                style={[
+                  styles.signIn,
+                  {
+                    borderColor: colors.dentalGreen,
+                    borderWidth: 1,
+                    marginTop: 15,
+                  },
+                ]}>
                 <Text
                   style={[
                     styles.textSign,
                     {
-                      color: colors.white,
+                      color: colors.dentalGreen,
                     },
                   ]}>
-                  Sign In
+                  Sign Up
                 </Text>
-              </LinearGradient>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              onPress={props.goToSignUp}
-              style={[
-                styles.signIn,
-                {
-                  borderColor: colors.dentalGreen,
-                  borderWidth: 1,
-                  marginTop: 15,
-                },
-              ]}>
-              <Text
-                style={[
-                  styles.textSign,
-                  {
-                    color: colors.dentalGreen,
-                  },
-                ]}>
-                Sign Up
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </FormProvider>
+              </TouchableOpacity>
+            </View>
+          </FormProvider>
+        </KeyboardAvoidingView>
       </Animatable.View>
     </View>
   );
@@ -202,6 +194,8 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
     marginTop: 50,
+    flexDirection: 'column',
+    gap: 35,
   },
   signIn: {
     width: '100%',

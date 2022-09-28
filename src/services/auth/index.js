@@ -40,8 +40,13 @@ export default class AuthService {
         debug.error('signIn invalid status');
         return request;
       }
-      return request;
+      const requestData = await request.json();
+
+      if (requestData.innerEntity.accessToken) {
+        return requestData;
+      }
     } catch (error) {
+      console.log(error);
       throw error;
     }
   }
