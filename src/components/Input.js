@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/Feather';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import * as Animatable from 'react-native-animatable';
 
 const Input = ({
@@ -35,12 +36,14 @@ const Input = ({
       <View style={styles.action}>
         {iconMode === 'Feather' ? (
           <Feather name={iconName} color={colors.darkBlue} size={20} />
-        ) : (
+        ) : iconMode === 'MaterialCommunityIcons' ? (
           <MaterialCommunityIcons
             name={iconName}
             color={colors.darkBlue}
             size={20}
           />
+        ) : (
+          <FontAwesome name={iconName} color={colors.darkBlue} size={20} />
         )}
         <TextInput
           placeholder={placeholder}

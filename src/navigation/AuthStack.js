@@ -9,7 +9,6 @@ const HeaderLeftButton = ({onPress}) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <MaterialCommunityIcons color="white" name="chevron-left" size={32} />
-      <Text>fdsf</Text>
     </TouchableOpacity>
   );
 };

@@ -11,7 +11,6 @@ import {
 import Input from '../../../components/Input';
 
 import * as Animatable from 'react-native-animatable';
-import LinearGradient from 'react-native-linear-gradient';
 import {useForm, Controller, FormProvider} from 'react-hook-form';
 import {EMAIL_REGEX} from '../../../utils/func';
 
@@ -45,6 +44,7 @@ const LoginView = props => {
                 <Input
                   title="Email"
                   iconName="email-outline"
+                  iconMode="MaterialCommunityIcons"
                   placeholder="Your Email"
                   placeholderTextColor={colors.placeholderTextColor}
                   onChangeText={onChange}
@@ -68,7 +68,7 @@ const LoginView = props => {
               render={({onChange, value}) => (
                 <Input
                   title="Password"
-                  textStyle={{marginTop: 35}}
+                  textStyle={{marginTop: 20}}
                   iconName="lock"
                   iconMode="Feather"
                   placeholder="Your Password"
