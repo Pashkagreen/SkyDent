@@ -10,7 +10,9 @@ import {setUserData} from '../../../store/actions/user/index';
 
 const SignUpContainer = ({navigation}) => {
   const dispatch = useDispatch();
-  const [data, setData] = useState({});
+  const [data, setData] = useState({
+    secureTextEntry: true,
+  });
 
   const [isBirthInputFocused, setBirthInputFocused] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -24,13 +26,15 @@ const SignUpContainer = ({navigation}) => {
   };
 
   const onSubmit = async resultObject => {
-    // const response = await RegistrationService.registration(resultObject);
-    // console.log(response);
-    // await AuthService.setAccessTokenToStorage(response.innerEntity.accessToken);
-    // await AuthService.setRefreshTokenToStorage(
-    //   response.innerEntity.refreshToken,
-    // );
-    // dispatch(setUserData(response.innerEntity.userData));
+    setLoading(true);
+    const response = await RegistrationService.registration(resultObject);
+    console.log(response);
+    await AuthService.setAccessTokenToStorage(response.innerEntity.accessToken);
+    await AuthService.setRefreshTokenToStorage(
+      response.innerEntity.refreshToken,
+    );
+    dispatch(setUserData(response.innerEntity.userData));
+    setLoading(false);
   };
 
   const updateSecureTextEntry = () => {
@@ -40,13 +44,13 @@ const SignUpContainer = ({navigation}) => {
     });
   };
 
-  const handleFirstSubmit = firstTabData => {
-    console.log(firstTabData);
+  const handleFirstSubmit = () => {
     setActiveTab(2);
   };
 
   return (
     <SignUpView
+      data={data}
       isBirthInputFocused={isBirthInputFocused}
       refs={refs}
       activeTab={activeTab}
@@ -55,6 +59,7 @@ const SignUpContainer = ({navigation}) => {
       updateSecureTextEntry={updateSecureTextEntry}
       handleFirstSubmit={handleFirstSubmit}
       onSubmit={onSubmit}
+      loading={loading}
     />
   );
 };

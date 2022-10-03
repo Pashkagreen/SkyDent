@@ -1,4 +1,4 @@
-import React, {memo, useState} from 'react';
+import React, {memo} from 'react';
 import {
   Platform,
   ScrollView,
@@ -23,10 +23,12 @@ import DatePicker from '../../../components/DatePicker';
 import Picker from '../../../components/Picker';
 
 import {colors} from '../../../utils/colors';
+import {EMAIL_REGEX} from '../../../utils/func';
 
 const SignUpView = ({
   data,
   refs,
+  loading,
   updateSecureTextEntry,
   isBirthInputFocused,
   setBirthInputFocused,
@@ -39,8 +41,11 @@ const SignUpView = ({
     mode: 'onChange',
   });
 
-  console.log(formState);
-
+  const isContinueEnabled =
+    !!formState.dirtyFields.firstname &&
+    !!formState.dirtyFields.lastname &&
+    !!formState.dirtyFields.patronymic &&
+    !!formState.dirtyFields.gender;
   const isBtnDisabled = !formState.isValid;
   const styles = getStyles(activeTab);
 
@@ -66,17 +71,16 @@ const SignUpView = ({
             hitSlop={styles.hitSlop}></TouchableOpacity>
           <TouchableOpacity
             style={styles.swiperSecondItem}
-            onPress={() => setActiveTab(2)}
+            // onPress={() => setActiveTab(2)}
             hitSlop={styles.hitSlop}></TouchableOpacity>
         </View>
-
         <ScrollView ref={refs.scrollRef} showsVerticalScrollIndicator={false}>
-          {activeTab === 1 ? (
-            <View style={styles.tabContainerStyle}>
-              <FormProvider
-                handleSubmit={handleSubmit}
-                control={control}
-                errors={errors}>
+          <View style={styles.tabContainerStyle}>
+            <FormProvider
+              handleSubmit={handleSubmit}
+              control={control}
+              errors={errors}>
+              <View style={activeTab === 2 && {height: 0, opacity: 0}}>
                 <Controller
                   control={control}
                   render={({onChange, value}) => (
@@ -184,144 +188,149 @@ const SignUpView = ({
                   text="Continue"
                   type="primary"
                   containerStyle={styles.tabItemStyle}
-                  disabled={isBtnDisabled}
-                  onPress={() => handleSubmit(handleFirstSubmit)()}
-                />
-              </FormProvider>
-            </View>
-          ) : null}
-          {activeTab === 2 ? (
-            <>
-              {/* <Text
-                style={[
-                  styles.textFooter,
-                  {
-                    marginTop: 20,
-                  },
-                ]}>
-                Mobile phone
-              </Text>
-              <View style={styles.action}>
-                <AntDesign color="#05375a" name="phone" size={20} />
-                <TextInputMask
-                  autoComplete="off"
-                  autoCorrect={false}
-                  keyboardType="phone-pad"
-                  mask={'+[000] ([00]) [000] - [00] - [00]'}
-                  placeholder={'+375  ( __ )  ___  -  __  -  __'}
-                  placeholderTextColor="#666666"
-                  style={[styles.textInput, styles.phoneInput]}
-                  onChangeText={(formatted, extracted) => {
-                    mobilePhoneChange(extracted);
-                  }}
-                />
-                {data.isMobilePhoneValid ? (
-                  <Animatable.View animation="bounceIn">
-                    <Feather color="green" name="check-circle" size={20} />
-                  </Animatable.View>
-                ) : null}
-              </View>
-
-              <Text
-                style={[
-                  styles.textFooter,
-                  {
-                    marginTop: 20,
-                  },
-                ]}>
-                Email
-              </Text>
-              <View style={styles.action}>
-                <MaterialCommunityIcons
-                  color="#05375a"
-                  name="email-outline"
-                  size={20}
-                />
-                <TextInput
-                  autoCapitalize="none"
-                  placeholder="Your E-mail"
-                  placeholderTextColor={colors.textInput}
-                  style={styles.textInput}
-                  onEndEditing={e => handleValidEmail(e.nativeEvent.text)}
-                />
-                {data.isEmailValid ? (
-                  <Animatable.View animation="bounceIn">
-                    <Feather color="green" name="check-circle" size={20} />
-                  </Animatable.View>
-                ) : null}
-              </View>
-              <Text
-                style={[
-                  styles.textFooter,
-                  {
-                    marginTop: 20,
-                  },
-                ]}>
-                Birth Date
-              </Text>
-              <View style={styles.action}>
-                <MaterialCommunityIcons
-                  color="#05375a"
-                  name="calendar"
-                  size={20}
-                />
-                <DatePicker
-                  isFocused={isBirthInputFocused}
-                  label="Дата рождения"
-                  placeholderTextColor={colors.textInput}
-                  setFocused={setBirthInputFocused}
-                  value={data.birthDate}
-                  onChange={dateOfBirth => {
-                    birthDateChange(dateOfBirth);
-                  }}
+                  disabled={!isContinueEnabled}
+                  onPress={() => handleFirstSubmit()}
                 />
               </View>
 
-              <Text
-                style={[
-                  styles.textFooter,
-                  {
-                    marginTop: 20,
-                  },
-                ]}>
-                Password
-              </Text>
-              <View style={styles.action}>
-                <Feather color="#05375a" name="lock" size={20} />
-                <TextInput
-                  autoCapitalize="none"
-                  placeholder="Your Password"
-                  secureTextEntry={data.secureTextEntry ? true : false}
-                  style={styles.textInput}
-                  onChangeText={val => handlePasswordChange(val)}
-                />
-                <TouchableOpacity onPress={updateSecureTextEntry}>
-                  {data.secureTextEntry ? (
-                    <Feather color="grey" name="eye-off" size={20} />
-                  ) : (
-                    <Feather color="grey" name="eye" size={20} />
+              <View style={activeTab === 1 && {height: 0, opacity: 0}}>
+                <Controller
+                  control={control}
+                  render={({onChange, value}) => (
+                    <Input
+                      title="Email"
+                      iconName="email-outline"
+                      iconMode="MaterialCommunityIcons"
+                      placeholder="Your Email"
+                      placeholderTextColor={colors.placeholderTextColor}
+                      onChangeText={onChange}
+                      value={value}
+                      errorMessage={errors.email && errors.email.message}
+                      isValid={!formState.errors.email && value.length > 4}
+                    />
                   )}
-                </TouchableOpacity>
+                  rules={{
+                    required: true,
+                    pattern: {
+                      value: EMAIL_REGEX,
+                      message: 'Email must be valid',
+                    },
+                  }}
+                  name="email"
+                  defaultValue=""
+                />
+                <Controller
+                  control={control}
+                  render={({onChange, value}) => (
+                    <>
+                      <Text style={[styles.textFooter, styles.tabItemStyle]}>
+                        Mobile phone
+                      </Text>
+                      <View style={styles.action}>
+                        <AntDesign color="#05375a" name="phone" size={20} />
+                        <TextInputMask
+                          autoComplete="off"
+                          autoCorrect={false}
+                          keyboardType="phone-pad"
+                          mask={'+[000] ([00]) [000] - [00] - [00]'}
+                          placeholder={'+375  ( __ )  ___  -  __  -  __'}
+                          placeholderTextColor="#666666"
+                          style={[styles.textInput, styles.phoneInput]}
+                          onChangeText={(formatted, extracted) =>
+                            onChange('+' + extracted)
+                          }
+                          value={value}
+                        />
+                        {!formState.errors.phoneNumber &&
+                        value.length === 13 ? (
+                          <Animatable.View animation="bounceIn">
+                            <Feather
+                              color="green"
+                              name="check-circle"
+                              size={20}
+                            />
+                          </Animatable.View>
+                        ) : null}
+                      </View>
+                    </>
+                  )}
+                  rules={{
+                    required: true,
+                  }}
+                  name="phoneNumber"
+                  defaultValue=""
+                />
+                <Controller
+                  control={control}
+                  render={({onChange, value}) => (
+                    <>
+                      <Text style={[styles.textFooter, styles.tabItemStyle]}>
+                        Birth date
+                      </Text>
+                      <View style={styles.action}>
+                        <MaterialCommunityIcons
+                          color="#05375a"
+                          name="calendar"
+                          size={20}
+                        />
+                        <DatePicker
+                          isFocused={isBirthInputFocused}
+                          label="Дата рождения"
+                          placeholderTextColor={colors.textInput}
+                          setFocused={setBirthInputFocused}
+                          value={value}
+                          onChange={onChange}
+                        />
+                      </View>
+                    </>
+                  )}
+                  rules={{
+                    required: true,
+                  }}
+                  name="birthDate"
+                  defaultValue=""
+                />
+                <Controller
+                  control={control}
+                  render={({onChange, value}) => (
+                    <Input
+                      title="Password"
+                      textStyle={{marginTop: 20}}
+                      iconName="lock"
+                      iconMode="Feather"
+                      placeholder="Your Password"
+                      placeholderTextColor={colors.placeholderTextColor}
+                      onChangeText={onChange}
+                      value={value}
+                      errorMessage={
+                        value !== '' &&
+                        value.length < 6 &&
+                        'Password must be at least 6 characters long'
+                      }
+                      isPassword={true}
+                      secureTextEntry={data.secureTextEntry}
+                      updateSecureTextEntry={updateSecureTextEntry}
+                      isValid={value.length > 5}
+                    />
+                  )}
+                  rules={{
+                    required: true,
+                    pattern: /[0-9a-zA-Z]{6,}/i,
+                  }}
+                  name="password"
+                  defaultValue=""
+                />
+                <ActivityButton
+                  text="Sign Up"
+                  type="primary"
+                  containerStyle={styles.tabItemStyle}
+                  disabled={isBtnDisabled}
+                  loading={loading}
+                  onPress={() => handleSubmit(onSubmit)()}
+                />
               </View>
-              <View style={styles.button}>
-                <TouchableOpacity style={styles.signIn} onPress={onSubmit}>
-                  <LinearGradient
-                    colors={['#08d4c4', '#01ab9d']}
-                    style={styles.signIn}>
-                    <Text
-                      style={[
-                        styles.textSign,
-                        {
-                          color: '#fff',
-                        },
-                      ]}>
-                      Sign Up
-                    </Text>
-                  </LinearGradient>
-                </TouchableOpacity>
-              </View> */}
-            </>
-          ) : null}
+            </FormProvider>
+          </View>
         </ScrollView>
       </Animatable.View>
     </View>

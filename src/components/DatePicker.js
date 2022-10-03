@@ -67,7 +67,7 @@ const DatePicker = ({
             }}
             onConfirm={date => {
               setFocused(false);
-              _onChange(new Date(date).toISOString());
+              _onChange(new Date(date).toISOString().slice(0, 10));
             }}
           />
         )}
