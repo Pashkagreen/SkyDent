@@ -13,9 +13,11 @@ const SignUpContainer = ({navigation}) => {
   const [data, setData] = useState({
     secureTextEntry: true,
   });
+  const [userIntermediateData, setUserIntermediateData] = useState(null);
 
   const [isBirthInputFocused, setBirthInputFocused] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [activeTab, setActiveTab] = useState(1);
 
   const refs = {
@@ -28,12 +30,17 @@ const SignUpContainer = ({navigation}) => {
   const onSubmit = async resultObject => {
     setLoading(true);
     const response = await RegistrationService.registration(resultObject);
-    console.log(response);
+
+    if (response.innerEntity.status === '200') {
+      setShowSuccessModal(true);
+    }
+
     await AuthService.setAccessTokenToStorage(response.innerEntity.accessToken);
     await AuthService.setRefreshTokenToStorage(
       response.innerEntity.refreshToken,
     );
-    dispatch(setUserData(response.innerEntity.userData));
+
+    setUserIntermediateData(response.innerEntity.userData);
     setLoading(false);
   };
 
@@ -48,6 +55,11 @@ const SignUpContainer = ({navigation}) => {
     setActiveTab(2);
   };
 
+  const handleModal = () => {
+    dispatch(setUserData(userIntermediateData));
+    setShowSuccessModal(false);
+  };
+
   return (
     <SignUpView
       data={data}
@@ -60,6 +72,9 @@ const SignUpContainer = ({navigation}) => {
       handleFirstSubmit={handleFirstSubmit}
       onSubmit={onSubmit}
       loading={loading}
+      handleModal={handleModal}
+      showModal={showSuccessModal}
+      setShowModal={setShowSuccessModal}
     />
   );
 };

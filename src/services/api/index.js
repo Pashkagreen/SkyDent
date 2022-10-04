@@ -31,11 +31,12 @@ const api = ky.extend({
     afterResponse: [
       async (request, options, response) => {
         try {
-          if (response.status === 403) {
+          if (response.status === 401) {
             const refreshToken = await AuthService.getRefreshTokenFromStorage();
-            const newTokens = await AuthService.refreshTokens({
-              refreshToken,
-            });
+            request.headers.set('Authorization', `Bearer ${refreshToken}`);
+
+            const newTokens = await AuthService.refreshTokens();
+
             await AuthService.setAccessTokenToStorage(newTokens.accessToken);
             await AuthService.setRefreshTokenToStorage(newTokens.refreshToken);
 

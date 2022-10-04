@@ -56,13 +56,12 @@ export default class AuthService {
    * @param {Object} data - { accessToken, refreshToken}
    * @returns {Promise<*>} // TODO
    */
-  static async refreshTokens(data) {
+  static async refreshTokens() {
     try {
       const request = await api.post(`${URL}${this.#API_ENDPOINTS.refresh}`, {
         headers: {
           'content-type': 'application/json',
         },
-        body: JSON.stringify(data),
       });
       if (request.status !== HTTP_STATUS.SUCCESS) {
         debug.error('refreshToken invalid status');

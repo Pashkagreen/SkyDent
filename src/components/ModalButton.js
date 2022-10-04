@@ -9,7 +9,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import {colors} from '../utils/colors';
 
-const ActivityButton = ({
+const ModalButton = ({
   text = '',
   disabled = false,
   containerStyle = {},
@@ -53,15 +53,15 @@ const renderBtnStyles = (disabled, type) => {
   switch (type) {
     case 'primary':
       return {
-        backgroundColor: ['#08d4c4', '#01ab9d'],
+        backgroundColor: ['#5496D7', '#2C5AB3'],
         color: colors.white,
       };
     case 'secondary':
       return {
         backgroundColor: ['transparent', 'transparent'],
         borderWidth: 1,
-        borderColor: colors.dentalGreen,
-        color: colors.dentalGreen,
+        borderColor: colors.himmelBlau,
+        color: colors.himmelBlau,
       };
     default:
       console.warn('Укажите тип');
@@ -93,4 +93,4 @@ const getStyles = (disabled, type) =>
     },
   });
 
-export default ActivityButton;
+export default ModalButton;

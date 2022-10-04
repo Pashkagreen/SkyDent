@@ -21,6 +21,7 @@ import {useForm, Controller, FormProvider} from 'react-hook-form';
 
 import DatePicker from '../../../components/DatePicker';
 import Picker from '../../../components/Picker';
+import UniversalModal from '../../../components/modals/UniversalModal';
 
 import {colors} from '../../../utils/colors';
 import {EMAIL_REGEX} from '../../../utils/func';
@@ -36,6 +37,8 @@ const SignUpView = ({
   activeTab,
   setActiveTab,
   handleFirstSubmit,
+  handleModal,
+  showModal,
 }) => {
   const {control, errors, handleSubmit, formState} = useForm({
     mode: 'onChange',
@@ -55,285 +58,299 @@ const SignUpView = ({
   ];
 
   return (
-    <View style={styles.container}>
-      <StatusBar
-        backgroundColor={colors.dentalGreen}
-        barStyle="light-content"
+    <>
+      <UniversalModal
+        title="You was successfully registered!"
+        image={require('../../../assets/images/success.png')}
+        description="An email has been sent to your email address containing an activation link. Please click on the link to activate your account."
+        buttonSuccessText="Continue"
+        successOnPress={handleModal}
+        showModal={showModal}
       />
-      <View style={styles.header}>
-        <Text style={styles.text_header}>Register Now!</Text>
-      </View>
-      <Animatable.View animation="fadeInUpBig" style={styles.footer}>
-        <View style={styles.swiperContainer}>
-          <TouchableOpacity
-            style={styles.swiperFirstItem}
-            onPress={() => setActiveTab(1)}
-            hitSlop={styles.hitSlop}></TouchableOpacity>
-          <TouchableOpacity
-            style={styles.swiperSecondItem}
-            // onPress={() => setActiveTab(2)}
-            hitSlop={styles.hitSlop}></TouchableOpacity>
+      <View style={styles.container}>
+        <StatusBar
+          backgroundColor={colors.dentalGreen}
+          barStyle="light-content"
+        />
+        <View style={styles.header}>
+          <Text style={styles.text_header}>Register Now!</Text>
         </View>
-        <ScrollView ref={refs.scrollRef} showsVerticalScrollIndicator={false}>
-          <View style={styles.tabContainerStyle}>
-            <FormProvider
-              handleSubmit={handleSubmit}
-              control={control}
-              errors={errors}>
-              <View style={activeTab === 2 && {height: 0, opacity: 0}}>
-                <Controller
-                  control={control}
-                  render={({onChange, value}) => (
-                    <Input
-                      title="First name"
-                      iconName="user-o"
-                      iconMode="FontAwesome"
-                      placeholder="Your first name"
-                      placeholderTextColor={colors.placeholderTextColor}
-                      onChangeText={onChange}
-                      value={value}
-                      isValid={!formState.errors.firstname && value.length > 2}
-                    />
-                  )}
-                  rules={{
-                    required: true,
-                    pattern: {
-                      value: /^[a-zA-Z ]{2,30}$/,
-                    },
-                  }}
-                  name="firstname"
-                  defaultValue=""
-                />
-                <Controller
-                  control={control}
-                  render={({onChange, value}) => (
-                    <Input
-                      title="Middle name"
-                      iconName="user-o"
-                      iconMode="FontAwesome"
-                      placeholder="Your middle name"
-                      textStyle={styles.tabItemStyle}
-                      placeholderTextColor={colors.placeholderTextColor}
-                      onChangeText={onChange}
-                      value={value}
-                      isValid={!formState.errors.patronymic && value.length > 2}
-                    />
-                  )}
-                  rules={{
-                    required: true,
-                    pattern: {
-                      value: /^[a-zA-Z ]{2,30}$/,
-                    },
-                  }}
-                  name="patronymic"
-                  defaultValue=""
-                />
-                <Controller
-                  control={control}
-                  render={({onChange, value}) => (
-                    <Input
-                      title="Last name"
-                      iconName="user-o"
-                      iconMode="FontAwesome"
-                      placeholder="Your last name"
-                      textStyle={styles.tabItemStyle}
-                      placeholderTextColor={colors.placeholderTextColor}
-                      onChangeText={onChange}
-                      value={value}
-                      isValid={!formState.errors.lastname && value.length > 2}
-                    />
-                  )}
-                  rules={{
-                    required: true,
-                    pattern: {
-                      value: /^[a-zA-Z ]{2,30}$/,
-                    },
-                  }}
-                  name="lastname"
-                  defaultValue=""
-                />
-                <Controller
-                  control={control}
-                  render={({onChange, value}) => (
-                    <>
-                      <Text style={[styles.textFooter, styles.tabItemStyle]}>
-                        Gender
-                      </Text>
-                      <View style={styles.action}>
-                        <FontAwesome
-                          color="#05375a"
-                          name="venus-mars"
-                          size={20}
-                        />
-                        <Picker
-                          items={pickerItems}
-                          label="Gender"
-                          pickerStyle={styles.textInput}
-                          placeholder={{
-                            label: 'Choose a gender',
-                          }}
-                          value={value}
-                          onChange={onChange}
-                        />
-                      </View>
-                    </>
-                  )}
-                  rules={{
-                    required: true,
-                  }}
-                  name="gender"
-                  defaultValue=""
-                />
-                <ActivityButton
-                  text="Continue"
-                  type="primary"
-                  containerStyle={styles.tabItemStyle}
-                  disabled={!isContinueEnabled}
-                  onPress={() => handleFirstSubmit()}
-                />
-              </View>
-
-              <View style={activeTab === 1 && {height: 0, opacity: 0}}>
-                <Controller
-                  control={control}
-                  render={({onChange, value}) => (
-                    <Input
-                      title="Email"
-                      iconName="email-outline"
-                      iconMode="MaterialCommunityIcons"
-                      placeholder="Your Email"
-                      placeholderTextColor={colors.placeholderTextColor}
-                      onChangeText={onChange}
-                      value={value}
-                      errorMessage={errors.email && errors.email.message}
-                      isValid={!formState.errors.email && value.length > 4}
-                    />
-                  )}
-                  rules={{
-                    required: true,
-                    pattern: {
-                      value: EMAIL_REGEX,
-                      message: 'Email must be valid',
-                    },
-                  }}
-                  name="email"
-                  defaultValue=""
-                />
-                <Controller
-                  control={control}
-                  render={({onChange, value}) => (
-                    <>
-                      <Text style={[styles.textFooter, styles.tabItemStyle]}>
-                        Mobile phone
-                      </Text>
-                      <View style={styles.action}>
-                        <AntDesign color="#05375a" name="phone" size={20} />
-                        <TextInputMask
-                          autoComplete="off"
-                          autoCorrect={false}
-                          keyboardType="phone-pad"
-                          mask={'+[000] ([00]) [000] - [00] - [00]'}
-                          placeholder={'+375  ( __ )  ___  -  __  -  __'}
-                          placeholderTextColor="#666666"
-                          style={[styles.textInput, styles.phoneInput]}
-                          onChangeText={(formatted, extracted) =>
-                            onChange('+' + extracted)
-                          }
-                          value={value}
-                        />
-                        {!formState.errors.phoneNumber &&
-                        value.length === 13 ? (
-                          <Animatable.View animation="bounceIn">
-                            <Feather
-                              color="green"
-                              name="check-circle"
-                              size={20}
-                            />
-                          </Animatable.View>
-                        ) : null}
-                      </View>
-                    </>
-                  )}
-                  rules={{
-                    required: true,
-                  }}
-                  name="phoneNumber"
-                  defaultValue=""
-                />
-                <Controller
-                  control={control}
-                  render={({onChange, value}) => (
-                    <>
-                      <Text style={[styles.textFooter, styles.tabItemStyle]}>
-                        Birth date
-                      </Text>
-                      <View style={styles.action}>
-                        <MaterialCommunityIcons
-                          color="#05375a"
-                          name="calendar"
-                          size={20}
-                        />
-                        <DatePicker
-                          isFocused={isBirthInputFocused}
-                          label="Дата рождения"
-                          placeholderTextColor={colors.textInput}
-                          setFocused={setBirthInputFocused}
-                          value={value}
-                          onChange={onChange}
-                        />
-                      </View>
-                    </>
-                  )}
-                  rules={{
-                    required: true,
-                  }}
-                  name="birthDate"
-                  defaultValue=""
-                />
-                <Controller
-                  control={control}
-                  render={({onChange, value}) => (
-                    <Input
-                      title="Password"
-                      textStyle={{marginTop: 20}}
-                      iconName="lock"
-                      iconMode="Feather"
-                      placeholder="Your Password"
-                      placeholderTextColor={colors.placeholderTextColor}
-                      onChangeText={onChange}
-                      value={value}
-                      errorMessage={
-                        value !== '' &&
-                        value.length < 6 &&
-                        'Password must be at least 6 characters long'
-                      }
-                      isPassword={true}
-                      secureTextEntry={data.secureTextEntry}
-                      updateSecureTextEntry={updateSecureTextEntry}
-                      isValid={value.length > 5}
-                    />
-                  )}
-                  rules={{
-                    required: true,
-                    pattern: /[0-9a-zA-Z]{6,}/i,
-                  }}
-                  name="password"
-                  defaultValue=""
-                />
-                <ActivityButton
-                  text="Sign Up"
-                  type="primary"
-                  containerStyle={styles.tabItemStyle}
-                  disabled={isBtnDisabled}
-                  loading={loading}
-                  onPress={() => handleSubmit(onSubmit)()}
-                />
-              </View>
-            </FormProvider>
+        <Animatable.View animation="fadeInUpBig" style={styles.footer}>
+          <View style={styles.swiperContainer}>
+            <TouchableOpacity
+              style={styles.swiperFirstItem}
+              onPress={() => setActiveTab(1)}
+              hitSlop={styles.hitSlop}></TouchableOpacity>
+            <TouchableOpacity
+              style={styles.swiperSecondItem}
+              // onPress={() => setActiveTab(2)}
+              hitSlop={styles.hitSlop}></TouchableOpacity>
           </View>
-        </ScrollView>
-      </Animatable.View>
-    </View>
+          <ScrollView ref={refs.scrollRef} showsVerticalScrollIndicator={false}>
+            <View style={styles.tabContainerStyle}>
+              <FormProvider
+                handleSubmit={handleSubmit}
+                control={control}
+                errors={errors}>
+                <View style={activeTab === 2 && {height: 0, opacity: 0}}>
+                  <Controller
+                    control={control}
+                    render={({onChange, value}) => (
+                      <Input
+                        title="First name"
+                        iconName="user-o"
+                        iconMode="FontAwesome"
+                        placeholder="Your first name"
+                        placeholderTextColor={colors.placeholderTextColor}
+                        onChangeText={onChange}
+                        value={value}
+                        isValid={
+                          !formState.errors.firstname && value.length > 2
+                        }
+                      />
+                    )}
+                    rules={{
+                      required: true,
+                      pattern: {
+                        value: /^[a-zA-Z ]{2,30}$/,
+                      },
+                    }}
+                    name="firstname"
+                    defaultValue=""
+                  />
+                  <Controller
+                    control={control}
+                    render={({onChange, value}) => (
+                      <Input
+                        title="Middle name"
+                        iconName="user-o"
+                        iconMode="FontAwesome"
+                        placeholder="Your middle name"
+                        textStyle={styles.tabItemStyle}
+                        placeholderTextColor={colors.placeholderTextColor}
+                        onChangeText={onChange}
+                        value={value}
+                        isValid={
+                          !formState.errors.patronymic && value.length > 2
+                        }
+                      />
+                    )}
+                    rules={{
+                      required: true,
+                      pattern: {
+                        value: /^[a-zA-Z ]{2,30}$/,
+                      },
+                    }}
+                    name="patronymic"
+                    defaultValue=""
+                  />
+                  <Controller
+                    control={control}
+                    render={({onChange, value}) => (
+                      <Input
+                        title="Last name"
+                        iconName="user-o"
+                        iconMode="FontAwesome"
+                        placeholder="Your last name"
+                        textStyle={styles.tabItemStyle}
+                        placeholderTextColor={colors.placeholderTextColor}
+                        onChangeText={onChange}
+                        value={value}
+                        isValid={!formState.errors.lastname && value.length > 2}
+                      />
+                    )}
+                    rules={{
+                      required: true,
+                      pattern: {
+                        value: /^[a-zA-Z ]{2,30}$/,
+                      },
+                    }}
+                    name="lastname"
+                    defaultValue=""
+                  />
+                  <Controller
+                    control={control}
+                    render={({onChange, value}) => (
+                      <>
+                        <Text style={[styles.textFooter, styles.tabItemStyle]}>
+                          Gender
+                        </Text>
+                        <View style={styles.action}>
+                          <FontAwesome
+                            color="#05375a"
+                            name="venus-mars"
+                            size={20}
+                          />
+                          <Picker
+                            items={pickerItems}
+                            label="Gender"
+                            pickerStyle={styles.textInput}
+                            placeholder={{
+                              label: 'Choose a gender',
+                            }}
+                            value={value}
+                            onChange={onChange}
+                          />
+                        </View>
+                      </>
+                    )}
+                    rules={{
+                      required: true,
+                    }}
+                    name="gender"
+                    defaultValue=""
+                  />
+                  <ActivityButton
+                    text="Continue"
+                    type="primary"
+                    containerStyle={styles.tabItemStyle}
+                    disabled={!isContinueEnabled}
+                    onPress={() => handleFirstSubmit()}
+                  />
+                </View>
+
+                <View style={activeTab === 1 && {height: 0, opacity: 0}}>
+                  <Controller
+                    control={control}
+                    render={({onChange, value}) => (
+                      <Input
+                        title="Email"
+                        iconName="email-outline"
+                        iconMode="MaterialCommunityIcons"
+                        placeholder="Your Email"
+                        placeholderTextColor={colors.placeholderTextColor}
+                        onChangeText={onChange}
+                        value={value}
+                        errorMessage={errors.email && errors.email.message}
+                        isValid={!formState.errors.email && value.length > 4}
+                      />
+                    )}
+                    rules={{
+                      required: true,
+                      pattern: {
+                        value: EMAIL_REGEX,
+                        message: 'Email must be valid',
+                      },
+                    }}
+                    name="email"
+                    defaultValue=""
+                  />
+                  <Controller
+                    control={control}
+                    render={({onChange, value}) => (
+                      <>
+                        <Text style={[styles.textFooter, styles.tabItemStyle]}>
+                          Mobile phone
+                        </Text>
+                        <View style={styles.action}>
+                          <AntDesign color="#05375a" name="phone" size={20} />
+                          <TextInputMask
+                            autoComplete="off"
+                            autoCorrect={false}
+                            keyboardType="phone-pad"
+                            mask={'+[000] ([00]) [000] - [00] - [00]'}
+                            placeholder={'+375  ( __ )  ___  -  __  -  __'}
+                            placeholderTextColor="#666666"
+                            style={[styles.textInput, styles.phoneInput]}
+                            onChangeText={(formatted, extracted) =>
+                              onChange('+' + extracted)
+                            }
+                            value={value}
+                          />
+                          {!formState.errors.phoneNumber &&
+                          value.length === 13 ? (
+                            <Animatable.View animation="bounceIn">
+                              <Feather
+                                color="green"
+                                name="check-circle"
+                                size={20}
+                              />
+                            </Animatable.View>
+                          ) : null}
+                        </View>
+                      </>
+                    )}
+                    rules={{
+                      required: true,
+                    }}
+                    name="phoneNumber"
+                    defaultValue=""
+                  />
+                  <Controller
+                    control={control}
+                    render={({onChange, value}) => (
+                      <>
+                        <Text style={[styles.textFooter, styles.tabItemStyle]}>
+                          Birth date
+                        </Text>
+                        <View style={styles.action}>
+                          <MaterialCommunityIcons
+                            color="#05375a"
+                            name="calendar"
+                            size={20}
+                          />
+                          <DatePicker
+                            isFocused={isBirthInputFocused}
+                            label="Дата рождения"
+                            placeholderTextColor={colors.textInput}
+                            setFocused={setBirthInputFocused}
+                            value={value}
+                            onChange={onChange}
+                          />
+                        </View>
+                      </>
+                    )}
+                    rules={{
+                      required: true,
+                    }}
+                    name="birthDate"
+                    defaultValue=""
+                  />
+                  <Controller
+                    control={control}
+                    render={({onChange, value}) => (
+                      <Input
+                        title="Password"
+                        textStyle={{marginTop: 20}}
+                        iconName="lock"
+                        iconMode="Feather"
+                        placeholder="Your Password"
+                        placeholderTextColor={colors.placeholderTextColor}
+                        onChangeText={onChange}
+                        value={value}
+                        errorMessage={
+                          value !== '' &&
+                          value.length < 6 &&
+                          'Password must be at least 6 characters long'
+                        }
+                        isPassword={true}
+                        secureTextEntry={data.secureTextEntry}
+                        updateSecureTextEntry={updateSecureTextEntry}
+                        isValid={value.length > 5}
+                      />
+                    )}
+                    rules={{
+                      required: true,
+                      pattern: /[0-9a-zA-Z]{6,}/i,
+                    }}
+                    name="password"
+                    defaultValue=""
+                  />
+                  <ActivityButton
+                    text="Sign Up"
+                    type="primary"
+                    containerStyle={styles.tabItemStyle}
+                    disabled={isBtnDisabled}
+                    loading={loading}
+                    onPress={() => handleSubmit(onSubmit)()}
+                  />
+                </View>
+              </FormProvider>
+            </View>
+          </ScrollView>
+        </Animatable.View>
+      </View>
+    </>
   );
 };
 

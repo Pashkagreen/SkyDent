@@ -12,6 +12,7 @@ export const colors = {
   juiceGreen: '#58E58D',
   aquaMarine: '#B7FBFF',
   doctorBlue: '#5893D4',
+  himmelBlau: '#2C5AB3',
   blue: '#4261d7',
   darkBlue: '#05375a',
   errorRed: '#FF0000',
