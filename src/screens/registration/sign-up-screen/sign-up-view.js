@@ -9,19 +9,19 @@ import {
   View,
 } from 'react-native';
 
+import {Controller, FormProvider, useForm} from 'react-hook-form';
 import * as Animatable from 'react-native-animatable';
 import TextInputMask from 'react-native-text-input-mask';
-import Input from '../../../components/Input';
-import ActivityButton from '../../../components/ActivityButton';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {useForm, Controller, FormProvider} from 'react-hook-form';
 
+import ActivityButton from '../../../components/ActivityButton';
 import DatePicker from '../../../components/DatePicker';
-import Picker from '../../../components/Picker';
+import Input from '../../../components/Input';
 import UniversalModal from '../../../components/modals/UniversalModal';
+import Picker from '../../../components/Picker';
 
 import {colors} from '../../../utils/colors';
 import {EMAIL_REGEX} from '../../../utils/func';
@@ -60,12 +60,12 @@ const SignUpView = ({
   return (
     <>
       <UniversalModal
-        title="You was successfully registered!"
-        image={require('../../../assets/images/success.png')}
-        description="An email has been sent to your email address containing an activation link. Please click on the link to activate your account."
         buttonSuccessText="Continue"
-        successOnPress={handleModal}
+        description="An email has been sent to your email address containing an activation link. Please click on the link to activate your account."
+        image={require('../../../assets/images/success.png')}
         showModal={showModal}
+        successOnPress={handleModal}
+        title="You was successfully registered!"
       />
       <View style={styles.container}>
         <StatusBar
@@ -78,35 +78,39 @@ const SignUpView = ({
         <Animatable.View animation="fadeInUpBig" style={styles.footer}>
           <View style={styles.swiperContainer}>
             <TouchableOpacity
+              hitSlop={styles.hitSlop}
               style={styles.swiperFirstItem}
               onPress={() => setActiveTab(1)}
-              hitSlop={styles.hitSlop}></TouchableOpacity>
+            />
             <TouchableOpacity
               style={styles.swiperSecondItem}
               // onPress={() => setActiveTab(2)}
-              hitSlop={styles.hitSlop}></TouchableOpacity>
+              hitSlop={styles.hitSlop}
+            />
           </View>
           <ScrollView ref={refs.scrollRef} showsVerticalScrollIndicator={false}>
             <View style={styles.tabContainerStyle}>
               <FormProvider
-                handleSubmit={handleSubmit}
                 control={control}
-                errors={errors}>
+                errors={errors}
+                handleSubmit={handleSubmit}>
                 <View style={activeTab === 2 && {height: 0, opacity: 0}}>
                   <Controller
                     control={control}
+                    defaultValue=""
+                    name="firstname"
                     render={({onChange, value}) => (
                       <Input
-                        title="First name"
-                        iconName="user-o"
                         iconMode="FontAwesome"
-                        placeholder="Your first name"
-                        placeholderTextColor={colors.placeholderTextColor}
-                        onChangeText={onChange}
-                        value={value}
+                        iconName="user-o"
                         isValid={
                           !formState.errors.firstname && value.length > 2
                         }
+                        placeholder="Your first name"
+                        placeholderTextColor={colors.placeholderTextColor}
+                        title="First name"
+                        value={value}
+                        onChangeText={onChange}
                       />
                     )}
                     rules={{
@@ -115,24 +119,24 @@ const SignUpView = ({
                         value: /^[a-zA-Z ]{2,30}$/,
                       },
                     }}
-                    name="firstname"
-                    defaultValue=""
                   />
                   <Controller
                     control={control}
+                    defaultValue=""
+                    name="patronymic"
                     render={({onChange, value}) => (
                       <Input
-                        title="Middle name"
-                        iconName="user-o"
                         iconMode="FontAwesome"
-                        placeholder="Your middle name"
-                        textStyle={styles.tabItemStyle}
-                        placeholderTextColor={colors.placeholderTextColor}
-                        onChangeText={onChange}
-                        value={value}
+                        iconName="user-o"
                         isValid={
                           !formState.errors.patronymic && value.length > 2
                         }
+                        placeholder="Your middle name"
+                        placeholderTextColor={colors.placeholderTextColor}
+                        textStyle={styles.tabItemStyle}
+                        title="Middle name"
+                        value={value}
+                        onChangeText={onChange}
                       />
                     )}
                     rules={{
@@ -141,22 +145,22 @@ const SignUpView = ({
                         value: /^[a-zA-Z ]{2,30}$/,
                       },
                     }}
-                    name="patronymic"
-                    defaultValue=""
                   />
                   <Controller
                     control={control}
+                    defaultValue=""
+                    name="lastname"
                     render={({onChange, value}) => (
                       <Input
-                        title="Last name"
-                        iconName="user-o"
                         iconMode="FontAwesome"
-                        placeholder="Your last name"
-                        textStyle={styles.tabItemStyle}
-                        placeholderTextColor={colors.placeholderTextColor}
-                        onChangeText={onChange}
-                        value={value}
+                        iconName="user-o"
                         isValid={!formState.errors.lastname && value.length > 2}
+                        placeholder="Your last name"
+                        placeholderTextColor={colors.placeholderTextColor}
+                        textStyle={styles.tabItemStyle}
+                        title="Last name"
+                        value={value}
+                        onChangeText={onChange}
                       />
                     )}
                     rules={{
@@ -165,11 +169,11 @@ const SignUpView = ({
                         value: /^[a-zA-Z ]{2,30}$/,
                       },
                     }}
-                    name="lastname"
-                    defaultValue=""
                   />
                   <Controller
                     control={control}
+                    defaultValue=""
+                    name="gender"
                     render={({onChange, value}) => (
                       <>
                         <Text style={[styles.textFooter, styles.tabItemStyle]}>
@@ -197,14 +201,12 @@ const SignUpView = ({
                     rules={{
                       required: true,
                     }}
-                    name="gender"
-                    defaultValue=""
                   />
                   <ActivityButton
-                    text="Continue"
-                    type="primary"
                     containerStyle={styles.tabItemStyle}
                     disabled={!isContinueEnabled}
+                    text="Continue"
+                    type="primary"
                     onPress={() => handleFirstSubmit()}
                   />
                 </View>
@@ -212,17 +214,19 @@ const SignUpView = ({
                 <View style={activeTab === 1 && {height: 0, opacity: 0}}>
                   <Controller
                     control={control}
+                    defaultValue=""
+                    name="email"
                     render={({onChange, value}) => (
                       <Input
-                        title="Email"
-                        iconName="email-outline"
+                        errorMessage={errors.email && errors.email.message}
                         iconMode="MaterialCommunityIcons"
+                        iconName="email-outline"
+                        isValid={!formState.errors.email && value.length > 4}
                         placeholder="Your Email"
                         placeholderTextColor={colors.placeholderTextColor}
-                        onChangeText={onChange}
+                        title="Email"
                         value={value}
-                        errorMessage={errors.email && errors.email.message}
-                        isValid={!formState.errors.email && value.length > 4}
+                        onChangeText={onChange}
                       />
                     )}
                     rules={{
@@ -232,11 +236,11 @@ const SignUpView = ({
                         message: 'Email must be valid',
                       },
                     }}
-                    name="email"
-                    defaultValue=""
                   />
                   <Controller
                     control={control}
+                    defaultValue=""
+                    name="phoneNumber"
                     render={({onChange, value}) => (
                       <>
                         <Text style={[styles.textFooter, styles.tabItemStyle]}>
@@ -252,10 +256,10 @@ const SignUpView = ({
                             placeholder={'+375  ( __ )  ___  -  __  -  __'}
                             placeholderTextColor="#666666"
                             style={[styles.textInput, styles.phoneInput]}
+                            value={value}
                             onChangeText={(formatted, extracted) =>
                               onChange('+' + extracted)
                             }
-                            value={value}
                           />
                           {!formState.errors.phoneNumber &&
                           value.length === 13 ? (
@@ -273,11 +277,11 @@ const SignUpView = ({
                     rules={{
                       required: true,
                     }}
-                    name="phoneNumber"
-                    defaultValue=""
                   />
                   <Controller
                     control={control}
+                    defaultValue=""
+                    name="birthDate"
                     render={({onChange, value}) => (
                       <>
                         <Text style={[styles.textFooter, styles.tabItemStyle]}>
@@ -303,45 +307,43 @@ const SignUpView = ({
                     rules={{
                       required: true,
                     }}
-                    name="birthDate"
-                    defaultValue=""
                   />
                   <Controller
                     control={control}
+                    defaultValue=""
+                    name="password"
                     render={({onChange, value}) => (
                       <Input
-                        title="Password"
-                        textStyle={{marginTop: 20}}
-                        iconName="lock"
-                        iconMode="Feather"
-                        placeholder="Your Password"
-                        placeholderTextColor={colors.placeholderTextColor}
-                        onChangeText={onChange}
-                        value={value}
                         errorMessage={
                           value !== '' &&
                           value.length < 6 &&
                           'Password must be at least 6 characters long'
                         }
+                        iconMode="Feather"
+                        iconName="lock"
                         isPassword={true}
-                        secureTextEntry={data.secureTextEntry}
-                        updateSecureTextEntry={updateSecureTextEntry}
                         isValid={value.length > 5}
+                        placeholder="Your Password"
+                        placeholderTextColor={colors.placeholderTextColor}
+                        secureTextEntry={data.secureTextEntry}
+                        textStyle={{marginTop: 20}}
+                        title="Password"
+                        updateSecureTextEntry={updateSecureTextEntry}
+                        value={value}
+                        onChangeText={onChange}
                       />
                     )}
                     rules={{
                       required: true,
                       pattern: /[0-9a-zA-Z]{6,}/i,
                     }}
-                    name="password"
-                    defaultValue=""
                   />
                   <ActivityButton
-                    text="Sign Up"
-                    type="primary"
                     containerStyle={styles.tabItemStyle}
                     disabled={isBtnDisabled}
                     loading={loading}
+                    text="Sign Up"
+                    type="primary"
                     onPress={() => handleSubmit(onSubmit)()}
                   />
                 </View>
@@ -443,14 +445,12 @@ const getStyles = activeTab =>
     },
     swiperFirstItem: {
       width: '48%',
-      height: '100%',
       backgroundColor: colors.dentalGreen,
       borderRadius: 30,
       height: 5,
     },
     swiperSecondItem: {
       width: '48%',
-      height: '100%',
       backgroundColor:
         activeTab === 2 ? colors.dentalGreen : colors.backgroundGrey,
       borderRadius: 30,

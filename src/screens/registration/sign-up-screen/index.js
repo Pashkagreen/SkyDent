@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
 import {useDispatch} from 'react-redux';
 
-import AuthService from '../../../services/auth';
+import EncryptedStorage from 'react-native-encrypted-storage';
+
+import {debug} from '../../../services';
 import RegistrationService from '../../../services/registration';
+import {setUserData} from '../../../store/reducers/user';
 
 import SignUpView from './sign-up-view';
-
-import {setUserData} from '../../../store/actions/user/index';
 
 const SignUpContainer = ({navigation}) => {
   const dispatch = useDispatch();
@@ -28,20 +29,30 @@ const SignUpContainer = ({navigation}) => {
   };
 
   const onSubmit = async resultObject => {
-    setLoading(true);
-    const response = await RegistrationService.registration(resultObject);
+    try {
+      setLoading(true);
+      console.log('resultObject', resultObject);
 
-    if (response.innerEntity.status === '200') {
+      const response = await RegistrationService.registration(resultObject);
+
       setShowSuccessModal(true);
+
+      await EncryptedStorage.setItem(
+        'accessToken',
+        response.innerEntity.accessToken,
+      );
+      await EncryptedStorage.setItem(
+        'refreshToken',
+        response.innerEntity.refreshToken,
+      );
+
+      setUserIntermediateData(response.innerEntity.userData);
+    } catch (error) {
+      console.log('error 21', error);
+      debug.log('api-error', error);
+    } finally {
+      setLoading(false);
     }
-
-    await AuthService.setAccessTokenToStorage(response.innerEntity.accessToken);
-    await AuthService.setRefreshTokenToStorage(
-      response.innerEntity.refreshToken,
-    );
-
-    setUserIntermediateData(response.innerEntity.userData);
-    setLoading(false);
   };
 
   const updateSecureTextEntry = () => {
@@ -62,19 +73,19 @@ const SignUpContainer = ({navigation}) => {
 
   return (
     <SignUpView
-      data={data}
-      isBirthInputFocused={isBirthInputFocused}
-      refs={refs}
       activeTab={activeTab}
+      data={data}
+      handleFirstSubmit={handleFirstSubmit}
+      handleModal={handleModal}
+      isBirthInputFocused={isBirthInputFocused}
+      loading={loading}
+      refs={refs}
       setActiveTab={setActiveTab}
       setBirthInputFocused={setBirthInputFocused}
-      updateSecureTextEntry={updateSecureTextEntry}
-      handleFirstSubmit={handleFirstSubmit}
-      onSubmit={onSubmit}
-      loading={loading}
-      handleModal={handleModal}
-      showModal={showSuccessModal}
       setShowModal={setShowSuccessModal}
+      showModal={showSuccessModal}
+      updateSecureTextEntry={updateSecureTextEntry}
+      onSubmit={onSubmit}
     />
   );
 };

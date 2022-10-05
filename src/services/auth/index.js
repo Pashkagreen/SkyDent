@@ -1,13 +1,7 @@
-/**
- * @prettier
- */
+import EncryptedStorage from 'react-native-encrypted-storage';
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-import {HTTP_STATUS, URL} from '../config';
-
-import {api, debug} from '..';
-
+import {debug} from '..';
+import {requestWrapper} from '../api';
 /**
  * Auth service
  * @signIn()
@@ -23,32 +17,15 @@ export default class AuthService {
     refresh: '/tokens/refresh',
   };
 
+  static #request = requestWrapper();
+
   /**
    * Login user
    * @param {Object}
    * @returns {Promise<Object>}
    */
   static async signIn(data) {
-    try {
-      const request = await api.post(`${URL}${this.#API_ENDPOINTS.signIn}`, {
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-      if (request.status !== HTTP_STATUS.SUCCESS) {
-        debug.error('signIn invalid status');
-        return request;
-      }
-      const requestData = await request.json();
-
-      if (requestData.innerEntity.accessToken) {
-        return requestData;
-      }
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
+    return this.#request.post(this.#API_ENDPOINTS.signIn, data);
   }
 
   /**
@@ -57,100 +34,19 @@ export default class AuthService {
    * @returns {Promise<*>} // TODO
    */
   static async refreshTokens() {
+    return this.#request.post(this.#API_ENDPOINTS.refresh);
+  }
+
+  static async logOut() {
     try {
-      const request = await api.post(`${URL}${this.#API_ENDPOINTS.refresh}`, {
-        headers: {
-          'content-type': 'application/json',
-        },
-      });
-      if (request.status !== HTTP_STATUS.SUCCESS) {
-        debug.error('refreshToken invalid status');
-        return Promise.reject();
+      const accessToken = await EncryptedStorage.getItem('accessToken');
+      const refreshToken = await EncryptedStorage.getItem('refreshToken');
+      if (accessToken && refreshToken) {
+        await EncryptedStorage.removeItem('accessToken');
+        await EncryptedStorage.removeItem('refreshToken');
       }
-
-      return await request.json();
     } catch (error) {
-      debug.error(`Failed to refresh user token with data ${data}`, error);
-      throw error;
-    }
-  }
-
-  /**
-   * Get auth token from async storage
-   * @return {Promise<String>} - Auth token
-   */
-  static async getAccessTokenFromStorage() {
-    try {
-      return await AsyncStorage.getItem('authToken');
-    } catch (error) {
-      debug.error('Failed to get auth token', error);
-      throw error;
-    }
-  }
-
-  /**
-   * Get auth token from async storage
-   * @return {Promise<String>} - Auth token
-   */
-  static async getRefreshTokenFromStorage() {
-    try {
-      return await AsyncStorage.getItem('refreshToken');
-    } catch (error) {
-      debug.error('Failed to get auth token', error);
-      throw error;
-    }
-  }
-
-  /**
-   * Set auth token to async storage
-   * @param {String} token
-   * @return {Promise<void>}
-   */
-  static async setAccessTokenToStorage(token) {
-    try {
-      return await AsyncStorage.setItem('authToken', token);
-    } catch (error) {
-      debug.error('Failed to set auth token', error);
-      throw error;
-    }
-  }
-
-  /**
-   * Set refresh token to async storage
-   * @param {String} token
-   * @return {Promise<void>}
-   */
-  static async setRefreshTokenToStorage(token) {
-    try {
-      return await AsyncStorage.setItem('refreshToken', token);
-    } catch (error) {
-      debug.error('Failed to set refresh token', error);
-      throw error;
-    }
-  }
-
-  /**
-   * Remove refresh token from async storage
-   * @return {Promise<void>}
-   */
-  static async removeRefreshTokenFromStorage() {
-    try {
-      return await AsyncStorage.removeItem('refreshToken');
-    } catch (error) {
-      debug.error('Failed to remove refresh token', error);
-      throw error;
-    }
-  }
-
-  /**
-   * Remove auth token from async storage
-   * @return {Promise<void>}
-   */
-  static async removeAccessTokenFromStorage() {
-    try {
-      return await AsyncStorage.removeItem('authToken');
-    } catch (error) {
-      debug.error('Failed to remove auth token', error);
+      debug.error('Failed to remove tokens', error);
       throw error;
     }
   }

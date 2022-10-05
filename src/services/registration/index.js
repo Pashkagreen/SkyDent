@@ -1,10 +1,4 @@
-/**
- * @prettier
- */
-
-import {HTTP_STATUS, URL} from '../config';
-
-import {api, debug} from '..';
+import {requestWrapper} from '../api';
 
 /**
  * Registration service
@@ -18,29 +12,26 @@ export default class RegistrationService {
     registration: '/register',
   };
 
+  static #request = requestWrapper();
+
   /**
    * Register user
-   * @param {Object} data - { firstName, patronymic, lastname, birthDate, gender, phoneNumber, email, password}
+   * @returns {
+   *  {
+   *     "firstName": "string",
+   *     "patronymic": "string",
+   *     "patronymic": "string",
+   *     "birthDate": "string",
+   *     "gender": "string",
+   *     "phoneNumber": "string",
+   *     "email": "string",
+   *     "password": "string",
+   *     "responseMessage": "string"
+   *  },
+   * }
    */
+
   static async registration(data) {
-    try {
-      const request = await api.put(
-        `${URL}${this.#API_ENDPOINTS.registration}`,
-        {
-          headers: {
-            'content-type': 'application/json',
-          },
-          body: JSON.stringify(data),
-        },
-      );
-      if (request.status !== HTTP_STATUS.CREATED) {
-        debug.error('signUp invalid status');
-        return Promise.reject();
-      }
-      return request.json();
-    } catch (error) {
-      debug.error(`Failed to registration with data ${data}`, error);
-      throw error;
-    }
+    return this.#request.put(this.#API_ENDPOINTS.registration, data);
   }
 }

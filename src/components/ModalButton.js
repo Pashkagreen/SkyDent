@@ -1,10 +1,11 @@
 import React from 'react';
 import {
-  Text,
-  TouchableOpacity,
   ActivityIndicator,
   StyleSheet,
+  Text,
+  TouchableOpacity,
 } from 'react-native';
+
 import LinearGradient from 'react-native-linear-gradient';
 
 import {colors} from '../utils/colors';
@@ -22,8 +23,8 @@ const ModalButton = ({
 
   return (
     <TouchableOpacity
-      style={[styles.container, containerStyle]}
       disabled={disabled || loading}
+      style={[styles.container, containerStyle]}
       onPress={onPress}>
       {loading ? (
         <LinearGradient

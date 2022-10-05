@@ -1,21 +1,22 @@
 import React, {memo} from 'react';
 import {
+  KeyboardAvoidingView,
   Platform,
   StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
-  KeyboardAvoidingView,
 } from 'react-native';
+
+import {Controller, FormProvider, useForm} from 'react-hook-form';
+import * as Animatable from 'react-native-animatable';
+
+import ActivityButton from '../../../components/ActivityButton';
 import Input from '../../../components/Input';
 
-import * as Animatable from 'react-native-animatable';
-import {useForm, Controller, FormProvider} from 'react-hook-form';
-import {EMAIL_REGEX} from '../../../utils/func';
-
 import {colors} from '../../../utils/colors';
-import ActivityButton from '../../../components/ActivityButton';
+import {EMAIL_REGEX} from '../../../utils/func';
 
 const LoginView = props => {
   const {control, errors, handleSubmit, formState} = useForm({
@@ -35,22 +36,24 @@ const LoginView = props => {
       <Animatable.View animation="fadeInUpBig" style={styles.footer}>
         <KeyboardAvoidingView>
           <FormProvider
-            handleSubmit={handleSubmit}
             control={control}
-            errors={errors}>
+            errors={errors}
+            handleSubmit={handleSubmit}>
             <Controller
               control={control}
+              defaultValue=""
+              name="email"
               render={({onChange, value}) => (
                 <Input
-                  title="Email"
-                  iconName="email-outline"
+                  errorMessage={errors.email && errors.email.message}
                   iconMode="MaterialCommunityIcons"
+                  iconName="email-outline"
+                  isValid={!formState.errors.email && value.length > 4}
                   placeholder="Your Email"
                   placeholderTextColor={colors.placeholderTextColor}
-                  onChangeText={onChange}
+                  title="Email"
                   value={value}
-                  errorMessage={errors.email && errors.email.message}
-                  isValid={!formState.errors.email && value.length > 4}
+                  onChangeText={onChange}
                 />
               )}
               rules={{
@@ -60,38 +63,36 @@ const LoginView = props => {
                   message: 'Email must be valid',
                 },
               }}
-              name="email"
-              defaultValue=""
             />
             <Controller
               control={control}
+              defaultValue=""
+              name="password"
               render={({onChange, value}) => (
                 <Input
-                  title="Password"
-                  textStyle={{marginTop: 20}}
-                  iconName="lock"
-                  iconMode="Feather"
-                  placeholder="Your Password"
-                  placeholderTextColor={colors.placeholderTextColor}
-                  onChangeText={onChange}
-                  value={value}
                   errorMessage={
                     value !== '' &&
                     value.length < 6 &&
                     'Password must be at least 6 characters long'
                   }
+                  iconMode="Feather"
+                  iconName="lock"
                   isPassword={true}
-                  secureTextEntry={props.secureTextEntry}
-                  updateSecureTextEntry={props.updateSecureTextEntry}
                   isValid={value.length > 5}
+                  placeholder="Your Password"
+                  placeholderTextColor={colors.placeholderTextColor}
+                  secureTextEntry={props.secureTextEntry}
+                  textStyle={{marginTop: 20}}
+                  title="Password"
+                  updateSecureTextEntry={props.updateSecureTextEntry}
+                  value={value}
+                  onChangeText={onChange}
                 />
               )}
               rules={{
                 required: true,
                 pattern: /[0-9a-zA-Z]{6,}/i,
               }}
-              name="password"
-              defaultValue=""
             />
             <TouchableOpacity>
               <Text style={{color: colors.dentalGreen, marginTop: 15}}>
@@ -100,15 +101,14 @@ const LoginView = props => {
             </TouchableOpacity>
             <View style={styles.button}>
               <ActivityButton
-                onPress={() => handleSubmit(props.loginHandle)()}
-                text="Sign In"
-                type="primary"
                 disabled={isBtnDisabled}
                 loading={props.loading}
+                text="Sign In"
+                type="primary"
+                onPress={() => handleSubmit(props.loginHandle)()}
               />
 
               <TouchableOpacity
-                onPress={props.goToSignUp}
                 style={[
                   styles.signIn,
                   {
@@ -116,7 +116,8 @@ const LoginView = props => {
                     borderWidth: 1,
                     marginTop: 15,
                   },
-                ]}>
+                ]}
+                onPress={props.goToSignUp}>
                 <Text
                   style={[
                     styles.textSign,

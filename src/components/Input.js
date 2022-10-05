@@ -1,17 +1,19 @@
-import {colors} from '../utils/colors';
 import React from 'react';
 import {
   Platform,
   StyleSheet,
   Text,
-  TouchableOpacity,
   TextInput,
+  TouchableOpacity,
   View,
 } from 'react-native';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import * as Animatable from 'react-native-animatable';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import * as Animatable from 'react-native-animatable';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import {colors} from '../utils/colors';
 
 const Input = ({
   title = '',
@@ -35,39 +37,39 @@ const Input = ({
       <Text style={[styles.text_footer, textStyle]}>{title}</Text>
       <View style={styles.action}>
         {iconMode === 'Feather' ? (
-          <Feather name={iconName} color={colors.darkBlue} size={20} />
+          <Feather color={colors.darkBlue} name={iconName} size={20} />
         ) : iconMode === 'MaterialCommunityIcons' ? (
           <MaterialCommunityIcons
-            name={iconName}
             color={colors.darkBlue}
+            name={iconName}
             size={20}
           />
         ) : (
-          <FontAwesome name={iconName} color={colors.darkBlue} size={20} />
+          <FontAwesome color={colors.darkBlue} name={iconName} size={20} />
         )}
         <TextInput
+          autoCapitalize="none"
           placeholder={placeholder}
           placeholderTextColor={placeholderTextColor}
-          style={[styles.textInput, inputStyle]}
-          autoCapitalize="none"
           secureTextEntry={secureTextEntry}
+          style={[styles.textInput, inputStyle]}
+          value={value}
           onChangeText={onChangeText}
           onEndEditing={onEndEditing}
-          value={value}
         />
         {isValid && (
           <Animatable.View animation="bounceIn">
-            <Feather name="check-circle" color="green" size={20} />
+            <Feather color="green" name="check-circle" size={20} />
           </Animatable.View>
         )}
         {isPassword && (
           <TouchableOpacity
-            onPress={() => updateSecureTextEntry(!secureTextEntry)}
-            style={{marginLeft: 15}}>
+            style={{marginLeft: 15}}
+            onPress={() => updateSecureTextEntry(!secureTextEntry)}>
             {secureTextEntry ? (
-              <Feather name="eye-off" color="grey" size={20} />
+              <Feather color="grey" name="eye-off" size={20} />
             ) : (
-              <Feather name="eye" color="grey" size={20} />
+              <Feather color="grey" name="eye" size={20} />
             )}
           </TouchableOpacity>
         )}

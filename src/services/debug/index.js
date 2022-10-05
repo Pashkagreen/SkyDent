@@ -1,117 +1,55 @@
-/**
- * @prettier
- */
-
-const DEBUG_PREFIX = '[SKYDENT DEBUG] : ';
-const DEBUG_PREFIX_SUCCESS = '[SKYDENT DEBUG] SUCCESS : ';
-const DEBUG_PREFIX_ERROR = '[SKYDENT DEBUG] ERROR : ';
-
-/**
- * Debugging
- */
 class Debug {
   /**
-   * Set true when you are in development mode
-   * @type {boolean}
+   * @param {'default' | 'error' | 'info' | 'warn' | 'api-success' | 'api-error' | 'success' | 'complited'} variant
+   * @param {string} text
+   * @param {object} data
+   * @returns
    */
-  #isDevelopment = true;
+  log(variant = 'default', text = 'Hello world', data) {
+    const consoleStyles = {
+      default: 'color: Orchid;',
+      info: 'color: SkyBlue;',
+      warn: 'color: Khaki;',
+      error: 'color: red;',
+      'api-success': 'color: PaleGreen;',
+      'api-error': 'color: red;',
+      cloud: 'color: LightSkyBlue;',
+      complited: 'color: PaleGreen;',
+      success: 'color: PaleGreen;',
+    };
 
-  /**
-   * Set true when you are in production mode
-   * @type {boolean}
-   */
-  #isProduction = !this.#isDevelopment;
+    const finishText = () => {
+      switch (variant) {
+        case 'error':
+          return `🆘[ERROR] ${text}`;
+        case 'warn':
+          return `[WARN] ${text}`;
+        case 'info':
+          return `[INFO] ${text}`;
+        case 'success':
+          return `✅[SUCCESS] ${text}`;
+        case 'api-success':
+          return `[API SUCCESS] ${text}`;
+        case 'api-error':
+          return `🆘[API ERROR] ${text}`;
+        case 'complited':
+          return `✅[COMPLITED] ${text}`;
+        default:
+          return text;
+      }
+    };
 
-  /**
-   * Set names of methods that are available in development mode
-   */
-  #showIfDevelopment = ['info', 'success', 'error'];
-
-  /**
-   * Set names of methods that are available in production mode
-   */
-  #showIfProduction = ['error'];
-
-  /**
-   * Returns true if method allowed for current development or production mode.
-   * If there is not development or production always return false.
-   * @param {String} method - name of method
-   * @returns {boolean}
-   */
-  makeOrNot(method) {
-    if (this.#isDevelopment) {
-      return this.#showIfDevelopment.includes(method);
-    }
-
-    if (this.#isProduction) {
-      return this.#showIfProduction.includes(method);
-    }
-
-    /**
-     * Don't show logs by default
-     */
-    return false;
-  }
-
-  /**
-   * Info log
-   * @param {String} message - log message
-   * @param data - all other arguments
-   */
-  info(message, ...data) {
-    if (this.makeOrNot('info')) {
-      console.log(
-        `%c${new Date().toISOString()}`,
-        'color: white',
-        DEBUG_PREFIX,
-        message,
-        data,
+    if (__DEV__) {
+      return console.log(
+        '%c%s',
+        consoleStyles[variant],
+        finishText(),
+        data ? '=> ' : '',
+        data || '',
       );
     }
-  }
-
-  /**
-   * Info log success
-   * @param {String} message - log message
-   * @param data - all other arguments
-   */
-  success(message, ...data) {
-    if (this.makeOrNot('success')) {
-      console.info(
-        `%c${new Date().toISOString()} %c${DEBUG_PREFIX_SUCCESS}`,
-        'color: white',
-        'color: green',
-        message,
-        data,
-      );
-    }
-  }
-
-  /**
-   * Error log
-   * @param {String} message - log message
-   * @param data - all other arguments
-   */
-  error(message, ...data) {
-    if (this.makeOrNot('error')) {
-      console.warn(
-        `%c${new Date().toISOString()} %c${DEBUG_PREFIX_ERROR}`,
-        'color: white',
-        'color: red',
-        message,
-        data,
-      );
-    }
-  }
-
-  /**
-   * Clear the console
-   */
-  clear() {
-    console.clear();
   }
 }
 
 const debug = new Debug();
-
 export default debug;

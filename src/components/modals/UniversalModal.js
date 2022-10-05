@@ -1,11 +1,13 @@
 import React from 'react';
-import {View, StyleSheet, Text} from 'react-native';
-import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import {StyleSheet, Text, View} from 'react-native';
 
 import FastImage from 'react-native-fast-image';
+import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+
+import {colors} from '../../utils/colors';
+
 import ModalButton from '../ModalButton';
 import ModalWrapper from './ModalWrapper';
-import {colors} from '../../utils/colors';
 
 const UniversalModal = ({
   title = '',
@@ -32,16 +34,16 @@ const UniversalModal = ({
 
   return (
     <ModalWrapper
-      swipeable={false}
       setShowModal={setShowModal}
-      showModal={showModal}>
+      showModal={showModal}
+      swipeable={false}>
       <View style={styles.container}>
         <View style={styles.contentWrapper}>
           <View style={styles.imageContainer}>
             <FastImage
-              style={styles.imageStyle}
-              source={image}
               resizeMode="cover"
+              source={image}
+              style={styles.imageStyle}
             />
           </View>
 

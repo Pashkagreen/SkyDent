@@ -2,22 +2,31 @@ import React, {useEffect} from 'react';
 import {Provider} from 'react-redux';
 
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
+import EncryptedStorage from 'react-native-encrypted-storage';
 import SplashScreen from 'react-native-splash-screen';
 import {PersistGate} from 'redux-persist/integration/react';
+
+import {debug} from './src/services/index.js';
 
 import {colors} from './src/utils/colors';
 
 import RootNavigation from './src/navigation/RootNavigation';
-import reduxStore from './src/store/index';
-import AuthService from './src/services/auth';
+import {persistor, store} from './src/store';
 
 const App = () => {
-  const {store, persistor} = reduxStore();
-
   const getTokens = async () => {
-    const accessToken = await AuthService.getAccessTokenFromStorage();
-    const refreshToken = await AuthService.getRefreshTokenFromStorage();
-    console.log('access token: ', accessToken, 'refresh token: ', refreshToken);
+    try {
+      const accessToken = await EncryptedStorage.getItem('accessToken');
+      const refreshToken = await EncryptedStorage.getItem('refreshToken');
+      console.log(
+        'access token: ',
+        accessToken,
+        'refresh token: ',
+        refreshToken,
+      );
+    } catch (error) {
+      debug.log('failed get tokens', error);
+    }
   };
 
   useEffect(() => {

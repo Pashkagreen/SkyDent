@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 
 import Modal from 'react-native-modal';
 
@@ -24,26 +24,6 @@ const ModalWrapper = ({
 
   return (
     <Modal
-      avoidKeyboard={avoidKeyboard}
-      backdropOpacity={1}
-      isVisible={showModal}
-      transparent={transparent}
-      useNativeDriver={true}
-      animationIn={animationIn}
-      animationOut={animationOut}
-      backdropColor={'rgba(229, 229, 229, 0.8)'}
-      onBackdropPress={closeModal}
-      onRequestClose={closeModal}
-      onModalHide={onModalHide}
-      swipeDirection={swipeable ? ['down'] : null}
-      onSwipeComplete={swipeable ? closeModal : null}
-      swipeThreshold={swipeable ? 100 : null}
-      style={[styles.modal, style]}
-      backdropTransitionOutTiming={400}
-      backdropTransitionInTiming={400}
-      animationOutTiming={400}
-      animationInTiming={400}
-      hideModalContentWhileAnimating={true}
       children={
         Object.keys(modalWindowData).length ? (
           modalWindowData
@@ -51,6 +31,26 @@ const ModalWrapper = ({
           <View style={[styles.content, styleContent]}>{children}</View>
         )
       }
+      animationIn={animationIn}
+      animationInTiming={400}
+      animationOut={animationOut}
+      animationOutTiming={400}
+      avoidKeyboard={avoidKeyboard}
+      backdropColor={'rgba(229, 229, 229, 0.8)'}
+      backdropOpacity={1}
+      backdropTransitionInTiming={400}
+      backdropTransitionOutTiming={400}
+      hideModalContentWhileAnimating={true}
+      isVisible={showModal}
+      style={[styles.modal, style]}
+      swipeDirection={swipeable ? ['down'] : null}
+      swipeThreshold={swipeable ? 100 : null}
+      transparent={transparent}
+      useNativeDriver={true}
+      onBackdropPress={closeModal}
+      onModalHide={onModalHide}
+      onRequestClose={closeModal}
+      onSwipeComplete={swipeable ? closeModal : null}
     />
   );
 };

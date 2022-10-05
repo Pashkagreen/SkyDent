@@ -1,9 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
+
+import EncryptedStorage from 'react-native-encrypted-storage';
+
 import AuthService from '../../../services/auth';
+import {setFirstLaunch} from '../../../store/reducers/app';
+import {setUserData} from '../../../store/reducers/user';
+
 import LoginView from './login-view';
-import {setFirstLaunch} from '../../../store/actions/app/index';
-import {setUserData} from '../../../store/actions/user';
 
 const LoginContainer = ({navigation}) => {
   const dispatch = useDispatch();
@@ -17,21 +21,28 @@ const LoginContainer = ({navigation}) => {
   };
 
   const signIn = async userData => {
-    setLoading(true);
     try {
+      setLoading(true);
+      console.log('test');
       const response = await AuthService.signIn(userData);
       console.log('response', response);
-      await AuthService.setAccessTokenToStorage(
+
+      await EncryptedStorage.setItem(
+        'accessToken',
         response.innerEntity.accessToken,
       );
-      await AuthService.setRefreshTokenToStorage(
+      await EncryptedStorage.setItem(
+        'refreshToken',
         response.innerEntity.refreshToken,
       );
+
       dispatch(setUserData(response.innerEntity.userData));
-      setLoading(false);
+
       navigation.navigate('Main');
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -50,11 +61,11 @@ const LoginContainer = ({navigation}) => {
   return (
     <LoginView
       goToSignUp={goToSignUp}
-      refs={refs}
+      loading={loading}
       loginHandle={loginHandle}
+      refs={refs}
       secureTextEntry={secureTextEntry}
       updateSecureTextEntry={setSecureTextEntry}
-      loading={loading}
     />
   );
 };
