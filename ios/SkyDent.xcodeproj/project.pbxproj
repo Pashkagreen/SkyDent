@@ -15,6 +15,8 @@
 		84AED66A28D3C84000E0917F /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 84AED66928D3C84000E0917F /* Fonts */; };
 		BE3D8C930C4D04B83EFA8B65 /* libPods-SkyDent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 13DAA1B21C729AEC0F983CDB /* libPods-SkyDent.a */; };
 		F189F715942914077641D5BC /* libPods-SkyDent-SkyDentTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0499F592FA7E7BC1F99B9B93 /* libPods-SkyDent-SkyDentTests.a */; };
+		F557D1D29BEB4F2CBB935D96 /* ProductSansBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AE234314C6CE4DEB80077929 /* ProductSansBold.ttf */; };
+		FF170632A22442C3AEE49D9E /* ProductSansRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C615B544BDC45C0A5B8254E /* ProductSansRegular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +48,8 @@
 		9FDB2A03E3DE8ED8ABAED275 /* Pods-SkyDent.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkyDent.debug.xcconfig"; path = "Target Support Files/Pods-SkyDent/Pods-SkyDent.debug.xcconfig"; sourceTree = "<group>"; };
 		E6A27D1D6A02DC2F78E9BB41 /* Pods-SkyDent.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkyDent.release.xcconfig"; path = "Target Support Files/Pods-SkyDent/Pods-SkyDent.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		AE234314C6CE4DEB80077929 /* ProductSansBold.ttf */ = {isa = PBXFileReference; name = "ProductSansBold.ttf"; path = "../src/assets/fonts/ProductSansBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		7C615B544BDC45C0A5B8254E /* ProductSansRegular.ttf */ = {isa = PBXFileReference; name = "ProductSansRegular.ttf"; path = "../src/assets/fonts/ProductSansRegular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +129,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				B7042D7B36D342C7BE82EB23 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -150,6 +155,16 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		B7042D7B36D342C7BE82EB23 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				AE234314C6CE4DEB80077929 /* ProductSansBold.ttf */,
+				7C615B544BDC45C0A5B8254E /* ProductSansRegular.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -248,6 +263,8 @@
 				84AED66A28D3C84000E0917F /* Fonts in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				F557D1D29BEB4F2CBB935D96 /* ProductSansBold.ttf in Resources */,
+				FF170632A22442C3AEE49D9E /* ProductSansRegular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
