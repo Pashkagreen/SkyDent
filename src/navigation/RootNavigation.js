@@ -10,7 +10,7 @@ const RootNavigation = () => {
   const RootStack = createStackNavigator();
 
   const user = useSelector(state => state.user);
-  console.log(user);
+
   return (
     <RootStack.Navigator
       screenOptions={{

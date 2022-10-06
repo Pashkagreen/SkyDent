@@ -76,8 +76,6 @@ import EncryptedStorage from 'react-native-encrypted-storage';
 import AuthService from '../auth/index.js';
 import debug from '../debug';
 
-console.log('base:', BASE_URL);
-
 export const api = ky.extend({
   retry: {
     limit: 3,
@@ -93,13 +91,15 @@ export const api = ky.extend({
 
         if (token) {
           request.headers.set('Authorization', `Bearer ${token}`);
+        } else {
+          debug.log('failed to set token');
         }
       },
     ],
 
     afterResponse: [
       async (request, options, response) => {
-        if (response.status === 401) {
+        if (response.message?.includes('The Token has expired')) {
           const refreshToken = await EncryptedStorage.getItem('refreshToken');
 
           request.headers.set('Authorization', `Bearer ${refreshToken}`);
@@ -113,7 +113,7 @@ export const api = ky.extend({
           await EncryptedStorage.setItem('accessToken', newTokens.accessToken);
           request.headers.set(
             'Authorization',
-            `Bearer ${response.accessToken}`,
+            `Bearer ${newTokens.accessToken}`,
           );
 
           return response;
@@ -169,7 +169,10 @@ export const requestWrapper = (type = 'baseUrl') => {
       });
       return await getRequestResult(request, endPoint, 'GET');
     } catch (error) {
-      throw error;
+      const result = await error.response.json();
+
+      debug.log('api-error', JSON.stringify(result));
+      throw result;
     }
   };
 
@@ -182,7 +185,10 @@ export const requestWrapper = (type = 'baseUrl') => {
 
       return await getRequestResult(request, endPoint, 'POST');
     } catch (error) {
-      throw error;
+      const result = await error.response.json();
+
+      debug.log('api-error', JSON.stringify(result));
+      throw result;
     }
   };
 
@@ -195,7 +201,10 @@ export const requestWrapper = (type = 'baseUrl') => {
 
       return await getRequestResult(request, endPoint, 'PATCH');
     } catch (error) {
-      throw error;
+      const result = await error.response.json();
+
+      debug.log('api-error', JSON.stringify(result));
+      throw result;
     }
   };
 
@@ -225,7 +234,10 @@ export const requestWrapper = (type = 'baseUrl') => {
 
       return await getRequestResult(request, endPoint, 'DEL');
     } catch (error) {
-      throw error;
+      const result = await error.response.json();
+
+      debug.log('api-error', JSON.stringify(result));
+      throw result;
     }
   };
 

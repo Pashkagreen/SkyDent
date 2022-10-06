@@ -8,6 +8,7 @@ import {setFirstLaunch} from '../../../store/reducers/app';
 import {setUserData} from '../../../store/reducers/user';
 
 import LoginView from './login-view';
+import {Alert} from 'react-native';
 
 const LoginContainer = ({navigation}) => {
   const dispatch = useDispatch();
@@ -23,24 +24,35 @@ const LoginContainer = ({navigation}) => {
   const signIn = async userData => {
     try {
       setLoading(true);
-      console.log('test');
       const response = await AuthService.signIn(userData);
-      console.log('response', response);
 
       await EncryptedStorage.setItem(
         'accessToken',
         response.innerEntity.accessToken,
       );
+
       await EncryptedStorage.setItem(
         'refreshToken',
         response.innerEntity.refreshToken,
       );
 
       dispatch(setUserData(response.innerEntity.userData));
-
-      navigation.navigate('Main');
     } catch (error) {
-      console.log(error);
+      if (error.status === 401) {
+        Alert.alert(
+          'Error!',
+          `${error.message}, please try again.`,
+          [
+            {
+              text: 'OK',
+              style: 'default',
+            },
+          ],
+          {
+            cancelable: true,
+          },
+        );
+      }
     } finally {
       setLoading(false);
     }

@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Alert} from 'react-native';
 import {useDispatch} from 'react-redux';
 
 import EncryptedStorage from 'react-native-encrypted-storage';
@@ -31,7 +32,6 @@ const SignUpContainer = ({navigation}) => {
   const onSubmit = async resultObject => {
     try {
       setLoading(true);
-      console.log('resultObject', resultObject);
 
       const response = await RegistrationService.registration(resultObject);
 
@@ -48,7 +48,21 @@ const SignUpContainer = ({navigation}) => {
 
       setUserIntermediateData(response.innerEntity.userData);
     } catch (error) {
-      console.log('error 21', error);
+      if (error.status === 403) {
+        Alert.alert(
+          'Error!',
+          `${error.message} Please try again.`,
+          [
+            {
+              text: 'OK',
+              style: 'default',
+            },
+          ],
+          {
+            cancelable: true,
+          },
+        );
+      }
       debug.log('api-error', error);
     } finally {
       setLoading(false);

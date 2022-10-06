@@ -68,10 +68,7 @@ const SignUpView = ({
         title="You was successfully registered!"
       />
       <View style={styles.container}>
-        <StatusBar
-          backgroundColor={colors.dentalGreen}
-          barStyle="light-content"
-        />
+        <StatusBar barStyle="light-content" />
         <View style={styles.header}>
           <Text style={styles.text_header}>Register Now!</Text>
         </View>

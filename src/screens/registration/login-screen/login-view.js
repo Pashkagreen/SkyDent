@@ -26,10 +26,7 @@ const LoginView = props => {
   const isBtnDisabled = !formState.isValid;
   return (
     <View style={styles.container}>
-      <StatusBar
-        backgroundColor={colors.dentalGreen}
-        barStyle="light-content"
-      />
+      <StatusBar barStyle="light-content" />
       <View style={styles.header}>
         <Text style={styles.text_header}>Welcome!</Text>
       </View>

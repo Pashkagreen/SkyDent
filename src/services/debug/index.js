@@ -5,7 +5,7 @@ class Debug {
    * @param {object} data
    * @returns
    */
-  log(variant = 'default', text = 'Hello world', data) {
+  log(variant = 'default', text = '', data) {
     const consoleStyles = {
       default: 'color: Orchid;',
       info: 'color: SkyBlue;',
