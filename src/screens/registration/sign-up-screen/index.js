@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Alert} from 'react-native';
+import {Alert, Keyboard} from 'react-native';
 import {useDispatch} from 'react-redux';
 
 import EncryptedStorage from 'react-native-encrypted-storage';
@@ -23,16 +23,20 @@ const SignUpContainer = ({navigation}) => {
   const [activeTab, setActiveTab] = useState(1);
 
   const refs = {
-    inputSecondNameRef: React.createRef(),
+    inputLastNameRef: React.createRef(),
     inputFirstNameRef: React.createRef(),
-    inputPatronymicRef: React.createRef(),
-    scrollRef: React.createRef(),
+    inputMiddleNameRef: React.createRef(),
+    inputEmailRef: React.createRef(),
+    inputPasswordRef: React.createRef(),
+    inputMobilePhoneRef: React.createRef(),
+    inputBirthdayRef: React.createRef(),
+    inputGenderRef: React.createRef(),
   };
 
   const onSubmit = async resultObject => {
     try {
       setLoading(true);
-
+      Keyboard.dismiss();
       const response = await RegistrationService.registration(resultObject);
 
       setShowSuccessModal(true);

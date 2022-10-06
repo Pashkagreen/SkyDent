@@ -8,7 +8,7 @@ import {setFirstLaunch} from '../../../store/reducers/app';
 import {setUserData} from '../../../store/reducers/user';
 
 import LoginView from './login-view';
-import {Alert} from 'react-native';
+import {Alert, Keyboard} from 'react-native';
 
 const LoginContainer = ({navigation}) => {
   const dispatch = useDispatch();
@@ -24,6 +24,7 @@ const LoginContainer = ({navigation}) => {
   const signIn = async userData => {
     try {
       setLoading(true);
+      Keyboard.dismiss();
       const response = await AuthService.signIn(userData);
 
       await EncryptedStorage.setItem(

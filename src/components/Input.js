@@ -31,6 +31,9 @@ const Input = ({
   isPassword = false,
   updateSecureTextEntry = () => {},
   secureTextEntry = false,
+  inputRef,
+  onSubmitEditing = () => {},
+  keyboardType = '',
 }) => {
   return (
     <>
@@ -56,6 +59,9 @@ const Input = ({
           value={value}
           onChangeText={onChangeText}
           onEndEditing={onEndEditing}
+          onSubmitEditing={onSubmitEditing}
+          ref={inputRef}
+          keyboardType={keyboardType}
         />
         {isValid && (
           <Animatable.View animation="bounceIn">

@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  KeyboardAvoidingView,
 } from 'react-native';
 
 import {Controller, FormProvider, useForm} from 'react-hook-form';
@@ -67,7 +68,7 @@ const SignUpView = ({
         successOnPress={handleModal}
         title="You was successfully registered!"
       />
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container}>
         <StatusBar barStyle="light-content" />
         <View style={styles.header}>
           <Text style={styles.text_header}>Register Now!</Text>
@@ -108,6 +109,10 @@ const SignUpView = ({
                         title="First name"
                         value={value}
                         onChangeText={onChange}
+                        inputRef={refs.inputFirstNameRef}
+                        onSubmitEditing={() =>
+                          refs.inputMiddleNameRef.current.focus()
+                        }
                       />
                     )}
                     rules={{
@@ -134,6 +139,10 @@ const SignUpView = ({
                         title="Middle name"
                         value={value}
                         onChangeText={onChange}
+                        inputRef={refs.inputMiddleNameRef}
+                        onSubmitEditing={() =>
+                          refs.inputLastNameRef.current?.focus()
+                        }
                       />
                     )}
                     rules={{
@@ -158,6 +167,8 @@ const SignUpView = ({
                         title="Last name"
                         value={value}
                         onChangeText={onChange}
+                        inputRef={refs.inputLastNameRef}
+                        onSubmitEditing={() => refs.inputGenderRef.current}
                       />
                     )}
                     rules={{
@@ -191,6 +202,7 @@ const SignUpView = ({
                             }}
                             value={value}
                             onChange={onChange}
+                            pickerRef={refs.inputGenderRef}
                           />
                         </View>
                       </>
@@ -224,6 +236,10 @@ const SignUpView = ({
                         title="Email"
                         value={value}
                         onChangeText={onChange}
+                        keyboardType="email-address"
+                        onSubmitEditing={() =>
+                          refs.inputMobilePhoneRef.current.focus()
+                        }
                       />
                     )}
                     rules={{
@@ -257,6 +273,7 @@ const SignUpView = ({
                             onChangeText={(formatted, extracted) =>
                               onChange('+' + extracted)
                             }
+                            ref={refs.inputMobilePhoneRef}
                           />
                           {!formState.errors.phoneNumber &&
                           value.length === 13 ? (
@@ -348,7 +365,7 @@ const SignUpView = ({
             </View>
           </ScrollView>
         </Animatable.View>
-      </View>
+      </KeyboardAvoidingView>
     </>
   );
 };

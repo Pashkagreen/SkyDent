@@ -42,6 +42,7 @@ const LoginView = props => {
               name="email"
               render={({onChange, value}) => (
                 <Input
+                  inputRef={props.refs.inputEmailRef}
                   errorMessage={errors.email && errors.email.message}
                   iconMode="MaterialCommunityIcons"
                   iconName="email-outline"
@@ -51,6 +52,10 @@ const LoginView = props => {
                   title="Email"
                   value={value}
                   onChangeText={onChange}
+                  onSubmitEditing={() => {
+                    props.refs.inputPasswordRef.current?.focus();
+                  }}
+                  keyboardType="email-address"
                 />
               )}
               rules={{
@@ -84,6 +89,7 @@ const LoginView = props => {
                   updateSecureTextEntry={props.updateSecureTextEntry}
                   value={value}
                   onChangeText={onChange}
+                  inputRef={props.refs.inputPasswordRef}
                 />
               )}
               rules={{

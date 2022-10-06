@@ -9,6 +9,7 @@ import {colors} from '../utils/colors';
 const Picker = ({
   placeholder = {label: '', value: ''},
   items = [],
+  pickerRef,
   value = '',
   onFocus = () => {},
   onBlur = () => {},
@@ -27,6 +28,7 @@ const Picker = ({
           placeholder={placeholder}
           style={pickerStyles}
           value={value}
+          ref={pickerRef}
           useNativeAndroidPickerStyle={false}
           // Icon={() => {
           //   return (
