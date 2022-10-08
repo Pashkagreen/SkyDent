@@ -30,8 +30,8 @@ const App = () => {
   };
 
   useEffect(() => {
-    SplashScreen.hide();
     getTokens();
+    SplashScreen.hide();
   }, []);
 
   return (

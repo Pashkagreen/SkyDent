@@ -69,7 +69,10 @@ const SignUpView = ({
         title="You was successfully registered!"
       />
       <KeyboardAvoidingView style={styles.container}>
-        <StatusBar barStyle="light-content" />
+        <StatusBar
+          barStyle="light-content"
+          backgroundColor={colors.dentalGreen}
+        />
         <View style={styles.header}>
           <Text style={styles.text_header}>Register Now!</Text>
         </View>

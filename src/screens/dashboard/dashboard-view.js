@@ -1,15 +1,32 @@
 import React, {memo} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View, StatusBar, ScrollView} from 'react-native';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
-import {TouchableOpacity} from 'react-native-gesture-handler';
-
-import {colors} from '../../utils/colors';
+import Menu from '../../components/Menu';
+import Header from '../../components/Header';
+import Services from '../../components/Services';
 
 const DashboardView = props => {
   return (
-    <View style={styles.container} onPress={() => console.log('fdsaf')}>
-      <Text style={styles.text}>Welcome!</Text>
-    </View>
+    <ScrollView style={styles.container}>
+      <StatusBar
+        barStyle="light-content"
+        translucent={true}
+        backgroundColor="transparent"
+      />
+      <Header user={props.user} />
+      <View style={styles.dashboardContainer}>
+        <Menu navigation={props.navigation} />
+        <Services
+          data={props.servicesData}
+          loading={props.servicesLoading}
+          navigation={props.navigation}
+        />
+      </View>
+    </ScrollView>
   );
 };
 
@@ -18,12 +35,8 @@ export default memo(DashboardView);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    // zIndex: 1,
   },
-  text: {
-    color: colors.blue,
-    fontSize: 26,
+  dashboardContainer: {
+    paddingHorizontal: wp('4%'),
   },
 });

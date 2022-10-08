@@ -72,8 +72,6 @@
 import ky from 'ky';
 import {BASE_URL} from 'react-native-dotenv';
 import EncryptedStorage from 'react-native-encrypted-storage';
-
-import AuthService from '../auth/index.js';
 import debug from '../debug';
 
 export const api = ky.extend({
@@ -102,9 +100,13 @@ export const api = ky.extend({
         if (response.message?.includes('The Token has expired')) {
           const refreshToken = await EncryptedStorage.getItem('refreshToken');
 
-          request.headers.set('Authorization', `Bearer ${refreshToken}`);
-
-          const newTokens = await AuthService.refreshTokens();
+          const newTokens = await fetch(`${BASE_URL}/tokens/refresh`, {
+            method: 'POST',
+            headers: {
+              'Content-type': 'application/json',
+              Authorization: `Bearer ${refreshToken}`,
+            },
+          });
 
           await EncryptedStorage.setItem(
             'refreshToken',

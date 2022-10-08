@@ -5,7 +5,6 @@ import {requestWrapper} from '../api';
 /**
  * Auth service
  * @signIn()
- * @refreshToken()
  * @logout()
  */
 export default class AuthService {
@@ -14,7 +13,6 @@ export default class AuthService {
    */
   static #API_ENDPOINTS = {
     signIn: '/login',
-    refresh: '/tokens/refresh',
   };
 
   static #request = requestWrapper();
@@ -26,15 +24,6 @@ export default class AuthService {
    */
   static async signIn(data) {
     return this.#request.post(this.#API_ENDPOINTS.signIn, data);
-  }
-
-  /**
-   * Refresh user token
-   * @param {Object} data - { accessToken, refreshToken}
-   * @returns {Promise<*>} // TODO
-   */
-  static async refreshTokens() {
-    return this.#request.post(this.#API_ENDPOINTS.refresh);
   }
 
   static async logOut() {

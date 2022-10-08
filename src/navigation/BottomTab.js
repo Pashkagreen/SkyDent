@@ -1,15 +1,12 @@
-import {Platform, StyleSheet, View} from 'react-native';
+import {Platform, StyleSheet} from 'react-native';
 
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import BottomBar from '../components/BottomBar.js';
 
 import {colors} from '../utils/colors';
 
 import screens from '../screens';
-
-const Tab = createBottomTabNavigator();
 
 import bottomBarConfig from './config';
 
@@ -19,7 +16,6 @@ const BottomTab = () => {
   return (
     <BottomBarNav.Navigator
       initialRouteName={bottomBarConfig.Dashboard.screenName}
-      // sceneContainerStyle={{backgroundColor: colors.white}}
       tabBar={props => {
         return <BottomBar {...props} />;
       }}>

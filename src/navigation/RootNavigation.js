@@ -5,6 +5,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import MainStack from './MainStack';
 import OnBoardingStackScreen from './OnBoardingStack';
+import Dashboard from '../screens/index';
 
 const RootNavigation = () => {
   const RootStack = createStackNavigator();
