@@ -13,7 +13,7 @@ const Services = ({data, loading, navigation}) => {
       </View>
       <View style={styles.items}>
         {data.map(item => (
-          <ServiceItem item={item} />
+          <ServiceItem item={item} key={item.id} />
         ))}
       </View>
     </View>
