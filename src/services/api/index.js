@@ -97,7 +97,7 @@ export const api = ky.extend({
 
     afterResponse: [
       async (request, options, response) => {
-        if (response.message?.includes('The Token has expired')) {
+        if (response.status === 401) {
           const refreshToken = await EncryptedStorage.getItem('refreshToken');
 
           const newTokens = await fetch(`${BASE_URL}/tokens/refresh`, {

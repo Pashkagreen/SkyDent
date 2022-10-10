@@ -7,10 +7,15 @@ import FastImage from 'react-native-fast-image';
 
 import {colors} from '../utils/colors';
 
-const ServiceItem = ({item}) => {
+const ServiceItem = ({item, navigation}) => {
+  const onPressItem = () => {
+    navigation.navigate('Service', {
+      serviceId: item.id,
+    });
+  };
   return (
     <View style={styles.item} key={item.id}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onPressItem}>
         <FastImage
           source={require('../assets/images/03.png')}
           resizeMode="contain"

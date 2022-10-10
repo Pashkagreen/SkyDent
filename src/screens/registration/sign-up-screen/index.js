@@ -52,7 +52,7 @@ const SignUpContainer = ({navigation}) => {
 
       setUserIntermediateData(response.innerEntity.userData);
     } catch (error) {
-      if (error.status === 403) {
+      if (error.status === 400) {
         Alert.alert(
           'Error!',
           `${error.message} Please try again.`,

@@ -6,12 +6,17 @@ import ServicesService from '../../services/services';
 const DashboardContainer = ({navigation}) => {
   const user = useSelector(state => state.user);
   const [servicesData, setServicesData] = useState([]);
+  const [notificationsEnabled, setNotificationsEnabled] = useState(false);
   const [servicesLoading, setServicesLoading] = useState(false);
+
+  const onNotificationPress = () => {
+    setNotificationsEnabled(prev => !prev);
+  };
 
   const getServices = async () => {
     setServicesLoading(true);
     try {
-      const response = await ServicesService.services(1, 6);
+      const response = await ServicesService.getServices(1, 6);
       if (response) {
         setServicesData(response.innerEntity.items);
       }
@@ -22,8 +27,12 @@ const DashboardContainer = ({navigation}) => {
     }
   };
 
+  const getAllData = async () => {
+    await Promise.all([getServices()]);
+  };
+
   useEffect(() => {
-    getServices();
+    getAllData();
   }, []);
   return (
     <DashboardView
@@ -31,6 +40,8 @@ const DashboardContainer = ({navigation}) => {
       navigation={navigation}
       servicesData={servicesData}
       servicesLoading={servicesLoading}
+      notificationsEnabled={notificationsEnabled}
+      onNotificationPress={onNotificationPress}
     />
   );
 };

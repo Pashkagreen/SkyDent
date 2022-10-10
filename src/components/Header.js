@@ -9,9 +9,9 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {colors} from '../utils/colors';
 
-const Header = ({user, onNotificationPress, onLocationPress}) => {
+const Header = ({user, onNotificationPress, onLocationPress, enabled}) => {
   return (
-    <LinearGradient colors={['#08d4c4', '#01ab9d']}>
+    <LinearGradient colors={[colors.dentalGreen, colors.dentalGreen]}>
       <View style={styles.container}>
         <View style={styles.wrapperContainer}>
           <View style={styles.titleContainer}>
@@ -23,7 +23,11 @@ const Header = ({user, onNotificationPress, onLocationPress}) => {
           <TouchableOpacity
             style={{paddingTop: 8}}
             onPress={onNotificationPress}>
-            <Icon name="bell-outline" size={24} color={colors.white} />
+            <Icon
+              name={enabled ? 'bell' : 'bell-outline'}
+              size={24}
+              color={colors.white}
+            />
           </TouchableOpacity>
         </View>
         <View style={styles.location}>

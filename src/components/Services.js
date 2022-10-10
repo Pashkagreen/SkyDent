@@ -1,6 +1,16 @@
-import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 import {colors} from '../utils/colors';
 import ServiceItem from './ServiceItem';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 const Services = ({data, loading, navigation}) => {
   return (
@@ -11,11 +21,17 @@ const Services = ({data, loading, navigation}) => {
           <Text style={styles.seeMore}>See All</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.items}>
-        {data.map(item => (
-          <ServiceItem item={item} key={item.id} />
-        ))}
-      </View>
+      {loading ? (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator color={colors.dentalGreen} />
+        </View>
+      ) : (
+        <View style={styles.items}>
+          {data.map(item => (
+            <ServiceItem item={item} key={item.id} navigation={navigation} />
+          ))}
+        </View>
+      )}
     </View>
   );
 };
@@ -51,5 +67,11 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     flexWrap: 'wrap',
     width: '100%',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: hp('30%'),
   },
 });

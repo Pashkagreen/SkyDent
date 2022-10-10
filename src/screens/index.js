@@ -6,6 +6,7 @@ import History from './history';
 import Profile from './profile';
 import Login from './registration/login-screen';
 import SignUp from './registration/sign-up-screen';
+import Service from './service';
 
 const screens = {
   Dashboard,
@@ -16,6 +17,7 @@ const screens = {
   SignUp,
   Profile,
   Boarding,
+  Service,
 };
 
 export default screens;

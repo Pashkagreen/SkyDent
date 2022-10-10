@@ -39,7 +39,7 @@ const LoginContainer = ({navigation}) => {
 
       dispatch(setUserData(response.innerEntity.userData));
     } catch (error) {
-      if (error.status === 401) {
+      if (error.status === 400) {
         Alert.alert(
           'Error!',
           `${error.message}, please try again.`,

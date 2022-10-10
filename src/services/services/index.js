@@ -1,7 +1,7 @@
 import {requestWrapper} from '../api';
 /**
  * Services service
- * @services()
+ * @getServices()
  * @getServiceById()
  */
 class ServicesService {
@@ -14,7 +14,7 @@ class ServicesService {
 
   static #request = requestWrapper();
 
-  static async services(page = 1, pageSize = 6) {
+  static async getServices(page = 1, pageSize = 6) {
     return this.#request.get(
       `${this.#API_ENDPOINTS.services}?page=${page}&pageSize=${pageSize}`,
     );

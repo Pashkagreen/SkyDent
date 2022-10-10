@@ -17,7 +17,11 @@ const DashboardView = props => {
         translucent={true}
         backgroundColor="transparent"
       />
-      <Header user={props.user} />
+      <Header
+        user={props.user}
+        onNotificationPress={props.onNotificationPress}
+        enabled={props.notificationsEnabled}
+      />
       <View style={styles.dashboardContainer}>
         <Menu navigation={props.navigation} />
         <Services
