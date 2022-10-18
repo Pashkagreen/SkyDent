@@ -2,6 +2,8 @@ import React from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import bottomBarConfig from '../navigation/config';
@@ -73,7 +75,7 @@ const getStyles = (insets, index) =>
       justifyContent: 'flex-end',
       paddingHorizontal: 16,
       marginHorizontal: 6,
-      height: 60,
+      height: hp('8%'),
       backgroundColor: colors.white,
       borderColor: 'transparent',
       shadowColor: colors.black,
@@ -107,7 +109,6 @@ const getStyles = (insets, index) =>
     absoluteIcon: {
       alignItems: 'center',
       justifyContent: 'center',
-
       borderRadius: 60,
       backgroundColor: colors.backgroundGrey,
     },

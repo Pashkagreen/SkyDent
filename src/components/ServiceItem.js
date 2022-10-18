@@ -18,7 +18,7 @@ const ServiceItem = ({item, navigation}) => {
       <TouchableOpacity onPress={onPressItem}>
         <FastImage
           source={require('../assets/images/03.png')}
-          resizeMode="contain"
+          resizeMode="cover"
           style={styles.imageStyle}
         />
         <View style={styles.imageText}>
@@ -36,20 +36,21 @@ export default ServiceItem;
 
 const styles = StyleSheet.create({
   item: {
-    width: '50%',
+    width: '46%',
     minHeight: 50,
     position: 'relative',
-    marginBottom: 16,
+    marginBottom: 20,
   },
   imageStyle: {
     width: '100%',
     minHeight: 100,
+    borderRadius: 10,
   },
   imageText: {
     flexDirection: 'column',
     elevation: 10,
     position: 'absolute',
-    paddingLeft: wp('5%'),
+    paddingLeft: wp('4%'),
     paddingTop: hp('1%'),
   },
   serviceName: {
@@ -59,5 +60,6 @@ const styles = StyleSheet.create({
   },
   quantity: {
     fontSize: 12,
+    color: colors.white,
   },
 });
