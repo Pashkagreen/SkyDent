@@ -8,7 +8,7 @@ const MenuItem = ({title, type, onPress}) => {
       case 'doctor':
         return require('../assets/images/heart2.png');
       case 'clinic':
-        return require('../assets/images/dental-clinic.png');
+        return require('../assets/images/clinic-1.png');
       case 'discount':
         return require('../assets/images/discount.png');
     }

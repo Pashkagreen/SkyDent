@@ -16,9 +16,10 @@ export default ScreenHeader;
 
 const styles = StyleSheet.create({
   headerContainer: {
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
-    marginVertical: 18,
+    minHeight: 24,
+    marginVertical: 14,
   },
   headerTitle: {
     fontSize: 20,

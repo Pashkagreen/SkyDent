@@ -7,12 +7,17 @@ import {
 } from 'react-native-responsive-screen';
 import {colors} from '../utils/colors';
 
-const CatalogItem = ({title, description, addition, image, onPress}) => {
+const CatalogItem = ({
+  title,
+  description,
+  addition,
+  image,
+  onPress,
+  gradient,
+}) => {
   return (
     <TouchableOpacity onPress={onPress}>
-      <LinearGradient
-        colors={['#08d4c4', '#01ab9d']}
-        style={styles.categoryItem}>
+      <LinearGradient colors={gradient} style={styles.categoryItem}>
         <View style={styles.categoryInfo}>
           <View>
             <Text style={styles.categoryTitle}>{title}</Text>

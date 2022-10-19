@@ -7,6 +7,7 @@ import Profile from './profile';
 import Login from './registration/login-screen';
 import SignUp from './registration/sign-up-screen';
 import Service from './service';
+import Subcatalog from './subcatalog';
 
 const screens = {
   Dashboard,
@@ -18,6 +19,7 @@ const screens = {
   Profile,
   Boarding,
   Service,
+  Subcatalog,
 };
 
 export default screens;

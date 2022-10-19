@@ -28,6 +28,22 @@ const MainStack = () => {
           ),
         })}
       />
+      <MainStackNav.Screen
+        component={screens.Subcatalog}
+        name="Subcatalog"
+        options={({navigation}) => ({
+          headerShown: true,
+          title: '',
+          headerTransparent: true,
+          headerLeft: () => (
+            <HeaderLeftButton
+              onPress={navigation.goBack}
+              size={32}
+              color={colors.black}
+            />
+          ),
+        })}
+      />
     </MainStackNav.Navigator>
   );
 };

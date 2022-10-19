@@ -37,6 +37,7 @@ const ServiceContainer = ({navigation, route}) => {
         const {innerEntity} = await SpecialistsService.getSpecialistsByService(
           serviceId,
         );
+        console.log(innerEntity);
         if (innerEntity.status === 200) {
           setAvailableSpecialists(innerEntity.items);
         }
