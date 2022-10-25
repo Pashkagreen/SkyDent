@@ -1,5 +1,5 @@
 import React, {memo} from 'react';
-import {StyleSheet, SafeAreaView, View} from 'react-native';
+import {StyleSheet, SafeAreaView, View, Platform} from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginHorizontal: wp('4%'),
+    marginTop: Platform.OS === 'android' ? hp('4%') : 0,
   },
   categoriesContainer: {
     flexDirection: 'column',
