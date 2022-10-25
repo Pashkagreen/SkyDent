@@ -1,13 +1,22 @@
 import React, {memo} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, SafeAreaView} from 'react-native';
+import CustomCalendar from '../../components/CustomCalendar';
+import * as Animatable from 'react-native-animatable';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 import {colors} from '../../utils/colors';
 
 const AppointmentView = props => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Make a new appointment!</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <Animatable.View animation="fadeInUpBig" style={styles.appointment}>
+        <Text style={styles.title}>New appointment</Text>
+        <CustomCalendar minDate={new Date().getDate()} />
+      </Animatable.View>
+    </SafeAreaView>
   );
 };
 
@@ -16,12 +25,22 @@ export default memo(AppointmentView);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: -1,
+    justifyContent: 'flex-end',
   },
-  text: {
-    color: colors.blue,
-    fontSize: 26,
+  appointment: {
+    width: wp('100%'),
+    height: hp('80%'),
+    backgroundColor: colors.white,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    paddingHorizontal: 20,
+    paddingVertical: 30,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginLeft: wp('2%'),
+    marginBottom: 12,
+    color: colors.black,
   },
 });

@@ -15,8 +15,10 @@ class SpecialistsService {
 
   static #request = requestWrapper();
 
-  static async getSpecialists() {
-    return this.#request.get(this.#API_ENDPOINTS.specialists);
+  static async getSpecialists(page = 1, pageSize = 6) {
+    return this.#request.get(
+      `${this.#API_ENDPOINTS.specialists}?page=${page}&pageSize=${pageSize}`,
+    );
   }
 
   static async getSpecialistsByService(serviceId) {

@@ -13,10 +13,10 @@ const SubcatalogContainer = ({navigation, route}) => {
   const fetchData = async dataType => {
     setLoading(true);
     try {
-      if (type === 'Specialists') {
-        const response = await SpecialistsService.getSpecialists();
+      if (dataType === 'Specialists') {
+        const response = await SpecialistsService.getSpecialists(page);
         console.log('specialists', response);
-      } else if (type === 'Services') {
+      } else if (dataType === 'Services') {
         const response = await ServicesService.getServices(page);
         console.log('services', response);
       }
