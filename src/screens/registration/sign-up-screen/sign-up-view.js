@@ -66,7 +66,7 @@ const SignUpView = ({
         image={require('../../../assets/images/success.png')}
         showModal={showModal}
         successOnPress={handleModal}
-        title="You was successfully registered!"
+        title="You were successfully registered!"
       />
       <KeyboardAvoidingView style={styles.container}>
         <StatusBar

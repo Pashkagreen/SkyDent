@@ -1,5 +1,5 @@
 import React, {memo} from 'react';
-import {StyleSheet, Text, View, SafeAreaView} from 'react-native';
+import {StyleSheet, Text, View, SafeAreaView, ScrollView} from 'react-native';
 import CustomCalendar from '../../components/CustomCalendar';
 import * as Animatable from 'react-native-animatable';
 import {
@@ -11,12 +11,13 @@ import {colors} from '../../utils/colors';
 
 const AppointmentView = props => {
   return (
-    <SafeAreaView style={styles.container}>
-      <Animatable.View animation="fadeInUpBig" style={styles.appointment}>
+    <Animatable.View style={styles.container} animation="fadeInUpBig">
+      <View style={styles.appointment}>
         <Text style={styles.title}>New appointment</Text>
+
         <CustomCalendar minDate={new Date().getDate()} />
-      </Animatable.View>
-    </SafeAreaView>
+      </View>
+    </Animatable.View>
   );
 };
 
@@ -26,11 +27,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-end',
+    marginTop: hp('4%'),
   },
   appointment: {
-    width: wp('100%'),
-    height: hp('80%'),
-    backgroundColor: colors.white,
+    flex: 1,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     paddingHorizontal: 20,

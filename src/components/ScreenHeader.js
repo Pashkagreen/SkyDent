@@ -18,13 +18,12 @@ const styles = StyleSheet.create({
   headerContainer: {
     justifyContent: 'flex-start',
     alignItems: 'center',
-    minHeight: 24,
-    marginVertical: 14,
+    minHeight: 26,
+    marginVertical: 10,
   },
   headerTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    lineHeight: 18,
     color: colors.black,
   },
 });

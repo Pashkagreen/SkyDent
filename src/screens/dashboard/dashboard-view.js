@@ -11,7 +11,7 @@ import Services from '../../components/Services';
 
 const DashboardView = props => {
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <StatusBar
         barStyle="light-content"
         translucent={true}

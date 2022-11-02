@@ -13,7 +13,16 @@ import {colors} from './src/utils/colors';
 import RootNavigation from './src/navigation/RootNavigation';
 import {persistor, store} from './src/store';
 
+import {setCustomText} from 'react-native-global-props';
+
 const App = () => {
+  // Setting default styles for all Text components.
+  const customTextProps = {
+    style: {
+      fontFamily: 'ProductSans-Regular',
+    },
+  };
+
   const getTokens = async () => {
     try {
       const accessToken = await EncryptedStorage.getItem('accessToken');
@@ -31,6 +40,7 @@ const App = () => {
 
   useEffect(() => {
     getTokens();
+    setCustomText(customTextProps);
     SplashScreen.hide();
   }, []);
 
