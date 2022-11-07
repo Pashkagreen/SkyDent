@@ -9,6 +9,7 @@ import {setUserData} from '../../../store/reducers/user';
 
 import LoginView from './login-view';
 import {Alert, Keyboard} from 'react-native';
+import {Controller, FormProvider, useForm} from 'react-hook-form';
 
 const LoginContainer = ({navigation}) => {
   const dispatch = useDispatch();
@@ -16,10 +17,18 @@ const LoginContainer = ({navigation}) => {
   const [loading, setLoading] = useState(false);
   const [secureTextEntry, setSecureTextEntry] = useState(true);
 
+  const {control, errors, handleSubmit, formState} = useForm({
+    mode: 'onChange',
+  });
+
   const refs = {
     inputEmailRef: React.createRef(),
     inputPasswordRef: React.createRef(),
   };
+
+  useEffect(() => {
+    dispatch(setFirstLaunch());
+  }, []);
 
   const signIn = async userData => {
     try {
@@ -67,10 +76,6 @@ const LoginContainer = ({navigation}) => {
     navigation.navigate('SignUp');
   };
 
-  useEffect(() => {
-    dispatch(setFirstLaunch());
-  }, []);
-
   return (
     <LoginView
       goToSignUp={goToSignUp}
@@ -79,6 +84,10 @@ const LoginContainer = ({navigation}) => {
       refs={refs}
       secureTextEntry={secureTextEntry}
       updateSecureTextEntry={setSecureTextEntry}
+      control={control}
+      errors={errors}
+      handleSubmit={handleSubmit}
+      formState={formState}
     />
   );
 };

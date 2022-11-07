@@ -220,6 +220,7 @@ const SignUpView = ({
                     text="Continue"
                     type="primary"
                     onPress={() => handleFirstSubmit()}
+                    main={true}
                   />
                 </View>
 
@@ -362,6 +363,7 @@ const SignUpView = ({
                     text="Sign Up"
                     type="primary"
                     onPress={() => handleSubmit(onSubmit)()}
+                    main={true}
                   />
                 </View>
               </FormProvider>
@@ -403,13 +405,15 @@ const getStyles = activeTab =>
     },
     text_header: {
       color: colors.white,
-      fontWeight: 'bold',
       fontSize: 30,
+      fontFamily:
+        Platform.OS === 'ios' ? 'ProductSans-Bold' : 'ProductSansBold',
     },
     textFooter: {
       color: colors.darkBlue,
       fontSize: 16,
-      fontWeight: 'bold',
+      fontFamily:
+        Platform.OS === 'ios' ? 'ProductSans-Bold' : 'ProductSansBold',
     },
     phoneInput: {
       fontSize: 14,
@@ -441,7 +445,8 @@ const getStyles = activeTab =>
     },
     textSign: {
       fontSize: 18,
-      fontWeight: 'bold',
+      fontFamily:
+        Platform.OS === 'ios' ? 'ProductSans-Bold' : 'ProductSansBold',
     },
     textPrivate: {
       flexDirection: 'row',

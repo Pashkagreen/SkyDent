@@ -69,7 +69,6 @@ const styles = StyleSheet.create({
   title: {
     color: colors.darkBlue,
     fontSize: 30,
-    fontWeight: 'bold',
   },
   text: {
     color: 'grey',

@@ -1,4 +1,4 @@
-import {StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, Platform} from 'react-native';
 
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
   textSign: {
     color: colors.white,
-    fontWeight: 'bold',
+    fontFamily: Platform.OS === 'ios' ? 'ProductSans-Bold' : 'ProductSansBold',
     fontSize: 16,
   },
 });

@@ -4,6 +4,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ActivityIndicator,
+  Platform,
 } from 'react-native';
 import {colors} from '../utils/colors';
 import ServiceItem from './ServiceItem';
@@ -53,12 +54,12 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 18,
     color: colors.black,
-    fontWeight: 'bold',
+    fontFamily: Platform.OS === 'ios' ? 'ProductSans-Bold' : 'ProductSansBold',
   },
   seeMore: {
     color: colors.darkGrey,
     fontSize: 14,
-    fontWeight: 'bold',
+    fontFamily: Platform.OS === 'ios' ? 'ProductSans-Bold' : 'ProductSansBold',
   },
   items: {
     flex: 1,

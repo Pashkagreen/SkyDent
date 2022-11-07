@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
   text_footer: {
     color: colors.darkBlue,
     fontSize: 16,
-    fontWeight: 'bold',
+    fontFamily: Platform.OS === 'ios' ? 'ProductSans-Bold' : 'ProductSansBold',
   },
   action: {
     flexDirection: 'row',

@@ -1,5 +1,5 @@
 import React from 'react';
-import {TouchableOpacity, Text, StyleSheet} from 'react-native';
+import {TouchableOpacity, Text, StyleSheet, Platform} from 'react-native';
 import FastImage from 'react-native-fast-image';
 
 const MenuItem = ({title, type, onPress}) => {
@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
   imageStyle: {width: 50, height: 50},
   title: {
     fontSize: 14,
+    fontFamily: Platform.OS === 'ios' ? 'ProductSans-Bold' : 'ProductSansBold',
     color: '#333',
-    fontWeight: 'bold',
     marginTop: 5,
   },
 });

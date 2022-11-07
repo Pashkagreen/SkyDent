@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, Platform} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {
   widthPercentageToDP as wp,
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontFamily: Platform.OS === 'ios' ? 'ProductSans-Bold' : 'ProductSansBold',
     color: colors.white,
     marginBottom: 8,
   },
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   subtitle: {
     color: colors.white,
     fontSize: 18,
-    fontWeight: 'bold',
+    fontFamily: Platform.OS === 'ios' ? 'ProductSans-Bold' : 'ProductSansBold',
   },
   location: {
     flexDirection: 'row',
@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
   locationText: {
     color: colors.white,
     fontSize: 16,
+    fontFamily: Platform.OS === 'ios' ? 'ProductSans-Bold' : 'ProductSansBold',
     marginLeft: 10,
   },
   tip: {

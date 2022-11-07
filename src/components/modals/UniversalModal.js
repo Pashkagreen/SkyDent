@@ -1,12 +1,12 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, Platform} from 'react-native';
 
 import FastImage from 'react-native-fast-image';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import {colors} from '../../utils/colors';
 
-import ModalButton from '../ModalButton';
+import ActivityButton from '../ActivityButton';
 import ModalWrapper from './ModalWrapper';
 
 const UniversalModal = ({
@@ -53,15 +53,20 @@ const UniversalModal = ({
 
           {!!text && <Text style={styles.text}>{text}</Text>}
 
-          <ModalButton text={buttonSuccessText} onPress={successOnPress} />
+          <ActivityButton
+            text={buttonSuccessText}
+            onPress={successOnPress}
+            main={false}
+          />
           {!!buttonFailureText && (
-            <ModalButton
+            <ActivityButton
               containerStyle={[styles.buttonFailure, buttonFailureStyle]}
               text={buttonFailureText}
               onPress={() => {
                 failureOnPress();
                 handlePressHide();
               }}
+              main={false}
             />
           )}
         </View>
@@ -99,8 +104,9 @@ const getStyles = insets =>
       marginTop: 16,
       textAlign: 'center',
       fontSize: 24,
+      fontFamily:
+        Platform.OS === 'ios' ? 'ProductSans-Bold' : 'ProductSansBold',
       color: colors.darkBlue,
-      fontWeight: 'bold',
     },
     descriptionText: {
       marginTop: 16,
@@ -109,7 +115,6 @@ const getStyles = insets =>
       lineHeight: 22,
       textAlign: 'center',
       color: colors.darkGrey,
-      fontWeight: 'bold',
     },
     buttonFailure: {
       marginTop: 12,

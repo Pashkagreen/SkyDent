@@ -54,7 +54,6 @@ const styles = StyleSheet.create({
     paddingTop: hp('1%'),
   },
   serviceName: {
-    fontWeight: 'bold',
     fontSize: 14,
     color: colors.white,
   },

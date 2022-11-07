@@ -4,6 +4,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 
 import LinearGradient from 'react-native-linear-gradient';
@@ -18,6 +19,7 @@ const ActivityButton = ({
   loading = false,
   type = 'primary',
   onPress = () => {},
+  main = false,
 }) => {
   const styles = getStyles(disabled, type, textColor);
 
@@ -28,13 +30,25 @@ const ActivityButton = ({
       onPress={onPress}>
       {loading ? (
         <LinearGradient
-          colors={styles.container.backgroundColor}
+          colors={
+            disabled
+              ? [colors.backgroundGrey, colors.backgroundGrey]
+              : main
+              ? ['#08d4c4', '#01ab9d']
+              : ['#5496D7', '#2C5AB3']
+          }
           style={[styles.container, {borderWidth: 0}]}>
           <ActivityIndicator color={styles.container.color} />
         </LinearGradient>
       ) : (
         <LinearGradient
-          colors={styles.container.backgroundColor}
+          colors={
+            disabled
+              ? [colors.backgroundGrey, colors.backgroundGrey]
+              : main
+              ? ['#08d4c4', '#01ab9d']
+              : ['#5496D7', '#2C5AB3']
+          }
           style={[styles.container, {borderWidth: 0}]}>
           <Text style={[styles.textSign, {borderWidth: 0}]}>{text}</Text>
         </LinearGradient>
@@ -47,14 +61,12 @@ const renderBtnStyles = (disabled, type) => {
   if (disabled) {
     return {
       color: colors.darkGrey,
-      backgroundColor: [colors.backgroundGrey, colors.backgroundGrey],
     };
   }
 
   switch (type) {
     case 'primary':
       return {
-        backgroundColor: ['#08d4c4', '#01ab9d'],
         color: colors.white,
       };
     case 'secondary':
@@ -89,7 +101,8 @@ const getStyles = (disabled, type) =>
     },
     textSign: {
       fontSize: 18,
-      fontWeight: 'bold',
+      fontFamily:
+        Platform.OS === 'ios' ? 'ProductSans-Bold' : 'ProductSansBold',
       ...renderBtnStyles(disabled, type),
     },
   });

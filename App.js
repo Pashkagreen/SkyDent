@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import {Provider} from 'react-redux';
+import {Platform} from 'react-native';
 
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import EncryptedStorage from 'react-native-encrypted-storage';
@@ -19,7 +20,8 @@ const App = () => {
   // Setting default styles for all Text components.
   const customTextProps = {
     style: {
-      fontFamily: 'ProductSans-Regular',
+      fontFamily:
+        Platform.OS === 'ios' ? 'ProductSans-Regular' : 'ProductSansRegular',
     },
   };
 
@@ -61,6 +63,6 @@ const navTheme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    background: colors.backgroundGrey,
+    background: colors.porcelain,
   },
 };

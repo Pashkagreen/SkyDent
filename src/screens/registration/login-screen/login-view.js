@@ -18,11 +18,18 @@ import Input from '../../../components/Input';
 import {colors} from '../../../utils/colors';
 import {EMAIL_REGEX} from '../../../utils/func';
 
-const LoginView = props => {
-  const {control, errors, handleSubmit, formState} = useForm({
-    mode: 'onChange',
-  });
-
+const LoginView = ({
+  goToSignUp,
+  loading,
+  loginHandle,
+  refs,
+  secureTextEntry,
+  updateSecureTextEntry,
+  control,
+  errors,
+  handleSubmit,
+  formState,
+}) => {
   const isBtnDisabled = !formState.isValid;
   return (
     <View style={styles.container}>
@@ -45,7 +52,7 @@ const LoginView = props => {
               name="email"
               render={({onChange, value}) => (
                 <Input
-                  inputRef={props.refs.inputEmailRef}
+                  inputRef={refs.inputEmailRef}
                   errorMessage={errors.email && errors.email.message}
                   iconMode="MaterialCommunityIcons"
                   iconName="email-outline"
@@ -56,7 +63,7 @@ const LoginView = props => {
                   value={value}
                   onChangeText={onChange}
                   onSubmitEditing={() => {
-                    props.refs.inputPasswordRef.current?.focus();
+                    refs.inputPasswordRef.current?.focus();
                   }}
                   keyboardType="email-address"
                 />
@@ -86,13 +93,13 @@ const LoginView = props => {
                   isValid={value.length > 5}
                   placeholder="Your Password"
                   placeholderTextColor={colors.placeholderTextColor}
-                  secureTextEntry={props.secureTextEntry}
+                  secureTextEntry={secureTextEntry}
                   textStyle={{marginTop: 20}}
                   title="Password"
-                  updateSecureTextEntry={props.updateSecureTextEntry}
+                  updateSecureTextEntry={updateSecureTextEntry}
                   value={value}
                   onChangeText={onChange}
-                  inputRef={props.refs.inputPasswordRef}
+                  inputRef={refs.inputPasswordRef}
                 />
               )}
               rules={{
@@ -108,10 +115,11 @@ const LoginView = props => {
             <View style={styles.button}>
               <ActivityButton
                 disabled={isBtnDisabled}
-                loading={props.loading}
+                loading={loading}
                 text="Sign In"
                 type="primary"
-                onPress={() => handleSubmit(props.loginHandle)()}
+                onPress={() => handleSubmit(loginHandle)()}
+                main={true}
               />
 
               <TouchableOpacity
@@ -123,7 +131,7 @@ const LoginView = props => {
                     marginTop: 15,
                   },
                 ]}
-                onPress={props.goToSignUp}>
+                onPress={goToSignUp}>
                 <Text
                   style={[
                     styles.textSign,
@@ -165,13 +173,13 @@ const styles = StyleSheet.create({
   },
   text_header: {
     color: colors.white,
-    fontWeight: 'bold',
+    fontFamily: Platform.OS === 'ios' ? 'ProductSans-Bold' : 'ProductSansBold',
     fontSize: 30,
   },
   text_footer: {
     color: colors.darkBlue,
+    fontFamily: Platform.OS === 'ios' ? 'ProductSans-Bold' : 'ProductSansBold',
     fontSize: 16,
-    fontWeight: 'bold',
   },
   action: {
     flexDirection: 'row',
@@ -213,6 +221,6 @@ const styles = StyleSheet.create({
   },
   textSign: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontFamily: Platform.OS === 'ios' ? 'ProductSans-Bold' : 'ProductSansBold',
   },
 });

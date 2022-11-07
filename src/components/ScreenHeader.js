@@ -1,4 +1,4 @@
-import {StatusBar, View, Text, StyleSheet} from 'react-native';
+import {StatusBar, View, Text, StyleSheet, Platform} from 'react-native';
 import {colors} from '../utils/colors';
 
 const ScreenHeader = ({title}) => {
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: 20,
-    fontWeight: 'bold',
     color: colors.black,
+    fontFamily: Platform.OS === 'ios' ? 'ProductSans-Bold' : 'ProductSansBold',
   },
 });

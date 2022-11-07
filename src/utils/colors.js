@@ -19,4 +19,5 @@ export const colors = {
   red: '#d52b2b',
   placeholder: '#05375a',
   placeholderTextColor: '#666666',
+  porcelain: '#F2F3F4',
 };

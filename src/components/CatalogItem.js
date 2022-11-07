@@ -1,4 +1,4 @@
-import {TouchableOpacity, View, Text, StyleSheet} from 'react-native';
+import {TouchableOpacity, View, Text, StyleSheet, Platform} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import FastImage from 'react-native-fast-image';
 import {
@@ -70,13 +70,12 @@ const styles = StyleSheet.create({
   categoryTitle: {
     color: colors.white,
     fontSize: 26,
-    fontWeight: 'bold',
+    fontFamily: Platform.OS === 'ios' ? 'ProductSans-Bold' : 'ProductSansBold',
   },
   categoryDescription: {
     color: colors.white,
     fontSize: 14,
     marginBottom: 6,
-    fontWeight: 'bold',
   },
   categoryAdditions: {
     color: colors.white,
