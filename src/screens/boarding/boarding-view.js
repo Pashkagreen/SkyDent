@@ -1,5 +1,5 @@
 import React, {memo} from 'react';
-import {Dimensions, StyleSheet, Text, View} from 'react-native';
+import {Dimensions, StyleSheet, Text, View, Platform} from 'react-native';
 
 import * as Animatable from 'react-native-animatable';
 
@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
   title: {
     color: colors.darkBlue,
     fontSize: 30,
+    fontFamily: Platform.OS === 'ios' ? 'ProductSans-Bold' : 'ProductSansBold',
   },
   text: {
     color: 'grey',

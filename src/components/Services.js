@@ -13,12 +13,12 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
-const Services = ({data, loading, navigation}) => {
+const Services = ({data, loading, navigation, onPress}) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Our Services</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={onPress}>
           <Text style={styles.seeMore}>See All</Text>
         </TouchableOpacity>
       </View>

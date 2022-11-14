@@ -13,6 +13,12 @@ const DashboardContainer = ({navigation}) => {
     setNotificationsEnabled(prev => !prev);
   };
 
+  const seeAllServices = () => {
+    navigation.navigate('Subcatalog', {
+      type: 'Services',
+    });
+  };
+
   const getServices = async () => {
     setServicesLoading(true);
     try {
@@ -42,6 +48,7 @@ const DashboardContainer = ({navigation}) => {
       servicesLoading={servicesLoading}
       notificationsEnabled={notificationsEnabled}
       onNotificationPress={onNotificationPress}
+      seeAllServices={seeAllServices}
     />
   );
 };

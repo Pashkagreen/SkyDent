@@ -28,6 +28,7 @@ const DashboardView = props => {
           data={props.servicesData}
           loading={props.servicesLoading}
           navigation={props.navigation}
+          onPress={props.seeAllServices}
         />
       </View>
     </ScrollView>

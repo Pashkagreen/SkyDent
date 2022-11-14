@@ -8,17 +8,19 @@ const SubcatalogContainer = ({navigation, route}) => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [page, setNextPage] = useState(1);
-  const [hasNextPage, setHasNextPage] = useState(true);
+  const [hasNextPage, setHasNextPage] = useState(false);
+  const [totalCount, setTotalCount] = useState(0);
 
   const fetchData = async dataType => {
     setLoading(true);
     try {
       if (dataType === 'Specialists') {
-        const response = await SpecialistsService.getSpecialists(page);
-        console.log('specialists', response);
+        const {innerEntity} = await SpecialistsService.getSpecialists(page);
       } else if (dataType === 'Services') {
-        const response = await ServicesService.getServices(page);
-        console.log('services', response);
+        const {innerEntity} = await ServicesService.getServices(page);
+        setData(prev => [...prev, ...innerEntity.items]);
+        setHasNextPage(innerEntity.hasNext);
+        setTotalCount(innerEntity.totalCount);
       }
     } catch (err) {
       console.log(err);
