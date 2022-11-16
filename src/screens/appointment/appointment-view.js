@@ -16,6 +16,7 @@ import {
 } from 'react-native';
 import ScreenHeader from '../../components/ScreenHeader';
 import * as Animatable from 'react-native-animatable';
+import {SafeAreaView} from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -55,6 +56,7 @@ const AppointmentView = props => {
     mainRef.current?.scrollToIndex({
       index,
       animated: true,
+      viewPosition: 0.5,
     });
   }, [index, itemsIndex]);
 
@@ -66,71 +68,76 @@ const AppointmentView = props => {
   }, [onScrollIndex]);
 
   return (
-    <Animatable.View style={styles.container} animation="fadeInUpBig">
-      <ScreenHeader title="New Appointment" />
-      <FlatList
-        ref={stepRef}
-        contentContainerStyle={{height: hp('5%')}}
-        initialScrollIndex={index}
-        data={props.tabs}
-        keyExtractor={item => item.id}
-        showsHorizontalScrollIndicator={false}
-        horizontal
-        renderItem={({item, index: fIndex}) => {
-          return (
-            <TouchableOpacity
-              onPress={() => {
-                setIndex(fIndex);
-                setItemsIndex(fIndex);
-              }}>
-              <View
-                style={[
-                  styles.stepContainer,
-                  {
-                    backgroundColor:
-                      fIndex === index ? colors.himmelBlau : 'transparent',
-                  },
-                ]}>
-                <Text
+    <SafeAreaView style={{flex: 1}}>
+      <Animatable.View style={styles.container} animation="fadeInUpBig">
+        <ScreenHeader title="New Appointment" />
+        <FlatList
+          ref={stepRef}
+          contentContainerStyle={{height: hp('5%')}}
+          initialScrollIndex={index}
+          data={props.tabs}
+          keyExtractor={item => item.id}
+          showsHorizontalScrollIndicator={false}
+          horizontal
+          renderItem={({item, index: fIndex}) => {
+            return (
+              <TouchableOpacity
+                onPress={() => {
+                  setIndex(fIndex);
+                  setItemsIndex(fIndex);
+                }}>
+                <View
                   style={[
-                    styles.stepText,
-                    {color: fIndex === index ? colors.white : colors.lightGrey},
+                    styles.stepContainer,
+                    {
+                      backgroundColor:
+                        fIndex === index ? colors.himmelBlau : 'transparent',
+                    },
                   ]}>
-                  {item.name}
-                </Text>
-              </View>
-            </TouchableOpacity>
-          );
-        }}
-      />
-      <FlatList
-        ref={mainRef}
-        contentContainerStyle={{height: hp('68%')}}
-        initialScrollIndex={itemsIndex}
-        horizontal
-        data={props.tabs}
-        showsHorizontalScrollIndicator={false}
-        keyExtractor={item => item.step}
-        scrollEventThrottle={2000}
-        onScroll={event => {
-          setOnScrollIndex(
-            Math.round(event.nativeEvent.contentOffset.x / screenWidth),
-          );
-        }}
-        renderItem={({item}) => {
-          if (item.step === 1) return <SelectService {...props} />;
-          if (item.step === 2) return <SelectTime {...props} />;
-          if (item.step === 3) return <Overview {...props} />;
-        }}
-      />
-      <ActivityButton
-        containerStyle={styles.button}
-        main={false}
-        text="Continue"
-        type="primary"
-        onPress={onPress}
-      />
-    </Animatable.View>
+                  <Text
+                    style={[
+                      styles.stepText,
+                      {
+                        color:
+                          fIndex === index ? colors.white : colors.lightGrey,
+                      },
+                    ]}>
+                    {item.name}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            );
+          }}
+        />
+        <FlatList
+          ref={mainRef}
+          contentContainerStyle={{height: hp('65%')}}
+          initialScrollIndex={itemsIndex}
+          horizontal
+          data={props.tabs}
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={item => item.step}
+          scrollEventThrottle={2000}
+          onScroll={event => {
+            setOnScrollIndex(
+              Math.round(event.nativeEvent.contentOffset.x / screenWidth),
+            );
+          }}
+          renderItem={({item}) => {
+            if (item.step === 1) return <SelectService {...props} />;
+            if (item.step === 2) return <SelectTime {...props} />;
+            if (item.step === 3) return <Overview {...props} />;
+          }}
+        />
+        <ActivityButton
+          containerStyle={styles.button}
+          main={false}
+          text="Continue"
+          type="primary"
+          onPress={onPress}
+        />
+      </Animatable.View>
+    </SafeAreaView>
   );
 };
 

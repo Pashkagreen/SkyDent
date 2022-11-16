@@ -31,7 +31,7 @@ const SubcatalogView = props => {
         contentContainerStyle={{marginTop: 16}}
         data={props.data}
         keyExtractor={item => item.id}
-        showVerticalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
         onScroll={Animated.event(
           [{nativeEvent: {contentOffset: {y: scrollY}}}],
           {useNativeDriver: true},
@@ -144,6 +144,7 @@ const styles = StyleSheet.create({
   },
   specText: {
     marginRight: 4,
+    color: colors.white,
   },
   specQuantity: {
     color: colors.white,

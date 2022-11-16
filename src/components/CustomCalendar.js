@@ -23,6 +23,7 @@ const WEEK_DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 const CustomCalendar = ({minDate}) => {
   const [dateList, setDateList] = useState([]);
+  const [checkedDate, setCheckedDate] = useState(false);
 
   let currentMonthDate = useRef(new Date()).current;
   let minimumDate = useRef(minDate).current;
@@ -88,7 +89,8 @@ const CustomCalendar = ({minDate}) => {
   };
 
   const onDateClick = date => {
-    console.log(date);
+    const checkedDate = dateList.find(item => item === date);
+    setCheckedDate(!!checkedDate);
   };
 
   const getDaysNameUI = () => {
@@ -120,7 +122,9 @@ const CustomCalendar = ({minDate}) => {
         const date = dateList[count];
 
         listUI.push(
-          <View key={`day_${count}`} style={{flex: 1, aspectRatio: 1.0}}>
+          <View
+            key={`day_${count}`}
+            style={{flex: 1, aspectRatio: 1.0, marginRight: 4}}>
             <View
               style={{
                 flex: 1,
@@ -134,19 +138,33 @@ const CustomCalendar = ({minDate}) => {
               style={[
                 styles.dayNoBtnContainer,
                 {
-                  borderWidth: 0,
-                  borderColor: 'transparent',
-                  backgroundColor: 'rgb(84, 211, 194)',
+                  borderWidth:
+                    currentMonthDate.getMonth() === date.getMonth() ? 0.5 : 0,
+                  borderColor:
+                    currentMonthDate.getMonth() === date.getMonth()
+                      ? colors.doctorBlue
+                      : null,
+                  backgroundColor:
+                    currentMonthDate.getMonth() === date.getMonth()
+                      ? '#E4F3FF'
+                      : '#FAFAFA',
                 },
                 styles.activeDatesShadow,
               ]}>
               <MyPressable
                 style={styles.dayNoBtn}
                 android_ripple={{borderless: true}}
-                onPress={() => onDatePressedValidations(date)}>
+                onPress={() => {
+                  onDatePressedValidations(date);
+                }}>
                 <Text
                   style={{
-                    fontSize: 18,
+                    fontSize: 16,
+                    fontFamily:
+                      Platform.OS === 'ios'
+                        ? 'ProductSans-Bold'
+                        : 'ProductSansBold',
+
                     color:
                       currentMonthDate.getMonth() === date.getMonth()
                         ? 'black'
@@ -247,11 +265,11 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'center',
     fontSize: 16,
-    color: colors.dentalGreen,
+    color: colors.black,
   },
   dayNoRowView: {
     flexDirection: 'row',
-    marginVertical: 1,
+    marginVertical: 4,
   },
   dayNoBtn: {
     flex: 1,
@@ -261,7 +279,7 @@ const styles = StyleSheet.create({
   dayNoBtnContainer: {
     ...StyleSheet.absoluteFillObject,
     padding: 2,
-    borderRadius: 32,
+    borderRadius: 10,
   },
   activeDatesShadow: {
     ...Platform.select({
