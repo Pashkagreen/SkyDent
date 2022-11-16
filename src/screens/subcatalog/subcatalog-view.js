@@ -7,6 +7,7 @@ import {
   Animated,
   FlatList,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import ScreenHeader from '../../components/ScreenHeader';
 import {
@@ -90,6 +91,13 @@ const SubcatalogView = props => {
         }}
         onEndReached={props.loadMore}
       />
+      {props.loading && (
+        <ActivityIndicator
+          style={styles.loadingWrapper}
+          size={24}
+          color={colors.himmelBlau}
+        />
+      )}
     </SafeAreaView>
   );
 };
@@ -101,6 +109,13 @@ const styles = StyleSheet.create({
     flex: 1,
     marginHorizontal: wp('4%'),
     marginVertical: Platform.OS === 'android' ? hp('4%') : 0,
+  },
+  loadingWrapper: {
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'transparent',
   },
   listItemContainer: {
     width: wp('92%'),
