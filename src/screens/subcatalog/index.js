@@ -1,6 +1,8 @@
-import {useState, useEffect} from 'react';
-import SpecialistsService from '../../services/specialists';
+import {useEffect, useState} from 'react';
+
 import ServicesService from '../../services/services';
+import SpecialistsService from '../../services/specialists';
+
 import SubcatalogView from './subcatalog-view';
 
 const SubcatalogContainer = ({navigation, route}) => {
@@ -41,10 +43,10 @@ const SubcatalogContainer = ({navigation, route}) => {
 
   return (
     <SubcatalogView
-      type={type}
-      loadMore={loadMore}
       data={data}
       loading={loading}
+      loadMore={loadMore}
+      type={type}
     />
   );
 };

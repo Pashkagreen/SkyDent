@@ -1,9 +1,8 @@
 import React from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
-
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import bottomBarConfig from '../navigation/config';

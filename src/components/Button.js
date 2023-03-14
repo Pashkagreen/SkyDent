@@ -1,4 +1,4 @@
-import {StyleSheet, Text, TouchableOpacity, Platform} from 'react-native';
+import {Platform, StyleSheet, Text, TouchableOpacity} from 'react-native';
 
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';

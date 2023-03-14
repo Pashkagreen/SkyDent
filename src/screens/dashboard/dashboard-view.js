@@ -1,26 +1,27 @@
 import React, {memo} from 'react';
-import {StyleSheet, View, StatusBar, ScrollView} from 'react-native';
+import {ScrollView, StatusBar, StyleSheet, View} from 'react-native';
+
 import {
-  widthPercentageToDP as wp,
   heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 
-import Menu from '../../components/Menu';
 import Header from '../../components/Header';
+import Menu from '../../components/Menu';
 import Services from '../../components/Services';
 
 const DashboardView = props => {
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+    <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
       <StatusBar
+        backgroundColor="transparent"
         barStyle="light-content"
         translucent={true}
-        backgroundColor="transparent"
       />
       <Header
+        enabled={props.notificationsEnabled}
         user={props.user}
         onNotificationPress={props.onNotificationPress}
-        enabled={props.notificationsEnabled}
       />
       <View style={styles.dashboardContainer}>
         <Menu navigation={props.navigation} />

@@ -1,12 +1,14 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
+
 import {
-  widthPercentageToDP as wp,
   heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import MenuItem from './MenuItem';
 
 import {colors} from '../utils/colors';
+
+import MenuItem from './MenuItem';
 
 const Menu = ({navigation}) => {
   return (

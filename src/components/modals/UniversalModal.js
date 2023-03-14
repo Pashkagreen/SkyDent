@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View, Platform} from 'react-native';
+import {Platform, StyleSheet, Text, View} from 'react-native';
 
 import FastImage from 'react-native-fast-image';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -54,19 +54,19 @@ const UniversalModal = ({
           {!!text && <Text style={styles.text}>{text}</Text>}
 
           <ActivityButton
+            main={false}
             text={buttonSuccessText}
             onPress={successOnPress}
-            main={false}
           />
           {!!buttonFailureText && (
             <ActivityButton
               containerStyle={[styles.buttonFailure, buttonFailureStyle]}
+              main={false}
               text={buttonFailureText}
               onPress={() => {
                 failureOnPress();
                 handlePressHide();
               }}
-              main={false}
             />
           )}
         </View>

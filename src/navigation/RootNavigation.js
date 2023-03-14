@@ -3,9 +3,9 @@ import {useSelector} from 'react-redux';
 
 import {createStackNavigator} from '@react-navigation/stack';
 
+import Dashboard from '../screens/index';
 import MainStack from './MainStack';
 import OnBoardingStackScreen from './OnBoardingStack';
-import Dashboard from '../screens/index';
 
 const RootNavigation = () => {
   const RootStack = createStackNavigator();

@@ -1,8 +1,9 @@
-import {useState, useEffect} from 'react';
-import ServiceView from './service-view';
+import {useEffect, useState} from 'react';
+import {Alert} from 'react-native';
+
 import ServicesService from '../../services/services';
 import SpecialistsService from '../../services/specialists';
-import {Alert} from 'react-native';
+import ServiceView from './service-view';
 
 const ServiceContainer = ({navigation, route}) => {
   const {serviceId} = route.params;
@@ -59,11 +60,11 @@ const ServiceContainer = ({navigation, route}) => {
 
   return (
     <ServiceView
+      navigation={navigation}
       service={serviceData}
       serviceLoading={serviceLoading}
       specialists={availableSpecialists}
       specialistsLoading={specialistsLoading}
-      navigation={navigation}
     />
   );
 };

@@ -1,10 +1,12 @@
-import {TouchableOpacity, View, Text, StyleSheet, Platform} from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
+import {Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+
 import FastImage from 'react-native-fast-image';
+import LinearGradient from 'react-native-linear-gradient';
 import {
-  widthPercentageToDP as wp,
   heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
+
 import {colors} from '../utils/colors';
 
 const CatalogItem = ({
@@ -29,9 +31,9 @@ const CatalogItem = ({
         </View>
         <View style={styles.categoryImage}>
           <FastImage
+            resizeMode="contain"
             source={image}
             style={styles.imageStyle}
-            resizeMode="contain"
           />
         </View>
       </LinearGradient>

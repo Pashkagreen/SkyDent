@@ -1,5 +1,5 @@
 import React from 'react';
-import {Pressable, Platform} from 'react-native';
+import {Platform, Pressable} from 'react-native';
 
 const MyPressable = ({
   style,
@@ -10,11 +10,11 @@ const MyPressable = ({
 }) => {
   return (
     <Pressable
+      android_ripple={android_ripple}
       style={({pressed}) => [
         style,
         {opacity: Platform.OS === 'ios' && pressed ? touchOpacity : 1},
       ]}
-      android_ripple={android_ripple}
       {...restOfPRops}>
       {children}
     </Pressable>

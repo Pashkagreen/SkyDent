@@ -1,14 +1,10 @@
-import {Platform, StyleSheet} from 'react-native';
-
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import BottomBar from '../components/BottomBar.js';
 
-import {colors} from '../utils/colors';
+import bottomBarConfig from './config';
 
 import screens from '../screens';
-
-import bottomBarConfig from './config';
 
 const BottomBarNav = createBottomTabNavigator();
 

@@ -1,8 +1,11 @@
 import {createStackNavigator} from '@react-navigation/stack';
+
+import HeaderLeftButton from '../components/HeaderLeftButton';
+
+import {colors} from '../utils/colors';
+
 import screens from '../screens';
 import BottomTab from './BottomTab';
-import HeaderLeftButton from '../components/HeaderLeftButton';
-import {colors} from '../utils/colors';
 
 const MainStackNav = createStackNavigator();
 
@@ -21,9 +24,9 @@ const MainStack = () => {
           headerTransparent: true,
           headerLeft: () => (
             <HeaderLeftButton
-              onPress={navigation.goBack}
-              size={32}
               color={colors.black}
+              size={32}
+              onPress={navigation.goBack}
             />
           ),
         })}
@@ -37,9 +40,9 @@ const MainStack = () => {
           headerTransparent: true,
           headerLeft: () => (
             <HeaderLeftButton
-              onPress={navigation.goBack}
-              size={32}
               color={colors.black}
+              size={32}
+              onPress={navigation.goBack}
             />
           ),
         })}

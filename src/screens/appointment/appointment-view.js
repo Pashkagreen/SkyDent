@@ -1,32 +1,34 @@
 import React, {
   memo,
+  useCallback,
+  useEffect,
+  useMemo,
   useRef,
   useState,
-  useEffect,
-  useCallback,
-  useMemo,
 } from 'react';
 import {
-  StyleSheet,
   Animated,
   FlatList,
+  StyleSheet,
+  Text,
   TouchableOpacity,
   View,
-  Text,
 } from 'react-native';
-import ScreenHeader from '../../components/ScreenHeader';
-import * as Animatable from 'react-native-animatable';
 import {SafeAreaView} from 'react-native';
+
+import * as Animatable from 'react-native-animatable';
 import {
-  widthPercentageToDP as wp,
   heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 
-import {colors} from '../../utils/colors';
 import ActivityButton from '../../components/ActivityButton';
+import ScreenHeader from '../../components/ScreenHeader';
+import Overview from './components/Overview';
 import SelectService from './components/SelectService';
 import SelectTime from './components/SelectTime';
-import Overview from './components/Overview';
+
+import {colors} from '../../utils/colors';
 import {screenWidth} from '../../utils/func';
 
 const AppointmentView = props => {
@@ -69,16 +71,15 @@ const AppointmentView = props => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <Animatable.View style={styles.container} animation="fadeInUpBig">
+      <Animatable.View animation="fadeInUpBig" style={styles.container}>
         <ScreenHeader title="New Appointment" />
         <FlatList
           ref={stepRef}
-          contentContainerStyle={{height: hp('5%')}}
-          initialScrollIndex={index}
-          data={props.tabs}
-          keyExtractor={item => item.id}
-          showsHorizontalScrollIndicator={false}
           horizontal
+          contentContainerStyle={{height: hp('5%')}}
+          data={props.tabs}
+          initialScrollIndex={index}
+          keyExtractor={item => item.id}
           renderItem={({item, index: fIndex}) => {
             return (
               <TouchableOpacity
@@ -108,25 +109,32 @@ const AppointmentView = props => {
               </TouchableOpacity>
             );
           }}
+          showsHorizontalScrollIndicator={false}
         />
         <FlatList
           ref={mainRef}
-          contentContainerStyle={{height: hp('65%')}}
-          initialScrollIndex={itemsIndex}
           horizontal
+          contentContainerStyle={{height: hp('65%')}}
           data={props.tabs}
-          showsHorizontalScrollIndicator={false}
+          initialScrollIndex={itemsIndex}
           keyExtractor={item => item.step}
+          renderItem={({item}) => {
+            if (item.step === 1) {
+              return <SelectService {...props} />;
+            }
+            if (item.step === 2) {
+              return <SelectTime {...props} />;
+            }
+            if (item.step === 3) {
+              return <Overview {...props} />;
+            }
+          }}
           scrollEventThrottle={2000}
+          showsHorizontalScrollIndicator={false}
           onScroll={event => {
             setOnScrollIndex(
               Math.round(event.nativeEvent.contentOffset.x / screenWidth),
             );
-          }}
-          renderItem={({item}) => {
-            if (item.step === 1) return <SelectService {...props} />;
-            if (item.step === 2) return <SelectTime {...props} />;
-            if (item.step === 3) return <Overview {...props} />;
           }}
         />
         <ActivityButton

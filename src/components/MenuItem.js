@@ -1,5 +1,6 @@
 import React from 'react';
-import {TouchableOpacity, Text, StyleSheet, Platform} from 'react-native';
+import {Platform, StyleSheet, Text, TouchableOpacity} from 'react-native';
+
 import FastImage from 'react-native-fast-image';
 
 const MenuItem = ({title, type, onPress}) => {
@@ -16,9 +17,9 @@ const MenuItem = ({title, type, onPress}) => {
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
       <FastImage
-        style={styles.imageStyle}
-        source={renderIcon(type)}
         resizeMode="contain"
+        source={renderIcon(type)}
+        style={styles.imageStyle}
       />
       <Text style={styles.title}>{title}</Text>
     </TouchableOpacity>

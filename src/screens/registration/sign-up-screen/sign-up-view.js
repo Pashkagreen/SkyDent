@@ -1,5 +1,6 @@
 import React, {memo} from 'react';
 import {
+  KeyboardAvoidingView,
   Platform,
   ScrollView,
   StatusBar,
@@ -7,7 +8,6 @@ import {
   Text,
   TouchableOpacity,
   View,
-  KeyboardAvoidingView,
 } from 'react-native';
 
 import {Controller, FormProvider, useForm} from 'react-hook-form';
@@ -70,8 +70,8 @@ const SignUpView = ({
       />
       <KeyboardAvoidingView style={styles.container}>
         <StatusBar
-          barStyle="light-content"
           backgroundColor={colors.dentalGreen}
+          barStyle="light-content"
         />
         <View style={styles.header}>
           <Text style={styles.text_header}>Register Now!</Text>
@@ -104,6 +104,7 @@ const SignUpView = ({
                       <Input
                         iconMode="FontAwesome"
                         iconName="user-o"
+                        inputRef={refs.inputFirstNameRef}
                         isValid={
                           !formState.errors.firstname && value.length > 2
                         }
@@ -112,7 +113,6 @@ const SignUpView = ({
                         title="First name"
                         value={value}
                         onChangeText={onChange}
-                        inputRef={refs.inputFirstNameRef}
                         onSubmitEditing={() =>
                           refs.inputMiddleNameRef.current.focus()
                         }
@@ -133,6 +133,7 @@ const SignUpView = ({
                       <Input
                         iconMode="FontAwesome"
                         iconName="user-o"
+                        inputRef={refs.inputMiddleNameRef}
                         isValid={
                           !formState.errors.patronymic && value.length > 2
                         }
@@ -142,7 +143,6 @@ const SignUpView = ({
                         title="Middle name"
                         value={value}
                         onChangeText={onChange}
-                        inputRef={refs.inputMiddleNameRef}
                         onSubmitEditing={() =>
                           refs.inputLastNameRef.current?.focus()
                         }
@@ -163,6 +163,7 @@ const SignUpView = ({
                       <Input
                         iconMode="FontAwesome"
                         iconName="user-o"
+                        inputRef={refs.inputLastNameRef}
                         isValid={!formState.errors.lastname && value.length > 2}
                         placeholder="Your last name"
                         placeholderTextColor={colors.placeholderTextColor}
@@ -170,7 +171,6 @@ const SignUpView = ({
                         title="Last name"
                         value={value}
                         onChangeText={onChange}
-                        inputRef={refs.inputLastNameRef}
                         onSubmitEditing={() => refs.inputGenderRef.current}
                       />
                     )}
@@ -199,13 +199,13 @@ const SignUpView = ({
                           <Picker
                             items={pickerItems}
                             label="Gender"
+                            pickerRef={refs.inputGenderRef}
                             pickerStyle={styles.textInput}
                             placeholder={{
                               label: 'Choose a gender',
                             }}
                             value={value}
                             onChange={onChange}
-                            pickerRef={refs.inputGenderRef}
                           />
                         </View>
                       </>
@@ -217,10 +217,10 @@ const SignUpView = ({
                   <ActivityButton
                     containerStyle={styles.tabItemStyle}
                     disabled={!isContinueEnabled}
+                    main={true}
                     text="Continue"
                     type="primary"
                     onPress={() => handleFirstSubmit()}
-                    main={true}
                   />
                 </View>
 
@@ -235,12 +235,12 @@ const SignUpView = ({
                         iconMode="MaterialCommunityIcons"
                         iconName="email-outline"
                         isValid={!formState.errors.email && value.length > 4}
+                        keyboardType="email-address"
                         placeholder="Your Email"
                         placeholderTextColor={colors.placeholderTextColor}
                         title="Email"
                         value={value}
                         onChangeText={onChange}
-                        keyboardType="email-address"
                         onSubmitEditing={() =>
                           refs.inputMobilePhoneRef.current.focus()
                         }
@@ -266,6 +266,7 @@ const SignUpView = ({
                         <View style={styles.action}>
                           <AntDesign color="#05375a" name="phone" size={20} />
                           <TextInputMask
+                            ref={refs.inputMobilePhoneRef}
                             autoComplete="off"
                             autoCorrect={false}
                             keyboardType="phone-pad"
@@ -277,7 +278,6 @@ const SignUpView = ({
                             onChangeText={(formatted, extracted) =>
                               onChange('+' + extracted)
                             }
-                            ref={refs.inputMobilePhoneRef}
                           />
                           {!formState.errors.phoneNumber &&
                           value.length === 13 ? (
@@ -360,10 +360,10 @@ const SignUpView = ({
                     containerStyle={styles.tabItemStyle}
                     disabled={isBtnDisabled}
                     loading={loading}
+                    main={true}
                     text="Sign Up"
                     type="primary"
                     onPress={() => handleSubmit(onSubmit)()}
-                    main={true}
                   />
                 </View>
               </FormProvider>

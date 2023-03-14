@@ -1,7 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
-import DashboardView from './dashboard-view';
+
 import ServicesService from '../../services/services';
+
+import DashboardView from './dashboard-view';
 
 const DashboardContainer = ({navigation}) => {
   const user = useSelector(state => state.user);
@@ -42,13 +44,13 @@ const DashboardContainer = ({navigation}) => {
   }, []);
   return (
     <DashboardView
-      user={user}
       navigation={navigation}
+      notificationsEnabled={notificationsEnabled}
+      seeAllServices={seeAllServices}
       servicesData={servicesData}
       servicesLoading={servicesLoading}
-      notificationsEnabled={notificationsEnabled}
+      user={user}
       onNotificationPress={onNotificationPress}
-      seeAllServices={seeAllServices}
     />
   );
 };

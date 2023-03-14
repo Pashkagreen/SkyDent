@@ -1,7 +1,10 @@
 import {createStackNavigator} from '@react-navigation/stack';
+
 import HeaderLeftButton from '../components/HeaderLeftButton';
-import screens from '../screens';
+
 import {colors} from '../utils/colors';
+
+import screens from '../screens';
 
 const AuthStackScreen = () => {
   const AuthStack = createStackNavigator();
@@ -22,9 +25,9 @@ const AuthStackScreen = () => {
           headerTransparent: true,
           headerLeft: () => (
             <HeaderLeftButton
-              onPress={navigation.goBack}
-              size={32}
               color={colors.white}
+              size={32}
+              onPress={navigation.goBack}
             />
           ),
         })}

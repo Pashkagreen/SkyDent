@@ -1,23 +1,25 @@
 import React, {memo, useRef} from 'react';
 import {
-  StyleSheet,
-  Text,
-  SafeAreaView,
-  View,
+  ActivityIndicator,
   Animated,
   FlatList,
+  SafeAreaView,
+  StyleSheet,
+  Text,
   TouchableOpacity,
-  ActivityIndicator,
+  View,
 } from 'react-native';
-import ScreenHeader from '../../components/ScreenHeader';
+
 import {
-  widthPercentageToDP as wp,
   heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {screenHeight} from '../../utils/func';
+import ScreenHeader from '../../components/ScreenHeader';
+
 import {colors} from '../../utils/colors';
+import {screenHeight} from '../../utils/func';
 
 const SubcatalogView = props => {
   const scrollY = useRef(new Animated.Value(0)).current;
@@ -31,11 +33,6 @@ const SubcatalogView = props => {
         contentContainerStyle={{marginTop: 16}}
         data={props.data}
         keyExtractor={item => item.id}
-        showsVerticalScrollIndicator={false}
-        onScroll={Animated.event(
-          [{nativeEvent: {contentOffset: {y: scrollY}}}],
-          {useNativeDriver: true},
-        )}
         renderItem={({item, index}) => {
           const inputScaleRange = [
             -1,
@@ -79,9 +76,9 @@ const SubcatalogView = props => {
                   <TouchableOpacity style={styles.moreInfoContainer}>
                     <Text style={styles.moreInfoText}>More info</Text>
                     <MaterialCommunityIcons
+                      color={colors.darkGrey}
                       name="chevron-right"
                       size={18}
-                      color={colors.darkGrey}
                     />
                   </TouchableOpacity>
                 </View>
@@ -89,13 +86,18 @@ const SubcatalogView = props => {
             </Animated.View>
           );
         }}
+        showsVerticalScrollIndicator={false}
         onEndReached={props.loadMore}
+        onScroll={Animated.event(
+          [{nativeEvent: {contentOffset: {y: scrollY}}}],
+          {useNativeDriver: true},
+        )}
       />
       {props.loading && (
         <ActivityIndicator
-          style={styles.loadingWrapper}
-          size={24}
           color={colors.himmelBlau}
+          size={24}
+          style={styles.loadingWrapper}
         />
       )}
     </SafeAreaView>

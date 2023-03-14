@@ -23,12 +23,12 @@ const Picker = ({
     <View>
       <View style={[pickerStyles.container, {...pickerStyle}]}>
         <RNPickerSelect
+          ref={pickerRef}
           itemKey={md5(new Date().getTime())}
           items={items}
           placeholder={placeholder}
           style={pickerStyles}
           value={value}
-          ref={pickerRef}
           useNativeAndroidPickerStyle={false}
           // Icon={() => {
           //   return (

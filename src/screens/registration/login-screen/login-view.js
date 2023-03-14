@@ -34,8 +34,8 @@ const LoginView = ({
   return (
     <View style={styles.container}>
       <StatusBar
-        barStyle="light-content"
         backgroundColor={colors.dentalGreen}
+        barStyle="light-content"
       />
       <View style={styles.header}>
         <Text style={styles.text_header}>Welcome!</Text>
@@ -52,11 +52,12 @@ const LoginView = ({
               name="email"
               render={({onChange, value}) => (
                 <Input
-                  inputRef={refs.inputEmailRef}
                   errorMessage={errors.email && errors.email.message}
                   iconMode="MaterialCommunityIcons"
                   iconName="email-outline"
+                  inputRef={refs.inputEmailRef}
                   isValid={!formState.errors.email && value.length > 4}
+                  keyboardType="email-address"
                   placeholder="Your Email"
                   placeholderTextColor={colors.placeholderTextColor}
                   title="Email"
@@ -65,7 +66,6 @@ const LoginView = ({
                   onSubmitEditing={() => {
                     refs.inputPasswordRef.current?.focus();
                   }}
-                  keyboardType="email-address"
                 />
               )}
               rules={{
@@ -89,6 +89,7 @@ const LoginView = ({
                   }
                   iconMode="Feather"
                   iconName="lock"
+                  inputRef={refs.inputPasswordRef}
                   isPassword={true}
                   isValid={value.length > 5}
                   placeholder="Your Password"
@@ -99,7 +100,6 @@ const LoginView = ({
                   updateSecureTextEntry={updateSecureTextEntry}
                   value={value}
                   onChangeText={onChange}
-                  inputRef={refs.inputPasswordRef}
                 />
               )}
               rules={{
@@ -116,10 +116,10 @@ const LoginView = ({
               <ActivityButton
                 disabled={isBtnDisabled}
                 loading={loading}
+                main={true}
                 text="Sign In"
                 type="primary"
                 onPress={() => handleSubmit(loginHandle)()}
-                main={true}
               />
 
               <TouchableOpacity

@@ -1,10 +1,10 @@
 import React from 'react';
 import {
   ActivityIndicator,
+  Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
-  Platform,
 } from 'react-native';
 
 import LinearGradient from 'react-native-linear-gradient';

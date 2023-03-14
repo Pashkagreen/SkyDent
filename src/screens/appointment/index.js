@@ -1,5 +1,6 @@
-import AppointmentView from './appointment-view';
 import {useState} from 'react';
+
+import AppointmentView from './appointment-view';
 
 const AppointmentContainer = () => {
   const tabs = [

@@ -1,9 +1,10 @@
-import {View, TouchableOpacity, Text, StyleSheet} from 'react-native';
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+
 import FastImage from 'react-native-fast-image';
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
 
 import {colors} from '../utils/colors';
 
@@ -14,11 +15,11 @@ const ServiceItem = ({item, navigation}) => {
     });
   };
   return (
-    <View style={styles.item} key={item.id}>
+    <View key={item.id} style={styles.item}>
       <TouchableOpacity onPress={onPressItem}>
         <FastImage
-          source={require('../assets/images/03.png')}
           resizeMode="cover"
+          source={require('../assets/images/03.png')}
           style={styles.imageStyle}
         />
         <View style={styles.imageText}>

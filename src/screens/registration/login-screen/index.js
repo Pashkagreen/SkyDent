@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
+import {Alert, Keyboard} from 'react-native';
 import {useDispatch} from 'react-redux';
 
+import {Controller, FormProvider, useForm} from 'react-hook-form';
 import EncryptedStorage from 'react-native-encrypted-storage';
 
 import AuthService from '../../../services/auth';
@@ -8,8 +10,6 @@ import {setFirstLaunch} from '../../../store/reducers/app';
 import {setUserData} from '../../../store/reducers/user';
 
 import LoginView from './login-view';
-import {Alert, Keyboard} from 'react-native';
-import {Controller, FormProvider, useForm} from 'react-hook-form';
 
 const LoginContainer = ({navigation}) => {
   const dispatch = useDispatch();
@@ -78,16 +78,16 @@ const LoginContainer = ({navigation}) => {
 
   return (
     <LoginView
+      control={control}
+      errors={errors}
+      formState={formState}
       goToSignUp={goToSignUp}
+      handleSubmit={handleSubmit}
       loading={loading}
       loginHandle={loginHandle}
       refs={refs}
       secureTextEntry={secureTextEntry}
       updateSecureTextEntry={setSecureTextEntry}
-      control={control}
-      errors={errors}
-      handleSubmit={handleSubmit}
-      formState={formState}
     />
   );
 };

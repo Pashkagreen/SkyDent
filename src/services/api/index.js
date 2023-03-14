@@ -72,6 +72,7 @@
 import ky from 'ky';
 import {BASE_URL} from 'react-native-dotenv';
 import EncryptedStorage from 'react-native-encrypted-storage';
+
 import debug from '../debug';
 
 export const api = ky.extend({

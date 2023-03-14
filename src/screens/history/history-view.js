@@ -1,11 +1,13 @@
 import React, {memo} from 'react';
-import {StyleSheet, Text, SafeAreaView, Platform} from 'react-native';
+import {Platform, SafeAreaView, StyleSheet, Text} from 'react-native';
+
 import {
-  widthPercentageToDP as wp,
   heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 
 import ScreenHeader from '../../components/ScreenHeader';
+
 import {colors} from '../../utils/colors';
 
 const HistoryView = props => {

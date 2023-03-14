@@ -1,10 +1,12 @@
 import React, {memo} from 'react';
-import {StyleSheet, SafeAreaView, View, Platform} from 'react-native';
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import {Platform, SafeAreaView, StyleSheet, View} from 'react-native';
+
 import * as Animatable from 'react-native-animatable';
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
+
 import CatalogItem from '../../components/CatalogItem';
 import ScreenHeader from '../../components/ScreenHeader';
 
@@ -17,12 +19,12 @@ const CatalogView = props => {
         style={styles.categoriesContainer}>
         {props.catalog.map(item => (
           <CatalogItem
-            title={item.title}
             key={item.id}
-            description={item.description}
             addition={item.addition}
-            image={item.image}
+            description={item.description}
             gradient={item.gradient}
+            image={item.image}
+            title={item.title}
             onPress={item.onPress}
           />
         ))}

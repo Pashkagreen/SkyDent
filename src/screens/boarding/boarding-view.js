@@ -1,5 +1,5 @@
 import React, {memo} from 'react';
-import {Dimensions, StyleSheet, Text, View, Platform} from 'react-native';
+import {Dimensions, Platform, StyleSheet, Text, View} from 'react-native';
 
 import * as Animatable from 'react-native-animatable';
 

@@ -1,17 +1,20 @@
 import {
-  Text,
-  View,
-  StyleSheet,
-  TouchableOpacity,
   ActivityIndicator,
   Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import {colors} from '../utils/colors';
-import ServiceItem from './ServiceItem';
+
 import {
-  widthPercentageToDP as wp,
   heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
+
+import {colors} from '../utils/colors';
+
+import ServiceItem from './ServiceItem';
 
 const Services = ({data, loading, navigation, onPress}) => {
   return (
@@ -29,7 +32,7 @@ const Services = ({data, loading, navigation, onPress}) => {
       ) : (
         <View style={styles.items}>
           {data.map(item => (
-            <ServiceItem item={item} key={item.id} navigation={navigation} />
+            <ServiceItem key={item.id} item={item} navigation={navigation} />
           ))}
         </View>
       )}

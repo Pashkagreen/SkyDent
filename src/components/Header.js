@@ -1,9 +1,10 @@
 import React from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, Platform} from 'react-native';
+import {Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+
 import LinearGradient from 'react-native-linear-gradient';
 import {
-  widthPercentageToDP as wp,
   heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -24,9 +25,9 @@ const Header = ({user, onNotificationPress, onLocationPress, enabled}) => {
             style={{paddingTop: 8}}
             onPress={onNotificationPress}>
             <Icon
+              color={colors.white}
               name={enabled ? 'bell' : 'bell-outline'}
               size={24}
-              color={colors.white}
             />
           </TouchableOpacity>
         </View>
@@ -36,9 +37,9 @@ const Header = ({user, onNotificationPress, onLocationPress, enabled}) => {
               style={styles.clinicLocation}
               onPress={onLocationPress}>
               <Icon
+                color={colors.white}
                 name="map-marker-radius-outline"
                 size={24}
-                color={colors.white}
               />
               <Text style={styles.locationText}>Minsk, ul. Lamonosova, 25</Text>
             </TouchableOpacity>

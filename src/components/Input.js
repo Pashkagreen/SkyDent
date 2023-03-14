@@ -51,7 +51,9 @@ const Input = ({
           <FontAwesome color={colors.darkBlue} name={iconName} size={20} />
         )}
         <TextInput
+          ref={inputRef}
           autoCapitalize="none"
+          keyboardType={keyboardType}
           placeholder={placeholder}
           placeholderTextColor={placeholderTextColor}
           secureTextEntry={secureTextEntry}
@@ -60,8 +62,6 @@ const Input = ({
           onChangeText={onChangeText}
           onEndEditing={onEndEditing}
           onSubmitEditing={onSubmitEditing}
-          ref={inputRef}
-          keyboardType={keyboardType}
         />
         {isValid && (
           <Animatable.View animation="bounceIn">

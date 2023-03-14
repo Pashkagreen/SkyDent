@@ -1,4 +1,5 @@
-import {StatusBar, View, Text, StyleSheet, Platform} from 'react-native';
+import {Platform, StatusBar, StyleSheet, Text, View} from 'react-native';
+
 import {colors} from '../utils/colors';
 
 const ScreenHeader = ({title}) => {
