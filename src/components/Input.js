@@ -33,7 +33,7 @@ const Input = ({
   secureTextEntry = false,
   inputRef,
   onSubmitEditing = () => {},
-  keyboardType = '',
+  keyboardType = 'default',
 }) => {
   return (
     <>

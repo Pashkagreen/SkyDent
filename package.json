@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
-    "ios": "react-native run-ios",
+    "ios": "react-native run-ios --simulator='iPhone 14 Pro'",
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint ./src",
@@ -32,7 +32,7 @@
     "react-native-encrypted-storage": "^4.0.2",
     "react-native-fast-image": "^8.6.1",
     "react-native-flipper": "^0.162.0",
-    "react-native-gesture-handler": "^2.6.0",
+    "react-native-gesture-handler": "^2.9.0",
     "react-native-global-props": "^1.1.5",
     "react-native-linear-gradient": "^2.6.2",
     "react-native-modal": "^13.0.1",

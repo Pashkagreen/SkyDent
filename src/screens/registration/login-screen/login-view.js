@@ -9,7 +9,7 @@ import {
   View,
 } from 'react-native';
 
-import {Controller, FormProvider, useForm} from 'react-hook-form';
+import {Controller, FormProvider} from 'react-hook-form';
 import * as Animatable from 'react-native-animatable';
 
 import ActivityButton from '../../../components/ActivityButton';
